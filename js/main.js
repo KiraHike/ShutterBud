@@ -1,14 +1,15 @@
 var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
-var $pageList = document.querySelectorAll('.container.view');
 
-function viewPage(page) {
-  for (var i = 0; i < $pageList.length; i++) {
-    if ($pageList[i] === page) {
-      console.log($pageList[i]);
-      $pageList[i].className = 'container view';
-    } else {
-    $pageList[i].className = 'container view hidden';
-    }
-  }
+var $header = document.querySelector('h2');
+
+var $navPlan = document.querySelector('.nav.plan');
+
+function viewPlan(event) {
+  $pagePlan.className = 'container view';
+  $pageLanding.className = 'container view hidden';
+  $header.className = 'header view';
+  $header.textContent = 'Location';
 }
+
+$navPlan.addEventListener('click', viewPlan);
