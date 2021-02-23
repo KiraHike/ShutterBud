@@ -1,0 +1,21 @@
+* {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+nav {
+  border-top: 2px solid black;
+}
+
+li.nav {
+  font-size: 1.5rem;
+}
+
+h1.header-landing {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+#zip-landing {
+  background-color: #efefef;
+  border: none;
+}
