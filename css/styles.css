@@ -50,16 +50,18 @@ li.nav {
 .row {
   width: 100%;
   padding: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .column-full {
-  max-width: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .column-half {
-  max-width: 50%;
+  width: 50%;
 }
 
 #page-landing {
@@ -84,6 +86,7 @@ h1.header-landing {
 #zip-landing,
 #zip-plan {
   margin-top: 3rem;
+  height: 2rem;
   width: 6rem;
   padding: 0.25rem;
   text-align: center;
@@ -91,10 +94,13 @@ h1.header-landing {
   border: none;
 }
 
+#zip-plan {
+  margin-top: 1rem;
+}
+
 #page-plan {
   display: flex;
   justify-content: center;
-  align-content: center;
   flex-wrap: wrap;
 }
 
@@ -107,5 +113,11 @@ h2 {
 h3 {
   font-size: 1.8rem;
   font-weight: 500;
+  width: 100%;
   text-align: center;
+  margin: 0;
+}
+
+ul.list {
+  margin-bottom: 0;
 }
