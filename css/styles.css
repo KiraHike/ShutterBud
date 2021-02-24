@@ -120,3 +120,38 @@ h3 {
 ul.list {
   margin-bottom: 0;
 }
+
+.center {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+form input {
+  margin: 0.5rem 0;
+  padding: 0.25rem;
+  background-color: #efefef;
+  border: none;
+  text-align: center;
+}
+
+#notes {
+  width: 100%;
+  margin: 0.5rem;
+  padding: 0.25rem;
+  background-color: #efefef;
+  border: none;
+  text-align: start;
+}
+
+#button-save {
+  height: 2rem;
+  width: 6rem;
+  padding: 0.25rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: black;
+  color: white;
+  border: none;
+}

@@ -60,10 +60,56 @@
       </div>
       <div class="row">
         <div class="column-full">
-          <label for="zip"></label>
-          <input type="text" id="zip" name="zip" minlength="5" maxlength="5" placeholder="Zip code">
+          <label for="zip">
+            <input type="text" id="zip" name="zip" minlength="5" maxlength="5" placeholder="Zip code">
+          </label>
         </div>
       </div>
+    </div>
+    <div id="page-record" class="container view hidden">
+      <form id="field-notes-form" class="container">
+        <div class="row">
+          <div class="column-half center">
+            <label for="photo-name">
+              <input required type="text" id="photo-name" name="photo-name" placeholder="Photo/File Name">
+            </label>
+            <label for="lens">
+              <input type="text" id="lens" name="lens" placeholder="Lens">
+            </label>
+            <label for="shutter-speed">
+              <input type="text" id="shutter-speed" name="shutter-speed" placeholder="Shutter Speed">
+            </label>
+            <label for="iso">
+              <input type="text" id="iso" name="iso" placeholder="ISO">
+            </label>
+          </div>
+          <div class="column-half center">
+            <label for="camera">
+              <input type="text" id="camera" name="camera" placeholder="Camera">
+            </label>
+            <label for="filter">
+              <input type="text" id="filter" name="filter" placeholder="Filter">
+            </label>
+            <label for="aperture">
+              <input type="text" id="aperture" name="aperture" placeholder="Aperture">
+            </label>
+            <label for="white-balance">
+              <input type="text" id="white-balance" name="white-balance" placeholder="White Balance">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column-full">
+            <label for="notes"></label>
+            <textarea type="text" id="notes" name="notes" placeholder="Notes" rows="10"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column-full">
+            <button id="button-save">SAVE</button>
+          </div>
+        </div>
+      </form>
     </div>
   </main>
   <footer>

@@ -1,18 +1,35 @@
 /* global astroData */
 /* global weatherData */
+/* global fieldNotes */
 
 var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
+var $pageRecord = document.querySelector('#page-record');
 var $header = document.querySelector('h2');
 var $zipInput = document.querySelector('#zip');
+var $form = document.querySelector('#field-notes-form');
+var $buttonSave = document.querySelector('#button-save');
 var $navPlan = document.querySelector('.nav.plan');
+var $navRecord = document.querySelector('.nav.record');
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
   $pageLanding.className = 'container view hidden';
+  $pageRecord.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'Location';
   $navPlan.className = 'nav plan bold';
+  $navRecord.className = 'nav record';
+}
+
+function viewRecord(event) {
+  $pageRecord.className = 'container view';
+  $pageLanding.className = 'container view hidden';
+  $pagePlan.className = 'container view hidden';
+  $header.className = 'header view';
+  $header.textContent = 'New';
+  $navRecord.className = 'nav record bold';
+  $navPlan.className = 'nav plan';
 }
 
 function getAstroData(event) {
@@ -27,6 +44,7 @@ function getAstroData(event) {
     astroData.moonrise = xhr.response.moonrise;
     astroData.moonset = xhr.response.moonset;
     astroData.dayLength = xhr.response.day_length;
+    astroData.date = xhr.response.date;
   });
   xhr.send();
 }
@@ -104,7 +122,40 @@ function requestData(event) {
   renderData();
 }
 
+function newNote(event) {
+  event.preventDefault();
+  getAstroData(event);
+  var $photoName = document.querySelector('#photo-name');
+  var $camera = document.querySelector('#camera');
+  var $lens = document.querySelector('#lens');
+  var $filter = document.querySelector('#filter');
+  var $shutterSpeed = document.querySelector('#shutter-speed');
+  var $aperture = document.querySelector('#aperture');
+  var $iso = document.querySelector('#iso');
+  var $whiteBalance = document.querySelector('#white-balance');
+  var $notes = document.querySelector('#notes');
+  var $fieldNote = {
+    noteNum: fieldNotes.nextNum,
+    date: astroData.date,
+    photoName: $photoName.value,
+    camera: $camera.value,
+    lens: $lens.value,
+    filter: $filter.value,
+    shutterSpeed: $shutterSpeed.value,
+    aperture: $aperture.value,
+    iso: $iso.value,
+    whiteBalance: $whiteBalance.value,
+    notes: $notes.value
+  };
+  fieldNotes.notes.unshift($fieldNote);
+  fieldNotes.nextNum++;
+  $form.reset();
+}
+
 $zipInput.addEventListener('input', requestData);
+$buttonSave.addEventListener('click', newNote);
 
 $navPlan.addEventListener('click', viewPlan);
+$navRecord.addEventListener('click', viewRecord);
+
 window.addEventListener('DOMContentLoaded', renderData);
