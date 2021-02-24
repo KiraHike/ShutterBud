@@ -2,6 +2,19 @@
   font-family: 'Rajdhani', sans-serif;
 }
 
+header {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  border-bottom: 2px solid black;
+}
+
+main {
+  margin-top: 77px;
+}
+
 footer {
   width: 100%;
   position: fixed;
@@ -18,15 +31,22 @@ ul.nav-bar {
   justify-content: space-between;
 }
 
-li.nav {
+li {
   list-style: none;
+}
+
+li.nav {
   display: inline;
   font-size: 1.5rem;
 }
 
+li.nav.bold {
+  font-weight: 700;
+}
+
 .container {
   max-width: 575px;
-  min-height: 90vh;
+  min-height: 80vh;
   margin: 0 auto;
   padding: 0.5rem;
 }
@@ -34,19 +54,24 @@ li.nav {
 .row {
   width: 100%;
   padding: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .column-full {
-  max-width: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.column-half {
+  width: 50%;
 }
 
 #page-landing {
   display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1.header-landing {
@@ -54,6 +79,7 @@ h1.header-landing {
   text-align: center;
   font-size: 2.2rem;
   font-weight: 500;
+  margin: 5rem 0 1rem 0;
 }
 
 .img-logo {
@@ -61,11 +87,36 @@ h1.header-landing {
   height: 11rem;
 }
 
-#zip-landing {
+#zip {
   margin-top: 3rem;
+  height: 2rem;
   width: 6rem;
   padding: 0.25rem;
   text-align: center;
   background-color: #efefef;
   border: none;
+}
+
+#page-plan {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin: 1.2rem 0 0.25rem 0.5rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+ul.list {
+  margin-bottom: 0;
 }

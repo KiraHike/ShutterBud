@@ -15,19 +15,53 @@
 </head>
 <body>
   <header>
+    <h2 class="header view hidden"></h2>
   </header>
   <main>
     <div id="page-landing" class="container view">
       <h1 class="header-landing">ShutterBud</h1>
+      <img class="img-logo" src="images/poloroid.png" alt="Logo">
+    </div>
+    <div id="page-plan" class="container view hidden">
       <div class="row">
-        <div class="column-full">
-          <img class="img-logo" src="images/poloroid.png" alt="Logo">
+        <div class="column-half">
+          <ul class="list astro left">
+            <li>Sunrise: <span class="sunrise"></span></li>
+            <li>Solar Noon: <span class="solar-noon"></span></li>
+            <li>Sunset: <span class="sunset"></span></li>
+          </ul>
+        </div>
+        <div class="column-half">
+          <ul class="list astro right">
+            <li>Moonrise: <span class="moonrise"></span></li>
+            <li>Moonset: <span class="moonset"></span></li>
+            <li>Day Length: <span class="day-length"></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <h3 class="header-weather">Weather:</h3>
+        <div class="column-half">
+          <ul class="list weather left">
+            <li>Temperature: <span class="temperature"></span></li>
+            <li>Humidity: <span class="humidity"></span></li>
+            <li>UV Index: <span class="uv-index"></span></li>
+            <li>Wind Direction: <span class="wind-direction"></span></li>
+          </ul>
+        </div>
+        <div class="column-half">
+          <ul class="list weather right">
+            <li>Feels Like: <span class="feels-like"></span></li>
+            <li>Precipitation: <span class="precipitation"></span></li>
+            <li>Cloud Cover: <span class="cloud-cover"></span></li>
+            <li>Wind Speed: <span class="wind-speed"></span></li>
+          </ul>
         </div>
       </div>
       <div class="row">
         <div class="column-full">
-          <label for="zip-landing"></label>
-            <input type="text" id="zip-landing" name="zip-landing" minlength="5" maxlength="5" placeholder="Zip code">
+          <label for="zip"></label>
+          <input type="text" id="zip" name="zip" minlength="5" maxlength="5" placeholder="Zip code">
         </div>
       </div>
     </div>
