@@ -1,5 +1,6 @@
 /* exported astroData */
 /* exported weatherData */
+/* exported fieldNotes */
 
 var astroData = {
   zip: null
@@ -8,6 +9,12 @@ var astroData = {
 var weatherData = {
   zip: null
 };
+
+var fieldNotes = {
+  notes: [],
+  nextNum: 1,
+  edit: null
+}
 
 window.addEventListener('beforeunload', store);
 
