@@ -24,7 +24,7 @@ function viewRecord(event) {
   $pageLanding.className = 'container view hidden';
   $pagePlan.className = 'container view hidden';
   $header.className = 'header view';
-  $header.textContent = 'Record';
+  $header.textContent = 'New';
   $navRecord.className = 'nav record bold';
   $navPlan.className = 'nav plan';
 }

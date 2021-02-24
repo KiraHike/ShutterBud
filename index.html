@@ -69,9 +69,9 @@
     <div id="page-record" class="container view hidden">
       <form id="field-notes-form" class="container">
         <div class="row">
-          <div class="column-half">
+          <div class="column-half center">
             <label for="photo-name">
-              <input type="text" id="photo-name" name="photo-name" placeholder="Photo/File Name">
+              <input required type="text" id="photo-name" name="photo-name" placeholder="Photo/File Name">
             </label>
             <label for="lens">
               <input type="text" id="lens" name="lens" placeholder="Lens">
@@ -83,7 +83,7 @@
               <input type="text" id="iso" name="iso" placeholder="ISO">
             </label>
           </div>
-          <div class="column-half">
+          <div class="column-half center">
             <label for="camera">
               <input type="text" id="camera" name="camera" placeholder="Camera">
             </label>
@@ -100,9 +100,8 @@
         </div>
         <div class="row">
           <div class="column-full">
-            <label for="notes">
-              <textarea type="text" id="notes" name="notes" placeholder="Notes" rows="5"></textarea>
-            </label>
+            <label for="notes"></label>
+            <textarea type="text" id="notes" name="notes" placeholder="Notes" rows="10"></textarea>
           </div>
         </div>
         <div class="row">
