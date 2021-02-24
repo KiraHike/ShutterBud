@@ -3,16 +3,30 @@
 
 var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
+var $pageRecord = document.querySelector('#page-record');
 var $header = document.querySelector('h2');
 var $zipInput = document.querySelector('#zip');
 var $navPlan = document.querySelector('.nav.plan');
+var $navRecord = document.querySelector('.nav.record');
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
   $pageLanding.className = 'container view hidden';
+  $pageRecord.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'Location';
   $navPlan.className = 'nav plan bold';
+  $navRecord.className = 'nav record';
+}
+
+function viewRecord(event) {
+  $pageRecord.className = 'container view';
+  $pageLanding.className = 'container view hidden';
+  $pagePlan.className = 'container view hidden';
+  $header.className = 'header view';
+  $header.textContent = 'Record';
+  $navRecord.className = 'nav record bold';
+  $navPlan.className = 'nav plan';
 }
 
 function getAstroData(event) {
@@ -107,4 +121,6 @@ function requestData(event) {
 $zipInput.addEventListener('input', requestData);
 
 $navPlan.addEventListener('click', viewPlan);
+$navRecord.addEventListener('click', viewRecord);
+
 window.addEventListener('DOMContentLoaded', renderData);
