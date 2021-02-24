@@ -4,6 +4,7 @@
 var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
 var $header = document.querySelector('h2');
+var $zipInputLanding = document.querySelector('#zip-landing');
 var $zipInputPlan = document.querySelector('#zip-plan');
 var $navPlan = document.querySelector('.nav.plan');
 
@@ -89,6 +90,17 @@ function getWeatherData(event) {
 }
 
 $navPlan.addEventListener('click', viewPlan);
+
+$zipInputLanding.addEventListener('input', function () {
+  if ($zipInputLanding.value.length < 5) {
+    return;
+  }
+  astroData.zip = $zipInputLanding.value;
+  weatherData.zip = $zipInputLanding.value;
+  getAstroData(event);
+  getWeatherData(event);
+  viewPlan(event);
+});
 
 $zipInputPlan.addEventListener('input', function () {
   if ($zipInputPlan.value.length < 5) {
