@@ -40,6 +40,10 @@ li.nav {
   font-size: 1.5rem;
 }
 
+li.nav.bold {
+  font-weight: 700;
+}
+
 .container {
   max-width: 575px;
   min-height: 80vh;
@@ -66,9 +70,8 @@ li.nav {
 
 #page-landing {
   display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1.header-landing {
@@ -76,6 +79,7 @@ h1.header-landing {
   text-align: center;
   font-size: 2.2rem;
   font-weight: 500;
+  margin: 5rem 0 1rem 0;
 }
 
 .img-logo {
@@ -83,8 +87,7 @@ h1.header-landing {
   height: 11rem;
 }
 
-#zip-landing,
-#zip-plan {
+#zip {
   margin-top: 3rem;
   height: 2rem;
   width: 6rem;
@@ -92,10 +95,6 @@ h1.header-landing {
   text-align: center;
   background-color: #efefef;
   border: none;
-}
-
-#zip-plan {
-  margin-top: 1rem;
 }
 
 #page-plan {

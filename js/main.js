@@ -4,8 +4,7 @@
 var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
 var $header = document.querySelector('h2');
-var $zipInputLanding = document.querySelector('#zip-landing');
-var $zipInputPlan = document.querySelector('#zip-plan');
+var $zipInput = document.querySelector('#zip');
 var $navPlan = document.querySelector('.nav.plan');
 
 function viewPlan(event) {
@@ -13,6 +12,7 @@ function viewPlan(event) {
   $pageLanding.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'Location';
+  $navPlan.className = 'nav plan bold';
 }
 
 function getAstroData(event) {
@@ -51,71 +51,60 @@ function getWeatherData(event) {
 
 function renderData() {
   var $astroSunrise = document.querySelector('.sunrise');
-  $astroSunrise.textContent = 'Sunrise: ' + astroData.sunrise;
+  $astroSunrise.textContent = astroData.sunrise;
 
   var $astroSolarNoon = document.querySelector('.solar-noon');
-  $astroSolarNoon.textContent = 'Solar Noon: ' + astroData.solarNoon;
+  $astroSolarNoon.textContent = astroData.solarNoon;
 
   var $astroSunset = document.querySelector('.sunset');
-  $astroSunset.textContent = 'Sunset: ' + astroData.sunset;
+  $astroSunset.textContent = astroData.sunset;
 
   var $astroMoonrise = document.querySelector('.moonrise');
-  $astroMoonrise.textContent = 'Moonrise: ' + astroData.moonrise;
+  $astroMoonrise.textContent = astroData.moonrise;
 
   var $astroMoonset = document.querySelector('.moonset');
-  $astroMoonset.textContent = 'Moonset: ' + astroData.moonset;
+  $astroMoonset.textContent = astroData.moonset;
 
   var $astroDayLength = document.querySelector('.day-length');
-  $astroDayLength.textContent = 'Day Length: ' + astroData.dayLength;
+  $astroDayLength.textContent = astroData.dayLength;
 
   var $weatherTemperature = document.querySelector('.temperature');
-  $weatherTemperature.textContent = 'Temperature: ' + weatherData.temperature;
+  $weatherTemperature.textContent = weatherData.temperature;
 
   var $weatherHumidity = document.querySelector('.humidity');
-  $weatherHumidity.textContent = 'Humidity: ' + weatherData.humidity;
+  $weatherHumidity.textContent = weatherData.humidity;
 
   var $weatheruvIndex = document.querySelector('.uv-index');
-  $weatheruvIndex.textContent = 'UV Index: ' + weatherData.uvIndex;
+  $weatheruvIndex.textContent = weatherData.uvIndex;
 
   var $weatherWindDirection = document.querySelector('.wind-direction');
-  $weatherWindDirection.textContent = 'Wind Direction: ' + weatherData.windDirection;
+  $weatherWindDirection.textContent = weatherData.windDirection;
 
   var $weatherFeelsLike = document.querySelector('.feels-like');
-  $weatherFeelsLike.textContent = 'Feels Like: ' + weatherData.feelsLike;
+  $weatherFeelsLike.textContent = weatherData.feelsLike;
 
   var $weatherPrecipitation = document.querySelector('.precipitation');
-  $weatherPrecipitation.textContent = 'Precipitation: ' + weatherData.precipitation;
+  $weatherPrecipitation.textContent = weatherData.precipitation;
 
   var $weatherCloudCover = document.querySelector('.cloud-cover');
-  $weatherCloudCover.textContent = 'Cloud Cover: ' + weatherData.cloudCover;
+  $weatherCloudCover.textContent = weatherData.cloudCover;
 
   var $weatherWindSpeed = document.querySelector('.wind-speed');
-  $weatherWindSpeed.textContent = 'Wind Speed: ' + weatherData.windSpeed;
+  $weatherWindSpeed.textContent = weatherData.windSpeed;
 }
 
+function requestData(event) {
+  if (event.target.value.length < 5) {
+    return;
+  }
+  astroData.zip = event.target.value;
+  weatherData.zip = event.target.value;
+  getAstroData(event);
+  getWeatherData(event);
+  renderData();
+}
+
+$zipInput.addEventListener('input', requestData);
+
 $navPlan.addEventListener('click', viewPlan);
-
-$zipInputLanding.addEventListener('input', function () {
-  if ($zipInputLanding.value.length < 5) {
-    return;
-  }
-  astroData.zip = $zipInputLanding.value;
-  weatherData.zip = $zipInputLanding.value;
-  getAstroData(event);
-  getWeatherData(event);
-  renderData();
-  viewPlan(event);
-});
-
-$zipInputPlan.addEventListener('input', function () {
-  if ($zipInputPlan.value.length < 5) {
-    return;
-  }
-  astroData.zip = $zipInputPlan.value;
-  weatherData.zip = $zipInputPlan.value;
-  getAstroData(event);
-  getWeatherData(event);
-  renderData();
-});
-
 window.addEventListener('DOMContentLoaded', renderData);
