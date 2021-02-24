@@ -22,28 +22,11 @@ function getAstroData(event) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     astroData.sunrise = xhr.response.sunrise;
-    var $astroSunrise = document.querySelector('.sunrise');
-    $astroSunrise.textContent = 'Sunrise: ' + xhr.response.sunrise;
-
     astroData.solarNoon = xhr.response.solar_noon;
-    var $astroSolarNoon = document.querySelector('.solar-noon');
-    $astroSolarNoon.textContent = 'Solar Noon: ' + xhr.response.solar_noon;
-
     astroData.sunset = xhr.response.sunset;
-    var $astroSunset = document.querySelector('.sunset');
-    $astroSunset.textContent = 'Sunset: ' + xhr.response.sunset;
-
     astroData.moonrise = xhr.response.moonrise;
-    var $astroMoonrise = document.querySelector('.moonrise');
-    $astroMoonrise.textContent = 'Moonrise: ' + xhr.response.moonrise;
-
     astroData.moonset = xhr.response.moonset;
-    var $astroMoonset = document.querySelector('.moonset');
-    $astroMoonset.textContent = 'Moonset: ' + xhr.response.moonset;
-
     astroData.dayLength = xhr.response.day_length;
-    var $astroDayLength = document.querySelector('.day-length');
-    $astroDayLength.textContent = 'Day Length: ' + xhr.response.day_length;
   });
   xhr.send();
 }
@@ -55,38 +38,59 @@ function getWeatherData(event) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     weatherData.temperature = xhr.response.current.temperature;
-    var $weatherTemperature = document.querySelector('.temperature');
-    $weatherTemperature.textContent = 'Temperature: ' + xhr.response.current.temperature;
-
     weatherData.humidity = xhr.response.current.humidity;
-    var $weatherHumidity = document.querySelector('.humidity');
-    $weatherHumidity.textContent = 'Humidity: ' + xhr.response.current.humidity;
-
     weatherData.uvIndex = xhr.response.current.uv_index;
-    var $weatheruvIndex = document.querySelector('.uv-index');
-    $weatheruvIndex.textContent = 'UV Index: ' + xhr.response.current.uv_index;
-
     weatherData.windDirection = xhr.response.current.wind_dir;
-    var $weatherWindDirection = document.querySelector('.wind-direction');
-    $weatherWindDirection.textContent = 'Wind Direction: ' + xhr.response.current.wind_dir;
-
     weatherData.feelsLike = xhr.response.current.feelslike;
-    var $weatherFeelsLike = document.querySelector('.feels-like');
-    $weatherFeelsLike.textContent = 'Feels Like: ' + xhr.response.current.feelslike;
-
     weatherData.precipitation = xhr.response.current.precip;
-    var $weatherPrecipitation = document.querySelector('.precipitation');
-    $weatherPrecipitation.textContent = 'Precipitation: ' + xhr.response.current.precip;
-
     weatherData.cloudCover = xhr.response.current.cloudcover;
-    var $weatherCloudCover = document.querySelector('.cloud-cover');
-    $weatherCloudCover.textContent = 'Cloud Cover: ' + xhr.response.current.cloudcover;
-
     weatherData.windSpeed = xhr.response.current.wind_speed;
-    var $weatherWindSpeed = document.querySelector('.wind-speed');
-    $weatherWindSpeed.textContent = 'Wind Speed: ' + xhr.response.current.cloudcover;
   });
   xhr.send();
+}
+
+function renderData() {
+  var $astroSunrise = document.querySelector('.sunrise');
+  $astroSunrise.textContent = 'Sunrise: ' + astroData.sunrise;
+
+  var $astroSolarNoon = document.querySelector('.solar-noon');
+  $astroSolarNoon.textContent = 'Solar Noon: ' + astroData.solarNoon;
+
+  var $astroSunset = document.querySelector('.sunset');
+  $astroSunset.textContent = 'Sunset: ' + astroData.sunset;
+
+  var $astroMoonrise = document.querySelector('.moonrise');
+  $astroMoonrise.textContent = 'Moonrise: ' + astroData.moonrise;
+
+  var $astroMoonset = document.querySelector('.moonset');
+  $astroMoonset.textContent = 'Moonset: ' + astroData.moonset;
+
+  var $astroDayLength = document.querySelector('.day-length');
+  $astroDayLength.textContent = 'Day Length: ' + astroData.dayLength;
+
+  var $weatherTemperature = document.querySelector('.temperature');
+  $weatherTemperature.textContent = 'Temperature: ' + weatherData.temperature;
+
+  var $weatherHumidity = document.querySelector('.humidity');
+  $weatherHumidity.textContent = 'Humidity: ' + weatherData.humidity;
+
+  var $weatheruvIndex = document.querySelector('.uv-index');
+  $weatheruvIndex.textContent = 'UV Index: ' + weatherData.uvIndex;
+
+  var $weatherWindDirection = document.querySelector('.wind-direction');
+  $weatherWindDirection.textContent = 'Wind Direction: ' + weatherData.windDirection;
+
+  var $weatherFeelsLike = document.querySelector('.feels-like');
+  $weatherFeelsLike.textContent = 'Feels Like: ' + weatherData.feelsLike;
+
+  var $weatherPrecipitation = document.querySelector('.precipitation');
+  $weatherPrecipitation.textContent = 'Precipitation: ' + weatherData.precipitation;
+
+  var $weatherCloudCover = document.querySelector('.cloud-cover');
+  $weatherCloudCover.textContent = 'Cloud Cover: ' + weatherData.cloudCover;
+
+  var $weatherWindSpeed = document.querySelector('.wind-speed');
+  $weatherWindSpeed.textContent = 'Wind Speed: ' + weatherData.windSpeed;
 }
 
 $navPlan.addEventListener('click', viewPlan);
@@ -99,6 +103,7 @@ $zipInputLanding.addEventListener('input', function () {
   weatherData.zip = $zipInputLanding.value;
   getAstroData(event);
   getWeatherData(event);
+  renderData();
   viewPlan(event);
 });
 
@@ -110,4 +115,7 @@ $zipInputPlan.addEventListener('input', function () {
   weatherData.zip = $zipInputPlan.value;
   getAstroData(event);
   getWeatherData(event);
+  renderData();
 });
+
+window.addEventListener('DOMContentLoaded', renderData);
