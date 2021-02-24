@@ -21,11 +21,23 @@ function getAstroData(event) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     astroData.sunrise = xhr.response.sunrise;
+    var $astroSunrise = document.querySelector('.sunrise');
+    $astroSunrise.textContent = 'Sunrise: ' + xhr.response.sunrise;
     astroData.solarNoon = xhr.response.solar_noon;
+    var $astroSolarNoon = document.querySelector('.solar-noon');
+    $astroSolarNoon.textContent = 'Solar Noon: ' + xhr.response.solar_noon;
     astroData.sunset = xhr.response.sunset;
+    var $astroSunset = document.querySelector('.sunset');
+    $astroSunset.textContent = 'Sunset: ' + xhr.response.sunset;
     astroData.moonrise = xhr.response.moonrise;
+    var $astroMoonrise = document.querySelector('.moonrise');
+    $astroMoonrise.textContent = 'Moonrise: ' + xhr.response.moonrise;
     astroData.moonset = xhr.response.moonset;
+    var $astroMoonset = document.querySelector('.moonset');
+    $astroMoonset.textContent = 'Moonset: ' + xhr.response.moonset;
     astroData.dayLength = xhr.response.day_length;
+    var $astroDayLength = document.querySelector('.day-length');
+    $astroDayLength.textContent = 'Day Length: ' + xhr.response.day_length;
   });
   xhr.send();
 }
