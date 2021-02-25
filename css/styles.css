@@ -9,10 +9,12 @@ header {
   right: 0;
   top: 0;
   border-bottom: 2px solid black;
+  background-color: white;
 }
 
 main {
   margin-top: 77px;
+  margin-bottom: 60px;
 }
 
 footer {
@@ -22,6 +24,7 @@ footer {
   right: 0;
   bottom: 0;
   border-top: 2px solid black;
+  background-color: white;
 }
 
 ul.nav-bar {
@@ -66,6 +69,18 @@ li.nav.bold {
 
 .column-half {
   width: 50%;
+}
+
+.column-third {
+  display: flex;
+  width: calc(100% / 3);
+  justify-content: space-evenly;
+}
+
+.column-fourth {
+  display: flex;
+  width: 25%;
+  justify-content: space-evenly;
 }
 
 #page-landing {
@@ -154,4 +169,23 @@ form input {
   background-color: black;
   color: white;
   border: none;
+}
+
+ul.field-notes {
+  margin: 0;
+  padding: 0.25rem;
+}
+
+.row.black {
+  background-color: black;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0.5rem;
+}
+
+.row.gray {
+  background-color: #efefef;
+  font-size: 1.2rem;
+  padding: 0.25rem;
 }
