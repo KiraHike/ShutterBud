@@ -5,31 +5,50 @@
 var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
 var $pageRecord = document.querySelector('#page-record');
+var $pageReview = document.querySelector('#page-review');
 var $header = document.querySelector('h2');
 var $zipInput = document.querySelector('#zip');
 var $form = document.querySelector('#field-notes-form');
 var $buttonSave = document.querySelector('#button-save');
 var $navPlan = document.querySelector('.nav.plan');
 var $navRecord = document.querySelector('.nav.record');
+var $navReview = document.querySelector('.nav.review');
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
   $pageLanding.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
+  $pageReview.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'Location';
   $navPlan.className = 'nav plan bold';
   $navRecord.className = 'nav record';
+  $navReview.className = 'nav review';
 }
 
 function viewRecord(event) {
   $pageRecord.className = 'container view';
   $pageLanding.className = 'container view hidden';
   $pagePlan.className = 'container view hidden';
+  $pageReview.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'New';
   $navRecord.className = 'nav record bold';
   $navPlan.className = 'nav plan';
+  $navReview.className = 'nav review';
+}
+
+function viewReview(event) {
+  $pageReview.className = 'container view';
+  $pageLanding.className = 'container view hidden';
+  $pagePlan.className = 'container view hidden';
+  $pageRecord.className = 'container view hidden';
+  $pagePlan.className = 'container view hidden';
+  $header.className = 'header view';
+  $header.textContent = 'Field Notes';
+  $navReview.className = 'nav review bold';
+  $navPlan.className = 'nav plan';
+  $navRecord.className = 'nav record';
 }
 
 function getAstroData(event) {
@@ -157,5 +176,6 @@ $buttonSave.addEventListener('click', newNote);
 
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
+$navReview.addEventListener('click', viewReview);
 
 window.addEventListener('DOMContentLoaded', renderData);
