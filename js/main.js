@@ -16,6 +16,7 @@ var $navRecord = document.querySelector('.nav.record');
 var $navReview = document.querySelector('.nav.review');
 
 var fieldNote;
+var closestElement;
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
@@ -188,6 +189,8 @@ function newEditNote(event) {
         fieldNotes.edit.notes = $notes.value;
 
         fieldNotes.notes.splice(i, 1, fieldNotes.edit);
+        var editedNote = renderNote(fieldNotes.edit);
+        closestElement.replaceWith(editedNote);
       }
     }
   }
@@ -292,7 +295,7 @@ function renderNote(object) {
 
 function editDelNote(event) {
   if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
-    var closestElement = event.target.closest('li');
+    closestElement = event.target.closest('li');
     var noteIDNum = Number(closestElement.getAttribute('id'));
     for (var i = 0; i < fieldNotes.notes.length; i++) {
       if (fieldNotes.notes[i].noteNum === noteIDNum) {
