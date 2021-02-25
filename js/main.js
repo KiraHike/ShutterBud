@@ -201,6 +201,13 @@ function renderNote(object) {
   $colPhoto.append($textPhoto);
   $liRow1.append($colPhoto);
 
+  var $colIcons = document.createElement('div');
+  $colIcons.setAttribute('class', 'column-third');
+  var $Icons = document.createElement('i');
+  $Icons.setAttribute('class', 'fas fa-pen-square icon-white');
+  $colIcons.append($Icons);
+  $liRow1.append($colIcons);
+
   var $liRow2 = document.createElement('div');
   $liRow2.setAttribute('class', 'row gray');
   $liDiv.append($liRow2);
