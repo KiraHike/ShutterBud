@@ -147,14 +147,14 @@ function requestData(event) {
 function newNote(event) {
   event.preventDefault();
   getAstroData(event);
-  var $photoName = document.querySelector('#photo-name');
+  var $photoName = document.querySelector('#photo');
   var $camera = document.querySelector('#camera');
   var $lens = document.querySelector('#lens');
   var $filter = document.querySelector('#filter');
-  var $shutterSpeed = document.querySelector('#shutter-speed');
+  var $shutterSpeed = document.querySelector('#shutter');
   var $aperture = document.querySelector('#aperture');
   var $iso = document.querySelector('#iso');
-  var $whiteBalance = document.querySelector('#white-balance');
+  var $whiteBalance = document.querySelector('#whitebal');
   var $notes = document.querySelector('#notes');
   fieldNote = {
     noteNum: fieldNotes.nextNum,
@@ -271,6 +271,29 @@ function renderNote(object) {
   return $li;
 }
 
+function editDelNote(event) {
+  if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
+    var closestElement = event.target.closest('li');
+    var noteIDNum = Number(closestElement.getAttribute('id'));
+    for (var i = 0; i < fieldNotes.notes.length; i++) {
+      if (fieldNotes.notes[i].noteNum === noteIDNum) {
+        fieldNotes.edit = fieldNotes.notes[i];
+        viewRecord(event);
+        $header.textContent = 'Edit';
+        $form.elements.photo.value = fieldNotes.edit.photoName;
+        $form.elements.camera.value = fieldNotes.edit.camera;
+        $form.elements.lens.value = fieldNotes.edit.lens;
+        $form.elements.filter.value = fieldNotes.edit.filter;
+        $form.elements.shutter.value = fieldNotes.edit.shutterSpeed;
+        $form.elements.aperture.value = fieldNotes.edit.aperture;
+        $form.elements.iso.value = fieldNotes.edit.iso;
+        $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
+        $form.elements.notes.value = fieldNotes.edit.notes;
+      }
+    }
+  }
+}
+
 function renderFieldNotes(array) {
   for (var i = 0; i < array.length; i++) {
     fieldNote = renderNote(array[i]);
@@ -280,6 +303,7 @@ function renderFieldNotes(array) {
 
 $zipInput.addEventListener('input', requestData);
 $buttonSave.addEventListener('click', newNote);
+$fieldNotes.addEventListener('click', editDelNote);
 
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
