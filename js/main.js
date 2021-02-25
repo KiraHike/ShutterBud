@@ -144,9 +144,8 @@ function requestData(event) {
   renderData();
 }
 
-function newNote(event) {
+function newEditNote(event) {
   event.preventDefault();
-  getAstroData(event);
   var $photoName = document.querySelector('#photo');
   var $camera = document.querySelector('#camera');
   var $lens = document.querySelector('#lens');
@@ -156,23 +155,43 @@ function newNote(event) {
   var $iso = document.querySelector('#iso');
   var $whiteBalance = document.querySelector('#whitebal');
   var $notes = document.querySelector('#notes');
-  fieldNote = {
-    noteNum: fieldNotes.nextNum,
-    date: astroData.date,
-    photoName: $photoName.value,
-    camera: $camera.value,
-    lens: $lens.value,
-    filter: $filter.value,
-    shutterSpeed: $shutterSpeed.value,
-    aperture: $aperture.value,
-    iso: $iso.value,
-    whiteBalance: $whiteBalance.value,
-    notes: $notes.value
-  };
-  fieldNotes.notes.unshift(fieldNote);
-  var renderedFieldNote = renderNote(fieldNote);
-  $fieldNotes.prepend(renderedFieldNote);
-  fieldNotes.nextNum++;
+  if ($header.textContent === 'New') {
+    getAstroData(event);
+    fieldNote = {
+      noteNum: fieldNotes.nextNum,
+      date: astroData.date,
+      photoName: $photoName.value,
+      camera: $camera.value,
+      lens: $lens.value,
+      filter: $filter.value,
+      shutterSpeed: $shutterSpeed.value,
+      aperture: $aperture.value,
+      iso: $iso.value,
+      whiteBalance: $whiteBalance.value,
+      notes: $notes.value
+    };
+    fieldNotes.notes.unshift(fieldNote);
+    var renderedFieldNote = renderNote(fieldNote);
+    $fieldNotes.prepend(renderedFieldNote);
+    fieldNotes.nextNum++;
+  } else {
+    for (var i = 0; i < fieldNotes.notes.length; i++) {
+      if (fieldNotes.notes[i].noteNum === fieldNotes.edit.noteNum) {
+        fieldNotes.edit.photoName = $photoName.value;
+        fieldNotes.edit.camera = $camera.value;
+        fieldNotes.edit.lens = $lens.value;
+        fieldNotes.edit.filter = $filter.value;
+        fieldNotes.edit.shutterSpeed = $shutterSpeed.value;
+        fieldNotes.edit.aperture = $aperture.value;
+        fieldNotes.edit.iso = $iso.value;
+        fieldNotes.edit.whiteBalance = $whiteBalance.value;
+        fieldNotes.edit.notes = $notes.value;
+
+        fieldNotes.notes.splice(i, 1, fieldNotes.edit);
+      }
+    }
+  }
+  fieldNotes.edit = null;
   $form.reset();
   viewReview(event);
 }
@@ -302,7 +321,7 @@ function renderFieldNotes(array) {
 }
 
 $zipInput.addEventListener('input', requestData);
-$buttonSave.addEventListener('click', newNote);
+$buttonSave.addEventListener('click', newEditNote);
 $fieldNotes.addEventListener('click', editDelNote);
 
 $navPlan.addEventListener('click', viewPlan);
