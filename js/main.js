@@ -5,31 +5,53 @@
 var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
 var $pageRecord = document.querySelector('#page-record');
+var $pageReview = document.querySelector('#page-review');
 var $header = document.querySelector('h2');
 var $zipInput = document.querySelector('#zip');
 var $form = document.querySelector('#field-notes-form');
 var $buttonSave = document.querySelector('#button-save');
+var $fieldNotes = document.querySelector('.field-notes');
 var $navPlan = document.querySelector('.nav.plan');
 var $navRecord = document.querySelector('.nav.record');
+var $navReview = document.querySelector('.nav.review');
+
+var fieldNote;
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
   $pageLanding.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
+  $pageReview.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'Location';
   $navPlan.className = 'nav plan bold';
   $navRecord.className = 'nav record';
+  $navReview.className = 'nav review';
 }
 
 function viewRecord(event) {
   $pageRecord.className = 'container view';
   $pageLanding.className = 'container view hidden';
   $pagePlan.className = 'container view hidden';
+  $pageReview.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'New';
   $navRecord.className = 'nav record bold';
   $navPlan.className = 'nav plan';
+  $navReview.className = 'nav review';
+}
+
+function viewReview(event) {
+  $pageReview.className = 'container view';
+  $pageLanding.className = 'container view hidden';
+  $pagePlan.className = 'container view hidden';
+  $pageRecord.className = 'container view hidden';
+  $pagePlan.className = 'container view hidden';
+  $header.className = 'header view';
+  $header.textContent = 'Field Notes';
+  $navReview.className = 'nav review bold';
+  $navPlan.className = 'nav plan';
+  $navRecord.className = 'nav record';
 }
 
 function getAstroData(event) {
@@ -134,7 +156,7 @@ function newNote(event) {
   var $iso = document.querySelector('#iso');
   var $whiteBalance = document.querySelector('#white-balance');
   var $notes = document.querySelector('#notes');
-  var $fieldNote = {
+  fieldNote = {
     noteNum: fieldNotes.nextNum,
     date: astroData.date,
     photoName: $photoName.value,
@@ -147,9 +169,106 @@ function newNote(event) {
     whiteBalance: $whiteBalance.value,
     notes: $notes.value
   };
-  fieldNotes.notes.unshift($fieldNote);
+  fieldNotes.notes.unshift(fieldNote);
+  var renderedFieldNote = renderNote(fieldNote);
+  $fieldNotes.prepend(renderedFieldNote);
   fieldNotes.nextNum++;
   $form.reset();
+  viewReview(event);
+}
+
+function renderNote(object) {
+  var $li = document.createElement('li');
+  $li.setAttribute('id', object.noteNum);
+
+  var $liDiv = document.createElement('div');
+  $liDiv.setAttribute('class', 'container-li');
+  $li.append($liDiv);
+
+  var $liRow1 = document.createElement('div');
+  $liRow1.setAttribute('class', 'row black');
+  $liDiv.append($liRow1);
+
+  var $colDate = document.createElement('div');
+  $colDate.setAttribute('class', 'column-third');
+  var $textDate = document.createTextNode(object.date);
+  $colDate.append($textDate);
+  $liRow1.append($colDate);
+
+  var $colPhoto = document.createElement('div');
+  $colPhoto.setAttribute('class', 'column-third');
+  var $textPhoto = document.createTextNode(object.photoName);
+  $colPhoto.append($textPhoto);
+  $liRow1.append($colPhoto);
+
+  var $liRow2 = document.createElement('div');
+  $liRow2.setAttribute('class', 'row gray');
+  $liDiv.append($liRow2);
+
+  var $colCamera = document.createElement('div');
+  $colCamera.setAttribute('class', 'column-third');
+  var $textCamera = document.createTextNode(object.camera);
+  $colCamera.append($textCamera);
+  $liRow2.append($colCamera);
+
+  var $colLens = document.createElement('div');
+  $colLens.setAttribute('class', 'column-third');
+  var $textLens = document.createTextNode(object.lens);
+  $colLens.append($textLens);
+  $liRow2.append($colLens);
+
+  var $colFilter = document.createElement('div');
+  $colFilter.setAttribute('class', 'column-third');
+  var $textFilter = document.createTextNode(object.filter);
+  $colFilter.append($textFilter);
+  $liRow2.append($colFilter);
+
+  var $liRow3 = document.createElement('div');
+  $liRow3.setAttribute('class', 'row gray');
+  $liDiv.append($liRow3);
+
+  var $colShutterSpeed = document.createElement('div');
+  $colShutterSpeed.setAttribute('class', 'column-fourth');
+  var $textShutterSpeed = document.createTextNode(object.shutterSpeed);
+  $colShutterSpeed.append($textShutterSpeed);
+  $liRow3.append($colShutterSpeed);
+
+  var $colAperture = document.createElement('div');
+  $colAperture.setAttribute('class', 'column-fourth');
+  var $textAperture = document.createTextNode(object.aperture);
+  $colAperture.append($textAperture);
+  $liRow3.append($colAperture);
+
+  var $colIso = document.createElement('div');
+  $colIso.setAttribute('class', 'column-fourth');
+  var $textIso = document.createTextNode(object.iso);
+  $colIso.append($textIso);
+  $liRow3.append($colIso);
+
+  var $colWhiteBalance = document.createElement('div');
+  $colWhiteBalance.setAttribute('class', 'column-fourth');
+  var $textWhiteBalance = document.createTextNode(object.whiteBalance);
+  $colWhiteBalance.append($textWhiteBalance);
+  $liRow3.append($colWhiteBalance);
+
+  var $liRow4 = document.createElement('div');
+  $liRow4.setAttribute('class', 'row');
+  $liDiv.append($liRow4);
+
+  var $colNotes = document.createElement('div');
+  $colNotes.setAttribute('class', 'column-full note');
+  var $textNotes = document.createTextNode(object.notes);
+  $colNotes.append($textNotes);
+  $liRow4.append($colNotes);
+
+  return $li;
+}
+
+function renderFieldNotes(array) {
+  for (var i = 0; i < array.length; i++) {
+    fieldNote = renderNote(array[i]);
+    $fieldNotes.append(fieldNote);
+  }
 }
 
 $zipInput.addEventListener('input', requestData);
@@ -157,5 +276,9 @@ $buttonSave.addEventListener('click', newNote);
 
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
+$navReview.addEventListener('click', viewReview);
 
-window.addEventListener('DOMContentLoaded', renderData);
+window.addEventListener('DOMContentLoaded', function () {
+  renderData();
+  renderFieldNotes(fieldNotes.notes);
+});
