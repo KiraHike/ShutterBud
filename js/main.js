@@ -16,6 +16,7 @@ var $navRecord = document.querySelector('.nav.record');
 var $navReview = document.querySelector('.nav.review');
 
 var fieldNote;
+var closestElement;
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
@@ -144,35 +145,56 @@ function requestData(event) {
   renderData();
 }
 
-function newNote(event) {
+function newEditNote(event) {
   event.preventDefault();
-  getAstroData(event);
-  var $photoName = document.querySelector('#photo-name');
+  var $photoName = document.querySelector('#photo');
   var $camera = document.querySelector('#camera');
   var $lens = document.querySelector('#lens');
   var $filter = document.querySelector('#filter');
-  var $shutterSpeed = document.querySelector('#shutter-speed');
+  var $shutterSpeed = document.querySelector('#shutter');
   var $aperture = document.querySelector('#aperture');
   var $iso = document.querySelector('#iso');
-  var $whiteBalance = document.querySelector('#white-balance');
+  var $whiteBalance = document.querySelector('#whitebal');
   var $notes = document.querySelector('#notes');
-  fieldNote = {
-    noteNum: fieldNotes.nextNum,
-    date: astroData.date,
-    photoName: $photoName.value,
-    camera: $camera.value,
-    lens: $lens.value,
-    filter: $filter.value,
-    shutterSpeed: $shutterSpeed.value,
-    aperture: $aperture.value,
-    iso: $iso.value,
-    whiteBalance: $whiteBalance.value,
-    notes: $notes.value
-  };
-  fieldNotes.notes.unshift(fieldNote);
-  var renderedFieldNote = renderNote(fieldNote);
-  $fieldNotes.prepend(renderedFieldNote);
-  fieldNotes.nextNum++;
+  if ($header.textContent === 'New') {
+    getAstroData(event);
+    fieldNote = {
+      noteNum: fieldNotes.nextNum,
+      date: astroData.date,
+      photoName: $photoName.value,
+      camera: $camera.value,
+      lens: $lens.value,
+      filter: $filter.value,
+      shutterSpeed: $shutterSpeed.value,
+      aperture: $aperture.value,
+      iso: $iso.value,
+      whiteBalance: $whiteBalance.value,
+      notes: $notes.value
+    };
+    fieldNotes.notes.unshift(fieldNote);
+    var renderedFieldNote = renderNote(fieldNote);
+    $fieldNotes.prepend(renderedFieldNote);
+    fieldNotes.nextNum++;
+  } else {
+    for (var i = 0; i < fieldNotes.notes.length; i++) {
+      if (fieldNotes.notes[i].noteNum === fieldNotes.edit.noteNum) {
+        fieldNotes.edit.photoName = $photoName.value;
+        fieldNotes.edit.camera = $camera.value;
+        fieldNotes.edit.lens = $lens.value;
+        fieldNotes.edit.filter = $filter.value;
+        fieldNotes.edit.shutterSpeed = $shutterSpeed.value;
+        fieldNotes.edit.aperture = $aperture.value;
+        fieldNotes.edit.iso = $iso.value;
+        fieldNotes.edit.whiteBalance = $whiteBalance.value;
+        fieldNotes.edit.notes = $notes.value;
+
+        fieldNotes.notes.splice(i, 1, fieldNotes.edit);
+        var editedNote = renderNote(fieldNotes.edit);
+        closestElement.replaceWith(editedNote);
+      }
+    }
+  }
+  fieldNotes.edit = null;
   $form.reset();
   viewReview(event);
 }
@@ -200,6 +222,13 @@ function renderNote(object) {
   var $textPhoto = document.createTextNode(object.photoName);
   $colPhoto.append($textPhoto);
   $liRow1.append($colPhoto);
+
+  var $colIcons = document.createElement('div');
+  $colIcons.setAttribute('class', 'column-third');
+  var $Icons = document.createElement('i');
+  $Icons.setAttribute('class', 'fas fa-pen-square icon-white');
+  $colIcons.append($Icons);
+  $liRow1.append($colIcons);
 
   var $liRow2 = document.createElement('div');
   $liRow2.setAttribute('class', 'row gray');
@@ -264,6 +293,29 @@ function renderNote(object) {
   return $li;
 }
 
+function editDelNote(event) {
+  if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
+    closestElement = event.target.closest('li');
+    var noteIDNum = Number(closestElement.getAttribute('id'));
+    for (var i = 0; i < fieldNotes.notes.length; i++) {
+      if (fieldNotes.notes[i].noteNum === noteIDNum) {
+        fieldNotes.edit = fieldNotes.notes[i];
+        viewRecord(event);
+        $header.textContent = 'Edit';
+        $form.elements.photo.value = fieldNotes.edit.photoName;
+        $form.elements.camera.value = fieldNotes.edit.camera;
+        $form.elements.lens.value = fieldNotes.edit.lens;
+        $form.elements.filter.value = fieldNotes.edit.filter;
+        $form.elements.shutter.value = fieldNotes.edit.shutterSpeed;
+        $form.elements.aperture.value = fieldNotes.edit.aperture;
+        $form.elements.iso.value = fieldNotes.edit.iso;
+        $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
+        $form.elements.notes.value = fieldNotes.edit.notes;
+      }
+    }
+  }
+}
+
 function renderFieldNotes(array) {
   for (var i = 0; i < array.length; i++) {
     fieldNote = renderNote(array[i]);
@@ -272,7 +324,8 @@ function renderFieldNotes(array) {
 }
 
 $zipInput.addEventListener('input', requestData);
-$buttonSave.addEventListener('click', newNote);
+$buttonSave.addEventListener('click', newEditNote);
+$fieldNotes.addEventListener('click', editDelNote);
 
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
