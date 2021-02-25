@@ -224,10 +224,13 @@ function renderNote(object) {
   $liRow1.append($colPhoto);
 
   var $colIcons = document.createElement('div');
-  $colIcons.setAttribute('class', 'column-third');
-  var $Icons = document.createElement('i');
-  $Icons.setAttribute('class', 'fas fa-pen-square icon-white');
-  $colIcons.append($Icons);
+  $colIcons.setAttribute('class', 'column-third right');
+  var $editIcon = document.createElement('i');
+  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white');
+  $colIcons.append($editIcon);
+  var $deleteIcon = document.createElement('i');
+  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white');
+  $colIcons.append($deleteIcon);
   $liRow1.append($colIcons);
 
   var $liRow2 = document.createElement('div');

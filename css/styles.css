@@ -77,6 +77,11 @@ li.nav.bold {
   justify-content: space-evenly;
 }
 
+.column-third.right {
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .column-fourth {
   display: flex;
   width: 25%;
@@ -199,4 +204,5 @@ ul.field-notes {
 
 .icon-white {
   color: white;
+  margin-left: 0.75rem;
 }
