@@ -189,3 +189,10 @@ ul.field-notes {
   font-size: 1.2rem;
   padding: 0.25rem;
 }
+
+.note {
+  font-family: roboto, sans-serif;
+  font-weight: 300;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
+}

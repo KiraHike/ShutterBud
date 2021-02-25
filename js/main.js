@@ -15,7 +15,7 @@ var $navPlan = document.querySelector('.nav.plan');
 var $navRecord = document.querySelector('.nav.record');
 var $navReview = document.querySelector('.nav.review');
 
-var fieldNote = {};
+var fieldNote;
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
@@ -170,8 +170,11 @@ function newNote(event) {
     notes: $notes.value
   };
   fieldNotes.notes.unshift(fieldNote);
+  var renderedFieldNote = renderNote(fieldNote);
+  $fieldNotes.prepend(renderedFieldNote);
   fieldNotes.nextNum++;
   $form.reset();
+  viewReview(event);
 }
 
 function renderNote(object) {
@@ -253,7 +256,7 @@ function renderNote(object) {
   $liDiv.append($liRow4);
 
   var $colNotes = document.createElement('div');
-  $colNotes.setAttribute('class', 'column-full');
+  $colNotes.setAttribute('class', 'column-full note');
   var $textNotes = document.createTextNode(object.notes);
   $colNotes.append($textNotes);
   $liRow4.append($colNotes);
