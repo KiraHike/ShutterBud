@@ -10,9 +10,12 @@ var $header = document.querySelector('h2');
 var $zipInput = document.querySelector('#zip');
 var $form = document.querySelector('#field-notes-form');
 var $buttonSave = document.querySelector('#button-save');
+var $fieldNotes = document.querySelector('.field-notes');
 var $navPlan = document.querySelector('.nav.plan');
 var $navRecord = document.querySelector('.nav.record');
 var $navReview = document.querySelector('.nav.review');
+
+var fieldNote = {};
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
@@ -153,7 +156,7 @@ function newNote(event) {
   var $iso = document.querySelector('#iso');
   var $whiteBalance = document.querySelector('#white-balance');
   var $notes = document.querySelector('#notes');
-  var $fieldNote = {
+  fieldNote = {
     noteNum: fieldNotes.nextNum,
     date: astroData.date,
     photoName: $photoName.value,
@@ -166,9 +169,103 @@ function newNote(event) {
     whiteBalance: $whiteBalance.value,
     notes: $notes.value
   };
-  fieldNotes.notes.unshift($fieldNote);
+  fieldNotes.notes.unshift(fieldNote);
   fieldNotes.nextNum++;
   $form.reset();
+}
+
+function renderNote(object) {
+  var $li = document.createElement('li');
+  $li.setAttribute('id', object.noteNum);
+
+  var $liDiv = document.createElement('div');
+  $liDiv.setAttribute('class', 'container-li');
+  $li.append($liDiv);
+
+  var $liRow1 = document.createElement('div');
+  $liRow1.setAttribute('class', 'row black');
+  $liDiv.append($liRow1);
+
+  var $colDate = document.createElement('div');
+  $colDate.setAttribute('class', 'column-third');
+  var $textDate = document.createTextNode(object.date);
+  $colDate.append($textDate);
+  $liRow1.append($colDate);
+
+  var $colPhoto = document.createElement('div');
+  $colPhoto.setAttribute('class', 'column-third');
+  var $textPhoto = document.createTextNode(object.photoName);
+  $colPhoto.append($textPhoto);
+  $liRow1.append($colPhoto);
+
+  var $liRow2 = document.createElement('div');
+  $liRow2.setAttribute('class', 'row gray');
+  $liDiv.append($liRow2);
+
+  var $colCamera = document.createElement('div');
+  $colCamera.setAttribute('class', 'column-third');
+  var $textCamera = document.createTextNode(object.camera);
+  $colCamera.append($textCamera);
+  $liRow2.append($colCamera);
+
+  var $colLens = document.createElement('div');
+  $colLens.setAttribute('class', 'column-third');
+  var $textLens = document.createTextNode(object.lens);
+  $colLens.append($textLens);
+  $liRow2.append($colLens);
+
+  var $colFilter = document.createElement('div');
+  $colFilter.setAttribute('class', 'column-third');
+  var $textFilter = document.createTextNode(object.filter);
+  $colFilter.append($textFilter);
+  $liRow2.append($colFilter);
+
+  var $liRow3 = document.createElement('div');
+  $liRow3.setAttribute('class', 'row gray');
+  $liDiv.append($liRow3);
+
+  var $colShutterSpeed = document.createElement('div');
+  $colShutterSpeed.setAttribute('class', 'column-fourth');
+  var $textShutterSpeed = document.createTextNode(object.shutterSpeed);
+  $colShutterSpeed.append($textShutterSpeed);
+  $liRow3.append($colShutterSpeed);
+
+  var $colAperture = document.createElement('div');
+  $colAperture.setAttribute('class', 'column-fourth');
+  var $textAperture = document.createTextNode(object.aperture);
+  $colAperture.append($textAperture);
+  $liRow3.append($colAperture);
+
+  var $colIso = document.createElement('div');
+  $colIso.setAttribute('class', 'column-fourth');
+  var $textIso = document.createTextNode(object.iso);
+  $colIso.append($textIso);
+  $liRow3.append($colIso);
+
+  var $colWhiteBalance = document.createElement('div');
+  $colWhiteBalance.setAttribute('class', 'column-fourth');
+  var $textWhiteBalance = document.createTextNode(object.whiteBalance);
+  $colWhiteBalance.append($textWhiteBalance);
+  $liRow3.append($colWhiteBalance);
+
+  var $liRow4 = document.createElement('div');
+  $liRow4.setAttribute('class', 'row');
+  $liDiv.append($liRow4);
+
+  var $colNotes = document.createElement('div');
+  $colNotes.setAttribute('class', 'column-full');
+  var $textNotes = document.createTextNode(object.notes);
+  $colNotes.append($textNotes);
+  $liRow4.append($colNotes);
+
+  return $li;
+}
+
+function renderFieldNotes(array) {
+  for (var i = 0; i < array.length; i++) {
+    fieldNote = renderNote(array[i]);
+    $fieldNotes.append(fieldNote);
+  }
 }
 
 $zipInput.addEventListener('input', requestData);
@@ -178,4 +275,7 @@ $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
 $navReview.addEventListener('click', viewReview);
 
-window.addEventListener('DOMContentLoaded', renderData);
+window.addEventListener('DOMContentLoaded', function () {
+  renderData();
+  renderFieldNotes(fieldNotes.notes);
+});
