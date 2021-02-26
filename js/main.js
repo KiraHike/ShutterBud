@@ -6,6 +6,7 @@ var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
 var $pageRecord = document.querySelector('#page-record');
 var $pageReview = document.querySelector('#page-review');
+var $pageGear = document.querySelector('#page-gear');
 
 var $header = document.querySelector('h2');
 
@@ -23,6 +24,7 @@ var $modalNo = document.querySelector('.icon-modal-no');
 var $navPlan = document.querySelector('.nav.plan');
 var $navRecord = document.querySelector('.nav.record');
 var $navReview = document.querySelector('.nav.review');
+var $navGear = document.querySelector('.nav.gear');
 
 var fieldNote;
 var closestElement;
@@ -33,11 +35,13 @@ function viewPlan(event) {
   $pageLanding.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
+  $pageGear.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'Location';
   $navPlan.className = 'nav plan bold';
   $navRecord.className = 'nav record';
   $navReview.className = 'nav review';
+  $navGear.className = 'nav gear';
 }
 
 function viewRecord(event) {
@@ -45,11 +49,13 @@ function viewRecord(event) {
   $pageLanding.className = 'container view hidden';
   $pagePlan.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
+  $pageGear.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'New';
   $navRecord.className = 'nav record bold';
   $navPlan.className = 'nav plan';
   $navReview.className = 'nav review';
+  $navGear.className = 'nav gear';
 }
 
 function viewReview(event) {
@@ -58,11 +64,27 @@ function viewReview(event) {
   $pagePlan.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
   $pagePlan.className = 'container view hidden';
+  $pageGear.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'Field Notes';
   $navReview.className = 'nav review bold';
   $navPlan.className = 'nav plan';
   $navRecord.className = 'nav record';
+  $navGear.className = 'nav gear';
+}
+
+function viewGear(event) {
+  $pageGear.className = 'container view';
+  $pageLanding.className = 'container view hidden';
+  $pagePlan.className = 'container view hidden';
+  $pageRecord.className = 'container view hidden';
+  $pageReview.className = 'container view hidden';
+  $header.className = 'header view';
+  $header.textContent = 'My Gear';
+  $navGear.className = 'nav gear bold';
+  $navPlan.className = 'nav plan';
+  $navRecord.className = 'nav record';
+  $navReview.className = 'nav review';
 }
 
 function getAstroData(event) {
@@ -371,6 +393,7 @@ $modalYes.addEventListener('click', deleteNote);
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
 $navReview.addEventListener('click', viewReview);
+$navGear.addEventListener('click', viewGear);
 
 window.addEventListener('DOMContentLoaded', function () {
   renderData();
