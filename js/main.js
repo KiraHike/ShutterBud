@@ -14,6 +14,17 @@ var $header = document.querySelector('h2');
 var $zipInput = document.querySelector('#zip');
 
 var $form = document.querySelector('#field-notes-form');
+
+var $photoName = document.querySelector('#photo');
+var $camera = document.querySelector('#camera');
+var $lens = document.querySelector('#lens');
+var $filter = document.querySelector('#filter');
+var $shutterSpeed = document.querySelector('#shutter');
+var $aperture = document.querySelector('#aperture');
+var $iso = document.querySelector('#iso');
+var $whiteBalance = document.querySelector('#whitebal');
+var $notes = document.querySelector('#notes');
+
 var $selectCamera = document.querySelector('#camera');
 var $selectLens = document.querySelector('#lens');
 var $selectFilter = document.querySelector('#filter');
@@ -194,15 +205,6 @@ function requestData(event) {
 
 function newEditNote(event) {
   event.preventDefault();
-  var $photoName = document.querySelector('#photo');
-  var $camera = document.querySelector('#camera');
-  var $lens = document.querySelector('#lens');
-  var $filter = document.querySelector('#filter');
-  var $shutterSpeed = document.querySelector('#shutter');
-  var $aperture = document.querySelector('#aperture');
-  var $iso = document.querySelector('#iso');
-  var $whiteBalance = document.querySelector('#whitebal');
-  var $notes = document.querySelector('#notes');
   if ($header.textContent === 'New') {
     getAstroData(event);
     fieldNote = {
@@ -222,8 +224,18 @@ function newEditNote(event) {
     var renderedFieldNote = renderNote(fieldNote);
     $fieldNotes.prepend(renderedFieldNote);
     fieldNotes.nextNum++;
+    var $optionsArray = document.querySelectorAll('option');
+    for (var i = 0; i < $optionsArray.length; i++) {
+      if ($optionsArray[i].textContent === $camera.value ||
+        $optionsArray[i].textContent === $lens.value ||
+        $optionsArray[i].textContent === $filter.value) {
+        $optionsArray[i].setAttribute('selected', 'default');
+      } else {
+        $optionsArray[i].removeAttribute('selected');
+      }
+    }
   } else {
-    for (var i = 0; i < fieldNotes.notes.length; i++) {
+    for (i = 0; i < fieldNotes.notes.length; i++) {
       if (fieldNotes.notes[i].noteNum === fieldNotes.edit.noteNum) {
         fieldNotes.edit.photoName = $photoName.value;
         fieldNotes.edit.camera = $camera.value;

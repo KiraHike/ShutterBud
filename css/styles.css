@@ -107,6 +107,11 @@ h1.header-landing {
   height: 11rem;
 }
 
+label.zip {
+  display: flex;
+  justify-content: center;
+}
+
 #zip {
   margin-top: 3rem;
   height: 2rem;
