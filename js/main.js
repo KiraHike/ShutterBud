@@ -6,17 +6,27 @@ var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
 var $pageRecord = document.querySelector('#page-record');
 var $pageReview = document.querySelector('#page-review');
+
 var $header = document.querySelector('h2');
+
 var $zipInput = document.querySelector('#zip');
+
 var $form = document.querySelector('#field-notes-form');
 var $buttonSave = document.querySelector('#button-save');
+
 var $fieldNotes = document.querySelector('.field-notes');
+
+var $modal = document.querySelector('.modal');
+var $modalYes = document.querySelector('.icon-modal-yes');
+var $modalNo = document.querySelector('.icon-modal-no');
+
 var $navPlan = document.querySelector('.nav.plan');
 var $navRecord = document.querySelector('.nav.record');
 var $navReview = document.querySelector('.nav.review');
 
 var fieldNote;
 var closestElement;
+var noteIDNum;
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
@@ -224,10 +234,13 @@ function renderNote(object) {
   $liRow1.append($colPhoto);
 
   var $colIcons = document.createElement('div');
-  $colIcons.setAttribute('class', 'column-third');
-  var $Icons = document.createElement('i');
-  $Icons.setAttribute('class', 'fas fa-pen-square icon-white');
-  $colIcons.append($Icons);
+  $colIcons.setAttribute('class', 'column-third right');
+  var $editIcon = document.createElement('i');
+  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white');
+  $colIcons.append($editIcon);
+  var $deleteIcon = document.createElement('i');
+  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white');
+  $colIcons.append($deleteIcon);
   $liRow1.append($colIcons);
 
   var $liRow2 = document.createElement('div');
@@ -294,11 +307,11 @@ function renderNote(object) {
 }
 
 function editDelNote(event) {
-  if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
-    closestElement = event.target.closest('li');
-    var noteIDNum = Number(closestElement.getAttribute('id'));
-    for (var i = 0; i < fieldNotes.notes.length; i++) {
-      if (fieldNotes.notes[i].noteNum === noteIDNum) {
+  closestElement = event.target.closest('li');
+  noteIDNum = Number(closestElement.getAttribute('id'));
+  for (var i = 0; i < fieldNotes.notes.length; i++) {
+    if (fieldNotes.notes[i].noteNum === noteIDNum) {
+      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
         fieldNotes.edit = fieldNotes.notes[i];
         viewRecord(event);
         $header.textContent = 'Edit';
@@ -311,9 +324,33 @@ function editDelNote(event) {
         $form.elements.iso.value = fieldNotes.edit.iso;
         $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
         $form.elements.notes.value = fieldNotes.edit.notes;
+      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white') {
+        $modal.className = 'modal view';
+        event.target.className = 'fas fa-minus-square icon-red';
       }
     }
   }
+}
+
+function closeModal(event) {
+  $modal.className = 'modal view hidden';
+  var $redIcon = document.querySelector('.icon-red');
+  $redIcon.className = 'fas fa-minus-square icon-white';
+}
+
+function deleteNote(event) {
+  for (var i = 0; i < fieldNotes.notes.length; i++) {
+    if (fieldNotes.notes[i].noteNum === noteIDNum) {
+      fieldNotes.notes.splice(i, 1);
+    }
+  }
+  var $fieldNotesChildren = $fieldNotes.childNodes;
+  for (i = 0; i < $fieldNotesChildren.length; i++) {
+    if ($fieldNotesChildren[i] === closestElement) {
+      $fieldNotesChildren[i].remove();
+    }
+  }
+  $modal.className = 'modal view hidden';
 }
 
 function renderFieldNotes(array) {
@@ -324,8 +361,12 @@ function renderFieldNotes(array) {
 }
 
 $zipInput.addEventListener('input', requestData);
+
 $buttonSave.addEventListener('click', newEditNote);
+
 $fieldNotes.addEventListener('click', editDelNote);
+$modalNo.addEventListener('click', closeModal);
+$modalYes.addEventListener('click', deleteNote);
 
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
