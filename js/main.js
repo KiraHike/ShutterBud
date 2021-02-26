@@ -16,6 +16,13 @@ var $zipInput = document.querySelector('#zip');
 var $form = document.querySelector('#field-notes-form');
 var $buttonSave = document.querySelector('#button-save');
 
+var $newCamera = document.querySelector('#cameras');
+var $addCamera = document.querySelector('#addCamera');
+var $newLens = document.querySelector('#lenses');
+var $addLens = document.querySelector('#addLens');
+var $newFilter = document.querySelector('#filters');
+var $addFilter = document.querySelector('#addFilter');
+
 var $fieldNotes = document.querySelector('.field-notes');
 
 var $modal = document.querySelector('.modal');
@@ -383,6 +390,18 @@ function renderFieldNotes(array) {
   }
 }
 
+function newGear(event) {
+  event.preventDefault();
+  console.log(event.target);
+  if (event.target === $addCamera) {
+    gearData.cameras.push($newCamera.value);
+  } else if (event.target === $addLens) {
+    gearData.lenses.push($newLens.value);
+  } else if (event.target === $addFilter) {
+    gearData.filters.push($newFilter.value);
+  }
+}
+
 $zipInput.addEventListener('input', requestData);
 
 $buttonSave.addEventListener('click', newEditNote);
@@ -390,6 +409,10 @@ $buttonSave.addEventListener('click', newEditNote);
 $fieldNotes.addEventListener('click', editDelNote);
 $modalNo.addEventListener('click', closeModal);
 $modalYes.addEventListener('click', deleteNote);
+
+$addCamera.addEventListener('click', newGear);
+$addLens.addEventListener('click', newGear);
+$addFilter.addEventListener('click', newGear);
 
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
