@@ -11,6 +11,7 @@ var $zipInput = document.querySelector('#zip');
 var $form = document.querySelector('#field-notes-form');
 var $buttonSave = document.querySelector('#button-save');
 var $fieldNotes = document.querySelector('.field-notes');
+var $modal = document.querySelector('.modal');
 var $navPlan = document.querySelector('.nav.plan');
 var $navRecord = document.querySelector('.nav.record');
 var $navReview = document.querySelector('.nav.review');
@@ -297,11 +298,11 @@ function renderNote(object) {
 }
 
 function editDelNote(event) {
-  if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
-    closestElement = event.target.closest('li');
-    var noteIDNum = Number(closestElement.getAttribute('id'));
-    for (var i = 0; i < fieldNotes.notes.length; i++) {
-      if (fieldNotes.notes[i].noteNum === noteIDNum) {
+  closestElement = event.target.closest('li');
+  var noteIDNum = Number(closestElement.getAttribute('id'));
+  for (var i = 0; i < fieldNotes.notes.length; i++) {
+    if (fieldNotes.notes[i].noteNum === noteIDNum) {
+      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
         fieldNotes.edit = fieldNotes.notes[i];
         viewRecord(event);
         $header.textContent = 'Edit';
@@ -314,6 +315,8 @@ function editDelNote(event) {
         $form.elements.iso.value = fieldNotes.edit.iso;
         $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
         $form.elements.notes.value = fieldNotes.edit.notes;
+      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white') {
+        $modal.className = 'modal view';
       }
     }
   }
