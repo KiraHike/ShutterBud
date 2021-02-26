@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap">
 </head>
+
 <body>
   <header>
     <h2 class="header view hidden"></h2>
@@ -60,7 +62,7 @@
       </div>
       <div class="row">
         <div class="column-full">
-          <label for="zip">
+          <label for="zip" class="zip">
             <input type="text" id="zip" name="zip" minlength="5" maxlength="5" placeholder="Zip code">
           </label>
         </div>
@@ -74,7 +76,7 @@
               <input required type="text" id="photo" name="photo" placeholder="Photo/File Name">
             </label>
             <label for="lens">
-              <input required type="text" id="lens" name="lens" placeholder="Lens">
+              <select required id="lens" name="lens"></select>
             </label>
             <label for="shutter">
               <input required type="text" id="shutter" name="shutter" placeholder="Shutter Speed">
@@ -85,10 +87,10 @@
           </div>
           <div class="column-half center">
             <label for="camera">
-              <input required type="text" id="camera" name="camera" placeholder="Camera">
+              <select required id="camera" name="camera"></select>
             </label>
             <label for="filter">
-              <input required type="text" id="filter" name="filter" placeholder="Filter">
+              <select required id="filter" name="filter"></select>
             </label>
             <label for="aperture">
               <input required type="text" id="aperture" name="aperture" placeholder="Aperture">
@@ -100,19 +102,56 @@
         </div>
         <div class="row">
           <div class="column-full">
-            <label for="notes"></label>
-            <textarea type="text" id="notes" name="notes" placeholder="Notes" rows="10"></textarea>
+            <textarea type="text" id="notes" name="notes" placeholder="Notes" rows="9"></textarea>
           </div>
         </div>
         <div class="row">
           <div class="column-full">
-            <button id="button-save">SAVE</button>
+            <i id="button-save" class="fas fa-plus-square fa-2x"></i>
           </div>
         </div>
       </form>
     </div>
     <div id="page-review" class="container view hidden">
       <ul class="field-notes"></ul>
+    </div>
+    <div id="page-gear" class="container view hidden">
+      <div class="row gear">
+        <h4>My Cameras</h4>
+        <div class="column-half">
+          <ul class="gear cameras"></ul>
+        </div>
+        <div class="column-half new-gear">
+          <label for="cameras">
+            <input required type="text" id="cameras" name="cameras" placeholder="New Camera">
+          </label>
+          <i id="addCamera" class="fas fa-plus-square fa-2x"></i>
+        </div>
+      </div>
+      <div class="row gear">
+        <h4>My Lenses</h4>
+        <div class="column-half">
+          <ul class="gear lenses"></ul>
+        </div>
+        <div class="column-half new-gear">
+          <label for="lenses">
+            <input required type="text" id="lenses" name="lenses" placeholder="New Lens">
+          </label>
+          <i id="addLens" class="fas fa-plus-square fa-2x"></i>
+        </div>
+      </div>
+      <div class="row gear">
+        <h4>My Filters</h4>
+        <div class="column-half">
+          <ul class="gear filters"></ul>
+        </div>
+        <div class="column-half new-gear">
+          <label for="filters">
+            <input required type="text" id="filters" name="filters" placeholder="New Filter">
+          </label>
+          <i id="addFilter" class="fas fa-plus-square fa-2x"></i>
+        </div>
+      </div>
     </div>
     <div class="modal view hidden">
       <div class="modal-container">
@@ -137,4 +176,5 @@
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>

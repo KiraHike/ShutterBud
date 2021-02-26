@@ -1,18 +1,44 @@
 /* global astroData */
 /* global weatherData */
 /* global fieldNotes */
+/* global gearData */
 
 var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
 var $pageRecord = document.querySelector('#page-record');
 var $pageReview = document.querySelector('#page-review');
+var $pageGear = document.querySelector('#page-gear');
 
 var $header = document.querySelector('h2');
 
 var $zipInput = document.querySelector('#zip');
 
 var $form = document.querySelector('#field-notes-form');
+
+var $photoName = document.querySelector('#photo');
+var $camera = document.querySelector('#camera');
+var $lens = document.querySelector('#lens');
+var $filter = document.querySelector('#filter');
+var $shutterSpeed = document.querySelector('#shutter');
+var $aperture = document.querySelector('#aperture');
+var $iso = document.querySelector('#iso');
+var $whiteBalance = document.querySelector('#whitebal');
+var $notes = document.querySelector('#notes');
+
+var $selectCamera = document.querySelector('#camera');
+var $selectLens = document.querySelector('#lens');
+var $selectFilter = document.querySelector('#filter');
 var $buttonSave = document.querySelector('#button-save');
+
+var $gearCameras = document.querySelector('.gear.cameras');
+var $gearLenses = document.querySelector('.gear.lenses');
+var $gearFilters = document.querySelector('.gear.filters');
+var $newCamera = document.querySelector('#cameras');
+var $addCamera = document.querySelector('#addCamera');
+var $newLens = document.querySelector('#lenses');
+var $addLens = document.querySelector('#addLens');
+var $newFilter = document.querySelector('#filters');
+var $addFilter = document.querySelector('#addFilter');
 
 var $fieldNotes = document.querySelector('.field-notes');
 
@@ -23,6 +49,7 @@ var $modalNo = document.querySelector('.icon-modal-no');
 var $navPlan = document.querySelector('.nav.plan');
 var $navRecord = document.querySelector('.nav.record');
 var $navReview = document.querySelector('.nav.review');
+var $navGear = document.querySelector('.nav.gear');
 
 var fieldNote;
 var closestElement;
@@ -33,11 +60,13 @@ function viewPlan(event) {
   $pageLanding.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
+  $pageGear.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'Location';
   $navPlan.className = 'nav plan bold';
   $navRecord.className = 'nav record';
   $navReview.className = 'nav review';
+  $navGear.className = 'nav gear';
 }
 
 function viewRecord(event) {
@@ -45,11 +74,13 @@ function viewRecord(event) {
   $pageLanding.className = 'container view hidden';
   $pagePlan.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
+  $pageGear.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'New';
   $navRecord.className = 'nav record bold';
   $navPlan.className = 'nav plan';
   $navReview.className = 'nav review';
+  $navGear.className = 'nav gear';
 }
 
 function viewReview(event) {
@@ -58,11 +89,27 @@ function viewReview(event) {
   $pagePlan.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
   $pagePlan.className = 'container view hidden';
+  $pageGear.className = 'container view hidden';
   $header.className = 'header view';
   $header.textContent = 'Field Notes';
   $navReview.className = 'nav review bold';
   $navPlan.className = 'nav plan';
   $navRecord.className = 'nav record';
+  $navGear.className = 'nav gear';
+}
+
+function viewGear(event) {
+  $pageGear.className = 'container view';
+  $pageLanding.className = 'container view hidden';
+  $pagePlan.className = 'container view hidden';
+  $pageRecord.className = 'container view hidden';
+  $pageReview.className = 'container view hidden';
+  $header.className = 'header view';
+  $header.textContent = 'My Gear';
+  $navGear.className = 'nav gear bold';
+  $navPlan.className = 'nav plan';
+  $navRecord.className = 'nav record';
+  $navReview.className = 'nav review';
 }
 
 function getAstroData(event) {
@@ -153,19 +200,20 @@ function requestData(event) {
   getAstroData(event);
   getWeatherData(event);
   renderData();
+  event.target.value = null;
+}
+
+function ready(event) {
+  for (var i = 0; i < $form.elements.length; i++) {
+    if ($form.elements[i].value.length < 1) {
+      return;
+    }
+  }
+  $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
 }
 
 function newEditNote(event) {
   event.preventDefault();
-  var $photoName = document.querySelector('#photo');
-  var $camera = document.querySelector('#camera');
-  var $lens = document.querySelector('#lens');
-  var $filter = document.querySelector('#filter');
-  var $shutterSpeed = document.querySelector('#shutter');
-  var $aperture = document.querySelector('#aperture');
-  var $iso = document.querySelector('#iso');
-  var $whiteBalance = document.querySelector('#whitebal');
-  var $notes = document.querySelector('#notes');
   if ($header.textContent === 'New') {
     getAstroData(event);
     fieldNote = {
@@ -185,8 +233,18 @@ function newEditNote(event) {
     var renderedFieldNote = renderNote(fieldNote);
     $fieldNotes.prepend(renderedFieldNote);
     fieldNotes.nextNum++;
+    var $optionsArray = document.querySelectorAll('option');
+    for (var i = 0; i < $optionsArray.length; i++) {
+      if ($optionsArray[i].textContent === $camera.value ||
+        $optionsArray[i].textContent === $lens.value ||
+        $optionsArray[i].textContent === $filter.value) {
+        $optionsArray[i].setAttribute('selected', 'default');
+      } else {
+        $optionsArray[i].removeAttribute('selected');
+      }
+    }
   } else {
-    for (var i = 0; i < fieldNotes.notes.length; i++) {
+    for (i = 0; i < fieldNotes.notes.length; i++) {
       if (fieldNotes.notes[i].noteNum === fieldNotes.edit.noteNum) {
         fieldNotes.edit.photoName = $photoName.value;
         fieldNotes.edit.camera = $camera.value;
@@ -206,6 +264,7 @@ function newEditNote(event) {
   }
   fieldNotes.edit = null;
   $form.reset();
+  $buttonSave.className = 'fas fa-plus-square fa-2x';
   viewReview(event);
 }
 
@@ -228,7 +287,7 @@ function renderNote(object) {
   $liRow1.append($colDate);
 
   var $colPhoto = document.createElement('div');
-  $colPhoto.setAttribute('class', 'column-third');
+  $colPhoto.setAttribute('class', 'column-third center');
   var $textPhoto = document.createTextNode(object.photoName);
   $colPhoto.append($textPhoto);
   $liRow1.append($colPhoto);
@@ -360,19 +419,89 @@ function renderFieldNotes(array) {
   }
 }
 
+function newGear(event) {
+  event.preventDefault();
+  var renderedGear;
+  var renderedOption;
+    if (event.target === $addCamera) {
+      gearData.cameras.push($newCamera.value);
+      renderedGear = renderGearItem($newCamera.value);
+      $gearCameras.append(renderedGear);
+      renderedOption = renderGearOption($newCamera.value);
+      $selectCamera.append(renderedOption);
+      $newCamera.value = null;
+  } else if (event.target === $addLens) {
+      gearData.lenses.push($newLens.value);
+      renderedGear = renderGearItem($newLens.value);
+      $gearLenses.append(renderedGear);
+      renderedOption = renderGearOption($newLens.value);
+      $selectLens.append(renderedOption);
+      $newLens.value = null;
+  } else if (event.target === $addFilter) {
+      gearData.filters.push($newFilter.value);
+      renderedGear = renderGearItem($newFilter.value);
+      $gearFilters.append(renderedGear);
+      renderedOption = renderGearOption($newFilter.value);
+      $selectFilter.append(renderedOption);
+      $newFilter.value = null;
+  }
+}
+
+function renderGearItem(item) {
+  var $gearItem = document.createElement('li');
+  $gearItem.textContent = item;
+  return $gearItem;
+}
+
+function renderGearOption(item) {
+  var $gearOption = document.createElement('option');
+  $gearOption.textContent = item;
+  return $gearOption;
+}
+
+function renderGear(object) {
+  var gear;
+  var option;
+  for (var i = 0; i < object.cameras.length; i++) {
+    gear = renderGearItem(object.cameras[i]);
+    $gearCameras.append(gear);
+    option = renderGearOption(object.cameras[i]);
+    $selectCamera.append(option);
+  }
+  for (i = 0; i < object.lenses.length; i++) {
+    gear = renderGearItem(object.lenses[i]);
+    $gearLenses.append(gear);
+    option = renderGearOption(object.lenses[i]);
+    $selectLens.append(option);
+  }
+  for (i = 0; i < object.filters.length; i++) {
+    gear = renderGearItem(object.filters[i]);
+    $gearFilters.append(gear);
+    option = renderGearOption(object.filters[i]);
+    $selectFilter.append(option);
+  }
+}
+
 $zipInput.addEventListener('input', requestData);
 
+$form.addEventListener('keypress', ready);
 $buttonSave.addEventListener('click', newEditNote);
 
 $fieldNotes.addEventListener('click', editDelNote);
 $modalNo.addEventListener('click', closeModal);
 $modalYes.addEventListener('click', deleteNote);
 
+$addCamera.addEventListener('click', newGear);
+$addLens.addEventListener('click', newGear);
+$addFilter.addEventListener('click', newGear);
+
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
 $navReview.addEventListener('click', viewReview);
+$navGear.addEventListener('click', viewGear);
 
 window.addEventListener('DOMContentLoaded', function () {
   renderData();
   renderFieldNotes(fieldNotes.notes);
+  renderGear(gearData);
 });
