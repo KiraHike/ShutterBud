@@ -115,9 +115,44 @@
       <ul class="field-notes"></ul>
     </div>
     <div id="page-gear" class="container view">
-      <ul class="gear cameras"></ul>
-      <ul class="gear lenses"></ul>
-      <ul class="gear filters"></ul>
+      <div class="gear-container">
+        <div class="row">
+          <h4>My Cameras</h4>
+          <div class="column-half">
+            <ul class="gear cameras"></ul>
+          </div>
+          <div class="column-half">
+            <label for="cameras">
+              <input required type="text" id="cameras" name="cameras" placeholder="New Camera">
+            </label>
+            <i class="fas fa-plus-square"></i>
+          </div>
+        </div>
+        <div class="row">
+          <h4>My Lenses</h4>
+          <div class="column-half">
+            <ul class="gear lenses"></ul>
+          </div>
+          <div class="column-half">
+            <label for="lenses">
+              <input required type="text" id="lenses" name="lenses" placeholder="New Lens">
+            </label>
+            <i class="fas fa-plus-square"></i>
+          </div>
+        </div>
+        <div class="row">
+          <h4>My Filters</h4>
+          <div class="column-half">
+            <ul class="gear filters"></ul>
+          </div>
+          <div class="column-half">
+            <label for="filters">
+              <input required type="text" id="filters" name="filters" placeholder="New Filter">
+            </label>
+            <i class="fas fa-plus-square"></i>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="modal view hidden">
       <div class="modal-container">
