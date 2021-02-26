@@ -6,12 +6,20 @@ var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
 var $pageRecord = document.querySelector('#page-record');
 var $pageReview = document.querySelector('#page-review');
+
 var $header = document.querySelector('h2');
+
 var $zipInput = document.querySelector('#zip');
+
 var $form = document.querySelector('#field-notes-form');
 var $buttonSave = document.querySelector('#button-save');
+
 var $fieldNotes = document.querySelector('.field-notes');
+
 var $modal = document.querySelector('.modal');
+var $modalYes = document.querySelector('.icon-modal-yes');
+var $modalNo = document.querySelector('.icon-modal-no');
+
 var $navPlan = document.querySelector('.nav.plan');
 var $navRecord = document.querySelector('.nav.record');
 var $navReview = document.querySelector('.nav.review');
@@ -317,9 +325,16 @@ function editDelNote(event) {
         $form.elements.notes.value = fieldNotes.edit.notes;
       } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white') {
         $modal.className = 'modal view';
+        event.target.className = 'fas fa-minus-square icon-red';
       }
     }
   }
+}
+
+function closeModal(event) {
+  $modal.className = 'modal view hidden';
+  var $redIcon = document.querySelector('.icon-red');
+  $redIcon.className = 'fas fa-minus-square icon-white';
 }
 
 function renderFieldNotes(array) {
@@ -330,8 +345,11 @@ function renderFieldNotes(array) {
 }
 
 $zipInput.addEventListener('input', requestData);
+
 $buttonSave.addEventListener('click', newEditNote);
+
 $fieldNotes.addEventListener('click', editDelNote);
+$modalNo.addEventListener('click', closeModal);
 
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);

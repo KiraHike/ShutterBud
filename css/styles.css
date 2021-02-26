@@ -207,6 +207,11 @@ ul.field-notes {
   margin-left: 0.75rem;
 }
 
+.icon-red {
+  color: red;
+  margin-left: 0.75rem;
+}
+
 .modal {
   position: fixed;
   top: 0;
