@@ -26,6 +26,7 @@ var $navReview = document.querySelector('.nav.review');
 
 var fieldNote;
 var closestElement;
+var noteIDNum;
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
@@ -307,7 +308,7 @@ function renderNote(object) {
 
 function editDelNote(event) {
   closestElement = event.target.closest('li');
-  var noteIDNum = Number(closestElement.getAttribute('id'));
+  noteIDNum = Number(closestElement.getAttribute('id'));
   for (var i = 0; i < fieldNotes.notes.length; i++) {
     if (fieldNotes.notes[i].noteNum === noteIDNum) {
       if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
@@ -337,6 +338,21 @@ function closeModal(event) {
   $redIcon.className = 'fas fa-minus-square icon-white';
 }
 
+function deleteNote(event) {
+  for (var i = 0; i < fieldNotes.notes.length; i++) {
+    if (fieldNotes.notes[i].noteNum === noteIDNum) {
+      fieldNotes.notes.splice(i, 1);
+    }
+  }
+  var $fieldNotesChildren = $fieldNotes.childNodes;
+  for (i = 0; i < $fieldNotesChildren.length; i++) {
+    if ($fieldNotesChildren[i] === closestElement) {
+      $fieldNotesChildren[i].remove();
+    }
+  }
+  $modal.className = 'modal view hidden';
+}
+
 function renderFieldNotes(array) {
   for (var i = 0; i < array.length; i++) {
     fieldNote = renderNote(array[i]);
@@ -350,6 +366,7 @@ $buttonSave.addEventListener('click', newEditNote);
 
 $fieldNotes.addEventListener('click', editDelNote);
 $modalNo.addEventListener('click', closeModal);
+$modalYes.addEventListener('click', deleteNote);
 
 $navPlan.addEventListener('click', viewPlan);
 $navRecord.addEventListener('click', viewRecord);
