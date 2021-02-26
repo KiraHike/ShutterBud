@@ -77,6 +77,13 @@ li.nav.bold {
   justify-content: space-evenly;
 }
 
+.column-third.center {
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .column-third.right {
   justify-content: flex-end;
   align-items: center;

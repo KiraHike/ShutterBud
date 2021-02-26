@@ -212,8 +212,6 @@ function ready(event) {
   $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
 }
 
-console.log($form.elements);
-
 function newEditNote(event) {
   event.preventDefault();
   if ($header.textContent === 'New') {
@@ -289,7 +287,7 @@ function renderNote(object) {
   $liRow1.append($colDate);
 
   var $colPhoto = document.createElement('div');
-  $colPhoto.setAttribute('class', 'column-third');
+  $colPhoto.setAttribute('class', 'column-third center');
   var $textPhoto = document.createTextNode(object.photoName);
   $colPhoto.append($textPhoto);
   $liRow1.append($colPhoto);
