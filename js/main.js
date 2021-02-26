@@ -16,6 +16,9 @@ var $zipInput = document.querySelector('#zip');
 var $form = document.querySelector('#field-notes-form');
 var $buttonSave = document.querySelector('#button-save');
 
+var $gearCameras = document.querySelector('.gear.cameras');
+var $gearLenses = document.querySelector('.gear.lenses');
+var $gearFilters = document.querySelector('.gear.filters');
 var $newCamera = document.querySelector('#cameras');
 var $addCamera = document.querySelector('#addCamera');
 var $newLens = document.querySelector('#lenses');
@@ -183,6 +186,7 @@ function requestData(event) {
   getAstroData(event);
   getWeatherData(event);
   renderData();
+  event.target.value = null;
 }
 
 function newEditNote(event) {
@@ -392,13 +396,44 @@ function renderFieldNotes(array) {
 
 function newGear(event) {
   event.preventDefault();
-  console.log(event.target);
-  if (event.target === $addCamera) {
-    gearData.cameras.push($newCamera.value);
+  var renderedGear;
+    if (event.target === $addCamera) {
+      gearData.cameras.push($newCamera.value);
+      renderedGear = renderGearItem($newCamera.value);
+      $gearCameras.append(renderedGear);
+      $newCamera.value = null;
   } else if (event.target === $addLens) {
-    gearData.lenses.push($newLens.value);
+      gearData.lenses.push($newLens.value);
+      renderedGear = renderGearItem($newLens.value);
+      $gearLenses.append(renderedGear);
+      $newLens.value = null;
   } else if (event.target === $addFilter) {
-    gearData.filters.push($newFilter.value);
+      gearData.filters.push($newFilter.value);
+      renderedGear = renderGearItem($newFilter.value);
+      $gearFilters.append(renderedGear);
+      $newFilter.value = null;
+  }
+}
+
+function renderGearItem(item) {
+  var $gearItem = document.createElement('li');
+  $gearItem.textContent = item;
+  return $gearItem;
+}
+
+function renderGear(object) {
+  var gear;
+  for (var i = 0; i < object.cameras.length; i++) {
+    gear = renderGearItem(object.cameras[i]);
+    $gearCameras.append(gear);
+  }
+  for (i = 0; i < object.lenses.length; i++) {
+    gear = renderGearItem(object.lenses[i]);
+    $gearLenses.append(gear);
+  }
+  for (i = 0; i < object.filters.length; i++) {
+    gear = renderGearItem(object.filters[i]);
+    $gearFilters.append(gear);
   }
 }
 
@@ -422,4 +457,5 @@ $navGear.addEventListener('click', viewGear);
 window.addEventListener('DOMContentLoaded', function () {
   renderData();
   renderFieldNotes(fieldNotes.notes);
+  renderGear(gearData);
 });
