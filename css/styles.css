@@ -286,3 +286,7 @@ h4 {
   width: 8rem;
   margin: 0 0.25rem;
 }
+
+label:focus-within + i {
+  color: green;
+}
