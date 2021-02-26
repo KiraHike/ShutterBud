@@ -203,6 +203,17 @@ function requestData(event) {
   event.target.value = null;
 }
 
+function ready(event) {
+  for (var i = 0; i < $form.elements.length; i++) {
+    if ($form.elements[i].value.length < 1) {
+      return;
+    }
+  }
+  $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
+}
+
+console.log($form.elements);
+
 function newEditNote(event) {
   event.preventDefault();
   if ($header.textContent === 'New') {
@@ -255,6 +266,7 @@ function newEditNote(event) {
   }
   fieldNotes.edit = null;
   $form.reset();
+  $buttonSave.className = 'fas fa-plus-square fa-2x';
   viewReview(event);
 }
 
@@ -474,6 +486,7 @@ function renderGear(object) {
 
 $zipInput.addEventListener('input', requestData);
 
+$form.addEventListener('keypress', ready);
 $buttonSave.addEventListener('click', newEditNote);
 
 $fieldNotes.addEventListener('click', editDelNote);
