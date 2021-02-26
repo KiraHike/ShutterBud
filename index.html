@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap">
 </head>
+
 <body>
   <header>
     <h2 class="header view hidden"></h2>
@@ -115,42 +117,40 @@
       <ul class="field-notes"></ul>
     </div>
     <div id="page-gear" class="container view hidden">
-      <div class="gear-container">
-        <div class="row">
-          <h4>My Cameras</h4>
-          <div class="column-half">
-            <ul class="gear cameras"></ul>
-          </div>
-          <div class="column-half">
-            <label for="cameras">
-              <input required type="text" id="cameras" name="cameras" placeholder="New Camera">
-            </label>
-            <i class="fas fa-plus-square"></i>
-          </div>
+      <div class="row gear">
+        <h4>My Cameras</h4>
+        <div class="column-half">
+          <ul class="gear cameras"></ul>
         </div>
-        <div class="row">
-          <h4>My Lenses</h4>
-          <div class="column-half">
-            <ul class="gear lenses"></ul>
-          </div>
-          <div class="column-half">
-            <label for="lenses">
-              <input required type="text" id="lenses" name="lenses" placeholder="New Lens">
-            </label>
-            <i class="fas fa-plus-square"></i>
-          </div>
+        <div class="column-half new-gear">
+          <label for="cameras">
+            <input required type="text" id="cameras" name="cameras" placeholder="New Camera">
+          </label>
+          <i class="fas fa-plus-square fa-2x"></i>
         </div>
-        <div class="row">
-          <h4>My Filters</h4>
-          <div class="column-half">
-            <ul class="gear filters"></ul>
-          </div>
-          <div class="column-half">
-            <label for="filters">
-              <input required type="text" id="filters" name="filters" placeholder="New Filter">
-            </label>
-            <i class="fas fa-plus-square"></i>
-          </div>
+      </div>
+      <div class="row gear">
+        <h4>My Lenses</h4>
+        <div class="column-half">
+          <ul class="gear lenses"></ul>
+        </div>
+        <div class="column-half new-gear">
+          <label for="lenses">
+            <input required type="text" id="lenses" name="lenses" placeholder="New Lens">
+          </label>
+          <i class="fas fa-plus-square fa-2x"></i>
+        </div>
+      </div>
+      <div class="row gear">
+        <h4>My Filters</h4>
+        <div class="column-half">
+          <ul class="gear filters"></ul>
+        </div>
+        <div class="column-half new-gear">
+          <label for="filters">
+            <input required type="text" id="filters" name="filters" placeholder="New Filter">
+          </label>
+          <i class="fas fa-plus-square fa-2x"></i>
         </div>
       </div>
     </div>
@@ -177,4 +177,5 @@
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
