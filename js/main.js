@@ -1,6 +1,7 @@
 /* global astroData */
 /* global weatherData */
 /* global fieldNotes */
+/* global gearData */
 
 var $pageLanding = document.querySelector('#page-landing');
 var $pagePlan = document.querySelector('#page-plan');
