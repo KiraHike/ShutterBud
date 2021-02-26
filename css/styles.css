@@ -181,18 +181,6 @@ select {
   font-size: 1rem;
 }
 
-#button-save {
-  height: 2rem;
-  width: 6rem;
-  padding: 0.25rem;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 700;
-  background-color: black;
-  color: white;
-  border: none;
-}
-
 ul.field-notes {
   margin: 0;
   padding: 0.25rem;
