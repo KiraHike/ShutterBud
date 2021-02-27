@@ -404,16 +404,52 @@ function closeModal(event) {
   }
 }
 
-function deleteNote(event) {
-  for (var i = 0; i < fieldNotes.notes.length; i++) {
-    if (fieldNotes.notes[i].noteNum === noteIDNum) {
-      fieldNotes.notes.splice(i, 1);
+function deleteNoteGear(event) {
+  if ($pageRecord.getAttribute('class') === 'container view') {
+    for (var i = 0; i < fieldNotes.notes.length; i++) {
+      if (fieldNotes.notes[i].noteNum === noteIDNum) {
+        fieldNotes.notes.splice(i, 1);
+      }
     }
-  }
-  var $fieldNotesChildren = $fieldNotes.childNodes;
-  for (i = 0; i < $fieldNotesChildren.length; i++) {
-    if ($fieldNotesChildren[i] === closestElement) {
-      $fieldNotesChildren[i].remove();
+    var $fieldNotesChildren = $fieldNotes.childNodes;
+    for (i = 0; i < $fieldNotesChildren.length; i++) {
+      if ($fieldNotesChildren[i] === closestElement) {
+        $fieldNotesChildren[i].remove();
+      }
+    }
+  } else {
+    for (i = 0; i < gearData.cameras.length; i++) {
+      if (gearData.cameras[i] === closestElement.textContent) {
+        gearData.cameras.splice(i, 1);
+      }
+    }
+    for (i = 0; i < gearData.lenses.length; i++) {
+      if (gearData.lenses[i] === closestElement.textContent) {
+        gearData.lenses.splice(i, 1);
+      }
+    }
+    for (i = 0; i < gearData.filters.length; i++) {
+      if (gearData.filters[i] === closestElement.textContent) {
+        gearData.filters.splice(i, 1);
+      }
+    }
+    var $gearCamerasChildren = $gearCameras.childNodes;
+    for (i = 0; i < $gearCamerasChildren.length; i++) {
+      if ($gearCamerasChildren[i] === closestElement) {
+        $gearCamerasChildren[i].remove();
+      }
+    }
+    var $gearLensesChildren = $gearLenses.childNodes;
+    for (i = 0; i < $gearLensesChildren.length; i++) {
+      if ($gearLensesChildren[i] === closestElement) {
+        $gearLensesChildren[i].remove();
+      }
+    }
+    var $gearFiltersChildren = $gearFilters.childNodes;
+    for (i = 0; i < $gearFiltersChildren.length; i++) {
+      if ($gearFiltersChildren[i] === closestElement) {
+        $gearFiltersChildren[i].remove();
+      }
     }
   }
   $modal.className = 'modal view hidden';
@@ -458,6 +494,7 @@ function deleteGearItem(event) {
   if (event.target.matches('i')) {
     $modal.className = 'modal view';
     event.target.className = 'fas fa-minus-square icon-red-gear';
+    closestElement = event.target.closest('li');
   }
 }
 
@@ -507,7 +544,7 @@ $buttonSave.addEventListener('click', newEditNote);
 
 $fieldNotes.addEventListener('click', editDelNote);
 $modalNo.addEventListener('click', closeModal);
-$modalYes.addEventListener('click', deleteNote);
+$modalYes.addEventListener('click', deleteNoteGear);
 
 $gearCameras.addEventListener('click', deleteGearItem);
 $gearLenses.addEventListener('click', deleteGearItem);
