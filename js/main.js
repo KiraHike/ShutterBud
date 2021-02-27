@@ -385,16 +385,23 @@ function editDelNote(event) {
         $form.elements.notes.value = fieldNotes.edit.notes;
       } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white') {
         $modal.className = 'modal view';
-        event.target.className = 'fas fa-minus-square icon-red';
+        event.target.className = 'fas fa-minus-square icon-red-review';
       }
     }
   }
 }
 
 function closeModal(event) {
-  $modal.className = 'modal view hidden';
-  var $redIcon = document.querySelector('.icon-red');
-  $redIcon.className = 'fas fa-minus-square icon-white';
+  var $redIcon;
+  if ($pageReview.getAttribute('class') === 'container view') {
+    $modal.className = 'modal view hidden';
+    $redIcon = document.querySelector('.icon-red-review');
+    $redIcon.className = 'fas fa-minus-square icon-white';
+  } else {
+    $modal.className = 'modal view hidden';
+    $redIcon = document.querySelector('.icon-red-gear');
+    $redIcon.className = 'fas fa-minus-square icon-gear-del';
+  }
 }
 
 function deleteNote(event) {
@@ -450,6 +457,7 @@ function newGear(event) {
 function deleteGearItem(event) {
   if (event.target.matches('i')) {
     $modal.className = 'modal view';
+    event.target.className = 'fas fa-minus-square icon-red-gear';
   }
 }
 

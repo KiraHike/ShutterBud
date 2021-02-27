@@ -95,6 +95,10 @@ li.nav.bold {
   justify-content: space-evenly;
 }
 
+i {
+  font-size: 1.5rem;
+}
+
 #page-landing {
   display: flex;
   flex-direction: column;
@@ -224,7 +228,7 @@ ul.gear {
   margin-left: 0.75rem;
 }
 
-.icon-red {
+.icon-red-review {
   color: red;
   margin-left: 0.75rem;
 }
@@ -316,7 +320,11 @@ h4 {
 
 .icon-gear-del {
   margin-right: 0.5rem;
-  font-size: 1.5rem;
+}
+
+.icon-red-gear {
+  color: red;
+  margin-right: 0.5rem;
 }
 
 .icon-gear-add {
