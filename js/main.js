@@ -449,7 +449,11 @@ function newGear(event) {
 
 function renderGearItem(item) {
   var $gearItem = document.createElement('li');
+  $gearItem.setAttribute('class', 'gear-item');
   $gearItem.textContent = item;
+  var $deleteGearIcon = document.createElement('i');
+  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square icon-gear-del');
+  $gearItem.prepend($deleteGearIcon);
   return $gearItem;
 }
 
