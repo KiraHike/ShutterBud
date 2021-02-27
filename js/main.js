@@ -434,21 +434,27 @@ function deleteNoteGear(event) {
       }
     }
     var $gearCamerasChildren = $gearCameras.childNodes;
+    var $selectCameraChildren = $selectCamera.childNodes;
     for (i = 0; i < $gearCamerasChildren.length; i++) {
       if ($gearCamerasChildren[i] === closestElement) {
         $gearCamerasChildren[i].remove();
+        $selectCameraChildren[i].remove();
       }
     }
     var $gearLensesChildren = $gearLenses.childNodes;
+    var $selectLensChildren = $selectLens.childNodes;
     for (i = 0; i < $gearLensesChildren.length; i++) {
       if ($gearLensesChildren[i] === closestElement) {
         $gearLensesChildren[i].remove();
+        $selectLensChildren[i].remove();
       }
     }
     var $gearFiltersChildren = $gearFilters.childNodes;
+    var $selectFilterChildren = $selectFilter.childNodes;
     for (i = 0; i < $gearFiltersChildren.length; i++) {
       if ($gearFiltersChildren[i] === closestElement) {
         $gearFiltersChildren[i].remove();
+        $selectFilterChildren[i].remove();
       }
     }
   }
