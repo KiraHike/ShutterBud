@@ -447,6 +447,12 @@ function newGear(event) {
   }
 }
 
+function deleteGearItem(event) {
+  if (event.target.matches('i')) {
+    $modal.className = 'modal view';
+  }
+}
+
 function renderGearItem(item) {
   var $gearItem = document.createElement('li');
   $gearItem.setAttribute('class', 'gear-item');
@@ -495,6 +501,9 @@ $fieldNotes.addEventListener('click', editDelNote);
 $modalNo.addEventListener('click', closeModal);
 $modalYes.addEventListener('click', deleteNote);
 
+$gearCameras.addEventListener('click', deleteGearItem);
+$gearLenses.addEventListener('click', deleteGearItem);
+$gearFilters.addEventListener('click', deleteGearItem);
 $addCamera.addEventListener('click', newGear);
 $addLens.addEventListener('click', newGear);
 $addFilter.addEventListener('click', newGear);
