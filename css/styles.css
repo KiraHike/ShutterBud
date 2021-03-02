@@ -118,6 +118,15 @@ h1.header-landing {
   height: 11rem;
 }
 
+.list {
+  font-family: roboto, sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  padding: 1rem;
+  margin: 0;
+}
+
 label.zip {
   display: flex;
   justify-content: center;
@@ -143,18 +152,6 @@ h2 {
   font-size: 2.5rem;
   font-weight: 500;
   margin: 1.2rem 0 0.25rem 0.5rem;
-}
-
-h3 {
-  font-size: 1.8rem;
-  font-weight: 500;
-  width: 100%;
-  text-align: center;
-  margin: 0;
-}
-
-ul.list {
-  margin-bottom: 0;
 }
 
 .center {

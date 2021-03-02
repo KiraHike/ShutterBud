@@ -131,18 +131,16 @@ function getAstroData(event) {
 
 function getWeatherData(event) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.weatherstack.com/current?access_key=dcb9c9ee82f6655c925b30ce5386c0d2&query=' +
-    weatherData.zip + '&units=f');
+  xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?zip='
+          + weatherData.zip + '&appid=15a78bd9a1947e135af141f028f19302&units=imperial');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    weatherData.temperature = xhr.response.current.temperature;
-    weatherData.humidity = xhr.response.current.humidity;
-    weatherData.uvIndex = xhr.response.current.uv_index;
-    weatherData.windDirection = xhr.response.current.wind_dir;
-    weatherData.feelsLike = xhr.response.current.feelslike;
-    weatherData.precipitation = xhr.response.current.precip;
-    weatherData.cloudCover = xhr.response.current.cloudcover;
-    weatherData.windSpeed = xhr.response.current.wind_speed;
+    console.log(xhr.response);
+    console.log(xhr.response.main);
+    weatherData.temperature = Math.round(xhr.response.main.temp);
+    weatherData.humidity = Math.round(xhr.response.main.humidity);
+    weatherData.feelsLike = Math.round(xhr.response.main.feels_like);
+    weatherData.cloudCover = Math.round(xhr.response.clouds.all);
   });
   xhr.send();
 }
@@ -172,23 +170,11 @@ function renderData() {
   var $weatherHumidity = document.querySelector('.humidity');
   $weatherHumidity.textContent = weatherData.humidity;
 
-  var $weatheruvIndex = document.querySelector('.uv-index');
-  $weatheruvIndex.textContent = weatherData.uvIndex;
-
-  var $weatherWindDirection = document.querySelector('.wind-direction');
-  $weatherWindDirection.textContent = weatherData.windDirection;
-
   var $weatherFeelsLike = document.querySelector('.feels-like');
   $weatherFeelsLike.textContent = weatherData.feelsLike;
 
-  var $weatherPrecipitation = document.querySelector('.precipitation');
-  $weatherPrecipitation.textContent = weatherData.precipitation;
-
   var $weatherCloudCover = document.querySelector('.cloud-cover');
   $weatherCloudCover.textContent = weatherData.cloudCover;
-
-  var $weatherWindSpeed = document.querySelector('.wind-speed');
-  $weatherWindSpeed.textContent = weatherData.windSpeed;
 }
 
 function requestData(event) {
