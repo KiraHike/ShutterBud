@@ -131,7 +131,7 @@ function getAstroData(event) {
 
 function getWeatherData(event) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://api.weatherstack.com/current?access_key=dcb9c9ee82f6655c925b30ce5386c0d2&query=' +
+  xhr.open('GET', 'https://api.weatherstack.com/current?access_key=dcb9c9ee82f6655c925b30ce5386c0d2&query=' +
     weatherData.zip + '&units=f');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
@@ -405,7 +405,7 @@ function closeModal(event) {
 }
 
 function deleteNoteGear(event) {
-  if ($pageRecord.getAttribute('class') === 'container view') {
+  if ($pageReview.getAttribute('class') === 'container view') {
     for (var i = 0; i < fieldNotes.notes.length; i++) {
       if (fieldNotes.notes[i].noteNum === noteIDNum) {
         fieldNotes.notes.splice(i, 1);
