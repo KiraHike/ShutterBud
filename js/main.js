@@ -132,7 +132,7 @@ function getAstroData(event) {
 function getWeatherData(event) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://api.weatherstack.com/current?access_key=dcb9c9ee82f6655c925b30ce5386c0d2&query=' +
-    weatherData.zip);
+    weatherData.zip + '&units=f');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     weatherData.temperature = xhr.response.current.temperature;
@@ -385,28 +385,81 @@ function editDelNote(event) {
         $form.elements.notes.value = fieldNotes.edit.notes;
       } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white') {
         $modal.className = 'modal view';
-        event.target.className = 'fas fa-minus-square icon-red';
+        event.target.className = 'fas fa-minus-square icon-red-review';
       }
     }
   }
 }
 
 function closeModal(event) {
-  $modal.className = 'modal view hidden';
-  var $redIcon = document.querySelector('.icon-red');
-  $redIcon.className = 'fas fa-minus-square icon-white';
+  var $redIcon;
+  if ($pageReview.getAttribute('class') === 'container view') {
+    $modal.className = 'modal view hidden';
+    $redIcon = document.querySelector('.icon-red-review');
+    $redIcon.className = 'fas fa-minus-square icon-white';
+  } else {
+    $modal.className = 'modal view hidden';
+    $redIcon = document.querySelector('.icon-red-gear');
+    $redIcon.className = 'fas fa-minus-square icon-gear-del';
+  }
 }
 
-function deleteNote(event) {
-  for (var i = 0; i < fieldNotes.notes.length; i++) {
-    if (fieldNotes.notes[i].noteNum === noteIDNum) {
-      fieldNotes.notes.splice(i, 1);
+function deleteNoteGear(event) {
+  if ($pageRecord.getAttribute('class') === 'container view') {
+    for (var i = 0; i < fieldNotes.notes.length; i++) {
+      if (fieldNotes.notes[i].noteNum === noteIDNum) {
+        fieldNotes.notes.splice(i, 1);
+      }
     }
-  }
-  var $fieldNotesChildren = $fieldNotes.childNodes;
-  for (i = 0; i < $fieldNotesChildren.length; i++) {
-    if ($fieldNotesChildren[i] === closestElement) {
-      $fieldNotesChildren[i].remove();
+    var $fieldNotesChildren = $fieldNotes.childNodes;
+    for (i = 0; i < $fieldNotesChildren.length; i++) {
+      if ($fieldNotesChildren[i] === closestElement) {
+        $fieldNotesChildren[i].remove();
+      }
+    }
+  } else {
+    if (closestElement.getAttribute('data-gear') === 'camera') {
+      for (i = 0; i < gearData.cameras.length; i++) {
+        if (gearData.cameras[i] === closestElement.textContent) {
+          gearData.cameras.splice(i, 1);
+        }
+      }
+      var $gearCamerasChildren = $gearCameras.childNodes;
+      var $selectCameraChildren = $selectCamera.childNodes;
+      for (i = 0; i < $gearCamerasChildren.length; i++) {
+        if ($gearCamerasChildren[i] === closestElement) {
+          $gearCamerasChildren[i].remove();
+          $selectCameraChildren[i].remove();
+        }
+      }
+    } else if (closestElement.getAttribute('data-gear') === 'lens') {
+      for (i = 0; i < gearData.lenses.length; i++) {
+        if (gearData.lenses[i] === closestElement.textContent) {
+          gearData.lenses.splice(i, 1);
+        }
+      }
+      var $gearLensesChildren = $gearLenses.childNodes;
+      var $selectLensChildren = $selectLens.childNodes;
+      for (i = 0; i < $gearLensesChildren.length; i++) {
+        if ($gearLensesChildren[i] === closestElement) {
+          $gearLensesChildren[i].remove();
+          $selectLensChildren[i].remove();
+        }
+      }
+    } else {
+      for (i = 0; i < gearData.filters.length; i++) {
+        if (gearData.filters[i] === closestElement.textContent) {
+          gearData.filters.splice(i, 1);
+        }
+      }
+      var $gearFiltersChildren = $gearFilters.childNodes;
+      var $selectFilterChildren = $selectFilter.childNodes;
+      for (i = 0; i < $gearFiltersChildren.length; i++) {
+        if ($gearFiltersChildren[i] === closestElement) {
+          $gearFiltersChildren[i].remove();
+          $selectFilterChildren[i].remove();
+        }
+      }
     }
   }
   $modal.className = 'modal view hidden';
@@ -425,36 +478,50 @@ function newGear(event) {
   var renderedOption;
     if (event.target === $addCamera) {
       gearData.cameras.push($newCamera.value);
-      renderedGear = renderGearItem($newCamera.value);
+      renderedGear = renderGearItem($newCamera.value, 'camera');
       $gearCameras.append(renderedGear);
-      renderedOption = renderGearOption($newCamera.value);
+      renderedOption = renderGearOption($newCamera.value, 'camera');
       $selectCamera.append(renderedOption);
       $newCamera.value = null;
   } else if (event.target === $addLens) {
       gearData.lenses.push($newLens.value);
-      renderedGear = renderGearItem($newLens.value);
+      renderedGear = renderGearItem($newLens.value, 'lens');
       $gearLenses.append(renderedGear);
-      renderedOption = renderGearOption($newLens.value);
+      renderedOption = renderGearOption($newLens.value, 'lens');
       $selectLens.append(renderedOption);
       $newLens.value = null;
   } else if (event.target === $addFilter) {
       gearData.filters.push($newFilter.value);
-      renderedGear = renderGearItem($newFilter.value);
+      renderedGear = renderGearItem($newFilter.value, 'filter');
       $gearFilters.append(renderedGear);
-      renderedOption = renderGearOption($newFilter.value);
+      renderedOption = renderGearOption($newFilter.value, 'filter');
       $selectFilter.append(renderedOption);
       $newFilter.value = null;
   }
 }
 
-function renderGearItem(item) {
+function deleteGearItem(event) {
+  if (event.target.matches('i')) {
+    $modal.className = 'modal view';
+    event.target.className = 'fas fa-minus-square icon-red-gear';
+    closestElement = event.target.closest('li');
+  }
+}
+
+function renderGearItem(item, gearType) {
   var $gearItem = document.createElement('li');
+  $gearItem.setAttribute('class', 'gear-item');
+  $gearItem.setAttribute('data-gear', gearType);
   $gearItem.textContent = item;
+  var $deleteGearIcon = document.createElement('i');
+  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square icon-gear-del');
+  $gearItem.prepend($deleteGearIcon);
   return $gearItem;
 }
 
-function renderGearOption(item) {
+function renderGearOption(item, gearType) {
   var $gearOption = document.createElement('option');
+  $gearOption.setAttribute('data-gear', gearType);
   $gearOption.textContent = item;
   return $gearOption;
 }
@@ -463,21 +530,21 @@ function renderGear(object) {
   var gear;
   var option;
   for (var i = 0; i < object.cameras.length; i++) {
-    gear = renderGearItem(object.cameras[i]);
+    gear = renderGearItem(object.cameras[i], 'camera');
     $gearCameras.append(gear);
-    option = renderGearOption(object.cameras[i]);
+    option = renderGearOption(object.cameras[i], 'camera');
     $selectCamera.append(option);
   }
   for (i = 0; i < object.lenses.length; i++) {
-    gear = renderGearItem(object.lenses[i]);
+    gear = renderGearItem(object.lenses[i], 'lens');
     $gearLenses.append(gear);
-    option = renderGearOption(object.lenses[i]);
+    option = renderGearOption(object.lenses[i], 'lens');
     $selectLens.append(option);
   }
   for (i = 0; i < object.filters.length; i++) {
-    gear = renderGearItem(object.filters[i]);
+    gear = renderGearItem(object.filters[i], 'filter');
     $gearFilters.append(gear);
-    option = renderGearOption(object.filters[i]);
+    option = renderGearOption(object.filters[i], 'filter');
     $selectFilter.append(option);
   }
 }
@@ -489,8 +556,11 @@ $buttonSave.addEventListener('click', newEditNote);
 
 $fieldNotes.addEventListener('click', editDelNote);
 $modalNo.addEventListener('click', closeModal);
-$modalYes.addEventListener('click', deleteNote);
+$modalYes.addEventListener('click', deleteNoteGear);
 
+$gearCameras.addEventListener('click', deleteGearItem);
+$gearLenses.addEventListener('click', deleteGearItem);
+$gearFilters.addEventListener('click', deleteGearItem);
 $addCamera.addEventListener('click', newGear);
 $addLens.addEventListener('click', newGear);
 $addFilter.addEventListener('click', newGear);
