@@ -49,7 +49,10 @@ li.nav.bold {
 }
 
 .container {
-  max-width: 575px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
   min-height: 75vh;
   margin: 0 auto;
   padding: 0.5rem;
@@ -341,4 +344,16 @@ h4 {
 
 label:focus-within + i {
   color: green;
+}
+
+@media screen and (min-width: 576px) {
+  .container {
+      width: 80%
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 60%
+  }
 }

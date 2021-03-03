@@ -9,7 +9,8 @@ var $pageRecord = document.querySelector('#page-record');
 var $pageReview = document.querySelector('#page-review');
 var $pageGear = document.querySelector('#page-gear');
 
-var $header = document.querySelector('h2');
+var $header = document.querySelector('header');
+var $headerTitle = document.querySelector('h2');
 
 var $zipInput = document.querySelector('#zip');
 
@@ -62,7 +63,7 @@ function viewPlan(event) {
   $pageReview.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
   $header.className = 'header view';
-  $header.textContent = 'Location';
+  $headerTitle.textContent = 'Location';
   $navPlan.className = 'nav plan bold';
   $navRecord.className = 'nav record';
   $navReview.className = 'nav review';
@@ -76,7 +77,7 @@ function viewRecord(event) {
   $pageReview.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
   $header.className = 'header view';
-  $header.textContent = 'New';
+  $headerTitle.textContent = 'New';
   $navRecord.className = 'nav record bold';
   $navPlan.className = 'nav plan';
   $navReview.className = 'nav review';
@@ -91,7 +92,7 @@ function viewReview(event) {
   $pagePlan.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
   $header.className = 'header view';
-  $header.textContent = 'Field Notes';
+  $headerTitle.textContent = 'Field Notes';
   $navReview.className = 'nav review bold';
   $navPlan.className = 'nav plan';
   $navRecord.className = 'nav record';
@@ -105,7 +106,7 @@ function viewGear(event) {
   $pageRecord.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
   $header.className = 'header view';
-  $header.textContent = 'My Gear';
+  $headerTitle.textContent = 'My Gear';
   $navGear.className = 'nav gear bold';
   $navPlan.className = 'nav plan';
   $navRecord.className = 'nav record';
@@ -125,6 +126,7 @@ function getAstroData(event) {
     astroData.moonset = xhr.response.moonset;
     astroData.dayLength = xhr.response.day_length;
     astroData.date = xhr.response.date;
+    getWeatherData();
   });
   xhr.send();
 }
@@ -135,12 +137,11 @@ function getWeatherData(event) {
           + weatherData.zip + '&appid=15a78bd9a1947e135af141f028f19302&units=imperial');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    console.log(xhr.response);
-    console.log(xhr.response.main);
     weatherData.temperature = Math.round(xhr.response.main.temp);
     weatherData.humidity = Math.round(xhr.response.main.humidity);
     weatherData.feelsLike = Math.round(xhr.response.main.feels_like);
     weatherData.cloudCover = Math.round(xhr.response.clouds.all);
+    renderData();
   });
   xhr.send();
 }
@@ -184,8 +185,6 @@ function requestData(event) {
   astroData.zip = event.target.value;
   weatherData.zip = event.target.value;
   getAstroData(event);
-  getWeatherData(event);
-  renderData();
   event.target.value = null;
 }
 
@@ -200,7 +199,7 @@ function ready(event) {
 
 function newEditNote(event) {
   event.preventDefault();
-  if ($header.textContent === 'New') {
+  if ($headerTitle.textContent === 'New') {
     getAstroData(event);
     fieldNote = {
       noteNum: fieldNotes.nextNum,
@@ -359,7 +358,7 @@ function editDelNote(event) {
       if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
         fieldNotes.edit = fieldNotes.notes[i];
         viewRecord(event);
-        $header.textContent = 'Edit';
+        $headerTitle.textContent = 'Edit';
         $form.elements.photo.value = fieldNotes.edit.photoName;
         $form.elements.camera.value = fieldNotes.edit.camera;
         $form.elements.lens.value = fieldNotes.edit.lens;
