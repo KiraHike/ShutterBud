@@ -71,7 +71,7 @@ li.nav.bold {
 }
 
 .column-half {
-  width: 50%;
+  max-width: 50%;
 }
 
 .column-half.plan {
@@ -127,7 +127,6 @@ h1.header-landing {
   font-size: 1.3rem;
   line-height: 2rem;
   padding: 0;
-  /* padding: 1rem; */
   margin: 0;
 }
 
@@ -177,16 +176,11 @@ h3 {
   padding: 0;
 }
 
-label {
-  width: 100%;
-  margin: 0;
-}
-
 input,
 select {
-  margin: 0.5rem;
+  margin: 0.5rem 0.25rem;
   padding: 0.25rem;
-  width: 90%;
+  width: 95%;
   background-color: #efefef;
   border: none;
   font-family: roboto, sans-serif;
@@ -214,6 +208,7 @@ ul.field-notes,
 ul.gear {
   margin: 0;
   padding: 0.25rem;
+  width: 100%;
 }
 
 .row.black {
