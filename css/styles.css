@@ -12,12 +12,6 @@ header {
   background-color: white;
 }
 
-main {
-  margin-top: 77px;
-  min-height: 525px;
-  margin-bottom: 65px;
-}
-
 footer {
   width: 100%;
   position: fixed;
@@ -48,14 +42,18 @@ li.nav.bold {
   font-weight: 700;
 }
 
+#page-landing {
+  margin: 65px auto;
+}
+
 .container {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  min-height: 75vh;
-  margin: 0 auto;
   padding: 0.5rem;
+  margin: 77px 0 65px 0;
 }
 
 .row {
@@ -63,6 +61,7 @@ li.nav.bold {
   padding: 1rem 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .column-full {
@@ -73,6 +72,12 @@ li.nav.bold {
 
 .column-half {
   width: 50%;
+}
+
+.column-half.plan {
+  width: fit-content;
+  padding: 1rem;
+  justify-content: center;
 }
 
 .column-third {
@@ -103,18 +108,12 @@ i {
   font-size: 1.5rem;
 }
 
-#page-landing {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 h1.header-landing {
   width: 100%;
   text-align: center;
   font-size: 2.2rem;
   font-weight: 500;
-  margin: 5rem 0 1rem 0;
+  margin-top: 0;
 }
 
 .img-logo {
@@ -122,17 +121,13 @@ h1.header-landing {
   height: 11rem;
 }
 
-.plan {
-  display: flex;
-  align-items: center;
-}
-
 .list {
   font-family: roboto, sans-serif;
   font-weight: 400;
   font-size: 1.3rem;
   line-height: 2rem;
-  padding: 1rem;
+  padding: 0;
+  /* padding: 1rem; */
   margin: 0;
 }
 
@@ -160,6 +155,14 @@ h2 {
   font-size: 2.5rem;
   font-weight: 500;
   margin: 1.2rem 0 0.25rem 0.5rem;
+}
+
+h3 {
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
 }
 
 .center {
@@ -348,12 +351,31 @@ label:focus-within + i {
 
 @media screen and (min-width: 576px) {
   .container {
-      width: 80%
+      width: 80%;
+      margin: 77px auto 65px auto;
+  }
+
+  #page-landing {
+    margin: 1rem auto;
+  }
+
+  .landing.container {
+    margin: 0 auto;
   }
 }
 
 @media screen and (min-width: 768px) {
   .container {
-    width: 60%
+    width: 50%;
+    margin: 77px auto 65px auto;
+  }
+
+  #page-landing {
+    margin: 65px auto;
+    min-height: 72vh;
+  }
+
+  .landing.container {
+    margin: 0 auto;
   }
 }
