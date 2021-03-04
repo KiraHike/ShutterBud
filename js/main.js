@@ -13,6 +13,7 @@ var $header = document.querySelector('header');
 var $headerTitle = document.querySelector('h2');
 
 var $zipInput = document.querySelector('#zip');
+var $spinner = document.querySelector('.spinner');
 
 var $form = document.querySelector('#field-notes-form');
 
@@ -58,7 +59,7 @@ var noteIDNum;
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
-  $pageLanding.className = 'container view hidden';
+  $pageLanding.className = 'view hidden';
   $pageRecord.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
@@ -72,7 +73,7 @@ function viewPlan(event) {
 
 function viewRecord(event) {
   $pageRecord.className = 'container view';
-  $pageLanding.className = 'container view hidden';
+  $pageLanding.className = 'view hidden';
   $pagePlan.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
@@ -86,7 +87,7 @@ function viewRecord(event) {
 
 function viewReview(event) {
   $pageReview.className = 'container view';
-  $pageLanding.className = 'container view hidden';
+  $pageLanding.className = 'view hidden';
   $pagePlan.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
   $pagePlan.className = 'container view hidden';
@@ -101,7 +102,7 @@ function viewReview(event) {
 
 function viewGear(event) {
   $pageGear.className = 'container view';
-  $pageLanding.className = 'container view hidden';
+  $pageLanding.className = 'view hidden';
   $pagePlan.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
@@ -114,6 +115,7 @@ function viewGear(event) {
 }
 
 function getAstroData(event) {
+  $spinner.className = 'spinner';
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.ipgeolocation.io/astronomy?apiKey=e79aa15752144199b62b2a82488d2761&location=' +
     astroData.zip);
@@ -142,6 +144,7 @@ function getWeatherData(event) {
     weatherData.feelsLike = Math.round(xhr.response.main.feels_like);
     weatherData.cloudCover = Math.round(xhr.response.clouds.all);
     renderData();
+    $spinner.className = 'spinner hidden';
   });
   xhr.send();
 }
