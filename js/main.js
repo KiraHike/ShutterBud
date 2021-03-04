@@ -13,6 +13,7 @@ var $header = document.querySelector('header');
 var $headerTitle = document.querySelector('h2');
 
 var $zipInput = document.querySelector('#zip');
+var $spinner = document.querySelector('.spinner');
 
 var $form = document.querySelector('#field-notes-form');
 
@@ -114,6 +115,7 @@ function viewGear(event) {
 }
 
 function getAstroData(event) {
+  $spinner.className = 'spinner';
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.ipgeolocation.io/astronomy?apiKey=e79aa15752144199b62b2a82488d2761&location=' +
     astroData.zip);
@@ -127,6 +129,7 @@ function getAstroData(event) {
     astroData.dayLength = xhr.response.day_length;
     astroData.date = xhr.response.date;
     getWeatherData();
+    $spinner.className = 'spinner hidden';
   });
   xhr.send();
 }
