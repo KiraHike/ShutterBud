@@ -36,9 +36,11 @@ li {
 li.nav {
   display: inline;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
-li.nav.bold {
+li.nav.bold,
+li.nav:hover {
   font-weight: 700;
 }
 
@@ -110,6 +112,35 @@ li.nav.bold {
 
 i {
   font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.icon-green,
+.edit-n:hover,
+label:focus-within + i {
+  color: green;
+}
+
+.icon-white {
+  color: white;
+}
+
+.icon-red,
+.del-g:hover,
+.del-n:hover {
+  color: red;
+}
+
+.del-n {
+  margin-left: 0.75rem;
+}
+
+.del-g {
+  margin-right: 0.5rem;
+}
+
+.icon-gear-add {
+  font-size: 1.8rem;
 }
 
 h1.header-landing {
@@ -173,10 +204,6 @@ select {
   font-size: 1rem;
 }
 
-.icon-green {
-  color: green;
-}
-
 ul.field-notes,
 ul.gear {
   margin: 0;
@@ -203,16 +230,6 @@ ul.gear {
   font-weight: 300;
   font-size: 1.2rem;
   padding: 0.5rem 0.5rem 1rem 0.5rem;
-}
-
-.icon-white {
-  color: white;
-  margin-left: 0.75rem;
-}
-
-.icon-red-review {
-  color: red;
-  margin-left: 0.75rem;
 }
 
 .modal {
@@ -304,33 +321,14 @@ h4 {
   padding: 0.5rem;
 }
 
-.icon-gear-del {
-  margin-right: 0.5rem;
-}
-
-.icon-red-gear {
-  color: red;
-  margin-right: 0.5rem;
-}
-
-.icon-gear-add {
-  font-size: 1.8rem;
-}
-
-label:focus-within + i {
-  color: green;
-}
-
 @media screen and (min-width: 576px) {
   .container {
       width: 80%;
       margin: 77px auto 65px auto;
   }
-
   #page-landing {
     margin: 1rem auto;
   }
-
   .landing.container {
     margin: 0 auto;
   }
@@ -341,12 +339,10 @@ label:focus-within + i {
     width: 50%;
     margin: 77px auto 65px auto;
   }
-
   #page-landing {
     margin: 65px auto;
     min-height: 72vh;
   }
-
   .landing.container {
     margin: 0 auto;
   }

@@ -280,10 +280,10 @@ function renderNote(object) {
   var $colIcons = document.createElement('div');
   $colIcons.setAttribute('class', 'column-third right');
   var $editIcon = document.createElement('i');
-  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white');
+  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white edit-n');
   $colIcons.append($editIcon);
   var $deleteIcon = document.createElement('i');
-  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white');
+  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white del-n');
   $colIcons.append($deleteIcon);
   $liRow1.append($colIcons);
 
@@ -355,7 +355,7 @@ function editDelNote(event) {
   noteIDNum = Number(closestElement.getAttribute('id'));
   for (var i = 0; i < fieldNotes.notes.length; i++) {
     if (fieldNotes.notes[i].noteNum === noteIDNum) {
-      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
+      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white edit-n') {
         fieldNotes.edit = fieldNotes.notes[i];
         viewRecord(event);
         $headerTitle.textContent = 'Edit';
@@ -368,9 +368,10 @@ function editDelNote(event) {
         $form.elements.iso.value = fieldNotes.edit.iso;
         $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
         $form.elements.notes.value = fieldNotes.edit.notes;
-      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white') {
+        $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
+      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white del-n') {
         $modal.className = 'modal view';
-        event.target.className = 'fas fa-minus-square icon-red-review';
+        event.target.className = 'fas fa-minus-square icon-red del-n';
       }
     }
   }
@@ -380,12 +381,12 @@ function closeModal(event) {
   var $redIcon;
   if ($pageReview.getAttribute('class') === 'container view') {
     $modal.className = 'modal view hidden';
-    $redIcon = document.querySelector('.icon-red-review');
-    $redIcon.className = 'fas fa-minus-square icon-white';
+    $redIcon = document.querySelector('.icon-red.del-n');
+    $redIcon.className = 'fas fa-minus-square icon-white del-n';
   } else {
     $modal.className = 'modal view hidden';
-    $redIcon = document.querySelector('.icon-red-gear');
-    $redIcon.className = 'fas fa-minus-square icon-gear-del';
+    $redIcon = document.querySelector('.icon-red.del-g');
+    $redIcon.className = 'fas fa-minus-square del-g';
   }
 }
 
@@ -488,7 +489,7 @@ function newGear(event) {
 function deleteGearItem(event) {
   if (event.target.matches('i')) {
     $modal.className = 'modal view';
-    event.target.className = 'fas fa-minus-square icon-red-gear';
+    event.target.className = 'fas fa-minus-square icon-red del-g';
     closestElement = event.target.closest('li');
   }
 }
@@ -499,7 +500,7 @@ function renderGearItem(item, gearType) {
   $gearItem.setAttribute('data-gear', gearType);
   $gearItem.textContent = item;
   var $deleteGearIcon = document.createElement('i');
-  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square icon-gear-del');
+  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square del-g');
   $gearItem.prepend($deleteGearIcon);
   return $gearItem;
 }
