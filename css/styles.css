@@ -218,6 +218,12 @@ select {
   font-size: 1rem;
 }
 
+#no-notes-msg {
+  font-family: roboto, sans-serif;
+  font-size: 2rem;
+
+}
+
 ul.field-notes,
 ul.gear {
   margin: 0;
