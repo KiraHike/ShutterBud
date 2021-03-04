@@ -12,11 +12,6 @@ header {
   background-color: white;
 }
 
-main {
-  margin-top: 77px;
-  margin-bottom: 60px;
-}
-
 footer {
   width: 100%;
   position: fixed;
@@ -41,17 +36,26 @@ li {
 li.nav {
   display: inline;
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
-li.nav.bold {
+li.nav.bold,
+li.nav:hover {
   font-weight: 700;
 }
 
+#page-landing {
+  margin: 65px auto;
+}
+
 .container {
-  max-width: 575px;
-  min-height: 80vh;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
   padding: 0.5rem;
+  margin: 77px 0 65px 0;
 }
 
 .row {
@@ -59,6 +63,12 @@ li.nav.bold {
   padding: 1rem 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+.row.plan.bottom-border {
+  justify-content: space-evenly;
+  border-bottom: 1px solid #efefef;
 }
 
 .column-full {
@@ -69,6 +79,11 @@ li.nav.bold {
 
 .column-half {
   width: 50%;
+}
+
+.column-half.plan {
+  width: fit-content;
+  padding: 1rem;
 }
 
 .column-third {
@@ -97,12 +112,35 @@ li.nav.bold {
 
 i {
   font-size: 1.5rem;
+  cursor: pointer;
 }
 
-#page-landing {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.icon-green,
+.edit-n:hover,
+label:focus-within + i {
+  color: green;
+}
+
+.icon-white {
+  color: white;
+}
+
+.icon-red,
+.del-g:hover,
+.del-n:hover {
+  color: red;
+}
+
+.del-n {
+  margin-left: 0.75rem;
+}
+
+.del-g {
+  margin-right: 0.5rem;
+}
+
+.icon-gear-add {
+  font-size: 1.8rem;
 }
 
 h1.header-landing {
@@ -110,7 +148,7 @@ h1.header-landing {
   text-align: center;
   font-size: 2.2rem;
   font-weight: 500;
-  margin: 5rem 0 1rem 0;
+  margin-top: 0;
 }
 
 .img-logo {
@@ -118,25 +156,22 @@ h1.header-landing {
   height: 11rem;
 }
 
-label.zip {
-  display: flex;
-  justify-content: center;
+.list {
+  font-family: roboto, sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 2rem;
+  padding: 0;
+  margin: 0;
 }
 
 #zip {
-  margin-top: 3rem;
   height: 2rem;
-  width: 6rem;
+  width: 8rem;
   padding: 0.25rem;
   text-align: center;
   background-color: #efefef;
   border: none;
-}
-
-#page-plan {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 
 h2 {
@@ -145,34 +180,11 @@ h2 {
   margin: 1.2rem 0 0.25rem 0.5rem;
 }
 
-h3 {
-  font-size: 1.8rem;
-  font-weight: 500;
-  width: 100%;
-  text-align: center;
-  margin: 0;
-}
-
-ul.list {
-  margin-bottom: 0;
-}
-
-.center {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-label {
-  width: 100%;
-  margin: 0;
-}
-
 input,
 select {
-  margin: 0.5rem;
+  margin: 0.5rem 0.25rem;
   padding: 0.25rem;
-  width: 90%;
+  width: 95%;
   background-color: #efefef;
   border: none;
   font-family: roboto, sans-serif;
@@ -192,14 +204,11 @@ select {
   font-size: 1rem;
 }
 
-.icon-green {
-  color: green;
-}
-
 ul.field-notes,
 ul.gear {
   margin: 0;
   padding: 0.25rem;
+  width: 100%;
 }
 
 .row.black {
@@ -221,16 +230,6 @@ ul.gear {
   font-weight: 300;
   font-size: 1.2rem;
   padding: 0.5rem 0.5rem 1rem 0.5rem;
-}
-
-.icon-white {
-  color: white;
-  margin-left: 0.75rem;
-}
-
-.icon-red-review {
-  color: red;
-  margin-left: 0.75rem;
 }
 
 .modal {
@@ -281,10 +280,16 @@ p.del {
 
 .row.gear {
   width: 100%;
-  min-height: 26vh;
+  min-height: 20vh;
+  padding-bottom: 0;
 }
 
-.new-gear {
+.column-half-gear {
+  width: 50%;
+}
+
+.column-half-new-gear {
+  width: 50%;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -310,27 +315,35 @@ h4 {
 }
 
 .gear-item {
-  display: flex;
-  align-items: center;
   font-family: roboto, sans-serif;
   font-size: 1.2rem;
   font-weight: 300;
   padding: 0.5rem;
 }
 
-.icon-gear-del {
-  margin-right: 0.5rem;
+@media screen and (min-width: 576px) {
+  .container {
+      width: 80%;
+      margin: 77px auto 65px auto;
+  }
+  #page-landing {
+    margin: 1rem auto;
+  }
+  .landing.container {
+    margin: 0 auto;
+  }
 }
 
-.icon-red-gear {
-  color: red;
-  margin-right: 0.5rem;
-}
-
-.icon-gear-add {
-  font-size: 1.8rem;
-}
-
-label:focus-within + i {
-  color: green;
+@media screen and (min-width: 768px) {
+  .container {
+    width: 50%;
+    margin: 77px auto 65px auto;
+  }
+  #page-landing {
+    margin: 65px auto;
+    min-height: 72vh;
+  }
+  .landing.container {
+    margin: 0 auto;
+  }
 }

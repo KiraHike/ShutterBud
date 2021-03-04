@@ -9,7 +9,8 @@ var $pageRecord = document.querySelector('#page-record');
 var $pageReview = document.querySelector('#page-review');
 var $pageGear = document.querySelector('#page-gear');
 
-var $header = document.querySelector('h2');
+var $header = document.querySelector('header');
+var $headerTitle = document.querySelector('h2');
 
 var $zipInput = document.querySelector('#zip');
 
@@ -62,7 +63,7 @@ function viewPlan(event) {
   $pageReview.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
   $header.className = 'header view';
-  $header.textContent = 'Location';
+  $headerTitle.textContent = 'Location';
   $navPlan.className = 'nav plan bold';
   $navRecord.className = 'nav record';
   $navReview.className = 'nav review';
@@ -76,7 +77,7 @@ function viewRecord(event) {
   $pageReview.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
   $header.className = 'header view';
-  $header.textContent = 'New';
+  $headerTitle.textContent = 'New';
   $navRecord.className = 'nav record bold';
   $navPlan.className = 'nav plan';
   $navReview.className = 'nav review';
@@ -91,7 +92,7 @@ function viewReview(event) {
   $pagePlan.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
   $header.className = 'header view';
-  $header.textContent = 'Field Notes';
+  $headerTitle.textContent = 'Field Notes';
   $navReview.className = 'nav review bold';
   $navPlan.className = 'nav plan';
   $navRecord.className = 'nav record';
@@ -105,7 +106,7 @@ function viewGear(event) {
   $pageRecord.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
   $header.className = 'header view';
-  $header.textContent = 'My Gear';
+  $headerTitle.textContent = 'My Gear';
   $navGear.className = 'nav gear bold';
   $navPlan.className = 'nav plan';
   $navRecord.className = 'nav record';
@@ -125,24 +126,22 @@ function getAstroData(event) {
     astroData.moonset = xhr.response.moonset;
     astroData.dayLength = xhr.response.day_length;
     astroData.date = xhr.response.date;
+    getWeatherData();
   });
   xhr.send();
 }
 
 function getWeatherData(event) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.weatherstack.com/current?access_key=dcb9c9ee82f6655c925b30ce5386c0d2&query=' +
-    weatherData.zip + '&units=f');
+  xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?zip='
+          + weatherData.zip + '&appid=15a78bd9a1947e135af141f028f19302&units=imperial');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    weatherData.temperature = xhr.response.current.temperature;
-    weatherData.humidity = xhr.response.current.humidity;
-    weatherData.uvIndex = xhr.response.current.uv_index;
-    weatherData.windDirection = xhr.response.current.wind_dir;
-    weatherData.feelsLike = xhr.response.current.feelslike;
-    weatherData.precipitation = xhr.response.current.precip;
-    weatherData.cloudCover = xhr.response.current.cloudcover;
-    weatherData.windSpeed = xhr.response.current.wind_speed;
+    weatherData.temperature = Math.round(xhr.response.main.temp);
+    weatherData.humidity = Math.round(xhr.response.main.humidity);
+    weatherData.feelsLike = Math.round(xhr.response.main.feels_like);
+    weatherData.cloudCover = Math.round(xhr.response.clouds.all);
+    renderData();
   });
   xhr.send();
 }
@@ -172,23 +171,11 @@ function renderData() {
   var $weatherHumidity = document.querySelector('.humidity');
   $weatherHumidity.textContent = weatherData.humidity;
 
-  var $weatheruvIndex = document.querySelector('.uv-index');
-  $weatheruvIndex.textContent = weatherData.uvIndex;
-
-  var $weatherWindDirection = document.querySelector('.wind-direction');
-  $weatherWindDirection.textContent = weatherData.windDirection;
-
   var $weatherFeelsLike = document.querySelector('.feels-like');
   $weatherFeelsLike.textContent = weatherData.feelsLike;
 
-  var $weatherPrecipitation = document.querySelector('.precipitation');
-  $weatherPrecipitation.textContent = weatherData.precipitation;
-
   var $weatherCloudCover = document.querySelector('.cloud-cover');
   $weatherCloudCover.textContent = weatherData.cloudCover;
-
-  var $weatherWindSpeed = document.querySelector('.wind-speed');
-  $weatherWindSpeed.textContent = weatherData.windSpeed;
 }
 
 function requestData(event) {
@@ -198,8 +185,6 @@ function requestData(event) {
   astroData.zip = event.target.value;
   weatherData.zip = event.target.value;
   getAstroData(event);
-  getWeatherData(event);
-  renderData();
   event.target.value = null;
 }
 
@@ -214,7 +199,7 @@ function ready(event) {
 
 function newEditNote(event) {
   event.preventDefault();
-  if ($header.textContent === 'New') {
+  if ($headerTitle.textContent === 'New') {
     getAstroData(event);
     fieldNote = {
       noteNum: fieldNotes.nextNum,
@@ -295,10 +280,10 @@ function renderNote(object) {
   var $colIcons = document.createElement('div');
   $colIcons.setAttribute('class', 'column-third right');
   var $editIcon = document.createElement('i');
-  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white');
+  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white edit-n');
   $colIcons.append($editIcon);
   var $deleteIcon = document.createElement('i');
-  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white');
+  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white del-n');
   $colIcons.append($deleteIcon);
   $liRow1.append($colIcons);
 
@@ -370,10 +355,10 @@ function editDelNote(event) {
   noteIDNum = Number(closestElement.getAttribute('id'));
   for (var i = 0; i < fieldNotes.notes.length; i++) {
     if (fieldNotes.notes[i].noteNum === noteIDNum) {
-      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white') {
+      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white edit-n') {
         fieldNotes.edit = fieldNotes.notes[i];
         viewRecord(event);
-        $header.textContent = 'Edit';
+        $headerTitle.textContent = 'Edit';
         $form.elements.photo.value = fieldNotes.edit.photoName;
         $form.elements.camera.value = fieldNotes.edit.camera;
         $form.elements.lens.value = fieldNotes.edit.lens;
@@ -383,9 +368,10 @@ function editDelNote(event) {
         $form.elements.iso.value = fieldNotes.edit.iso;
         $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
         $form.elements.notes.value = fieldNotes.edit.notes;
-      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white') {
+        $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
+      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white del-n') {
         $modal.className = 'modal view';
-        event.target.className = 'fas fa-minus-square icon-red-review';
+        event.target.className = 'fas fa-minus-square icon-red del-n';
       }
     }
   }
@@ -395,12 +381,12 @@ function closeModal(event) {
   var $redIcon;
   if ($pageReview.getAttribute('class') === 'container view') {
     $modal.className = 'modal view hidden';
-    $redIcon = document.querySelector('.icon-red-review');
-    $redIcon.className = 'fas fa-minus-square icon-white';
+    $redIcon = document.querySelector('.icon-red.del-n');
+    $redIcon.className = 'fas fa-minus-square icon-white del-n';
   } else {
     $modal.className = 'modal view hidden';
-    $redIcon = document.querySelector('.icon-red-gear');
-    $redIcon.className = 'fas fa-minus-square icon-gear-del';
+    $redIcon = document.querySelector('.icon-red.del-g');
+    $redIcon.className = 'fas fa-minus-square del-g';
   }
 }
 
@@ -503,7 +489,7 @@ function newGear(event) {
 function deleteGearItem(event) {
   if (event.target.matches('i')) {
     $modal.className = 'modal view';
-    event.target.className = 'fas fa-minus-square icon-red-gear';
+    event.target.className = 'fas fa-minus-square icon-red del-g';
     closestElement = event.target.closest('li');
   }
 }
@@ -514,7 +500,7 @@ function renderGearItem(item, gearType) {
   $gearItem.setAttribute('data-gear', gearType);
   $gearItem.textContent = item;
   var $deleteGearIcon = document.createElement('i');
-  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square icon-gear-del');
+  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square del-g');
   $gearItem.prepend($deleteGearIcon);
   return $gearItem;
 }
