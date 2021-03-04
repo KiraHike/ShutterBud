@@ -45,7 +45,18 @@ li.nav:hover {
 }
 
 #page-landing {
-  margin: 65px auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-landing-container {
+  margin: 0 auto 65px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -55,7 +66,7 @@ li.nav:hover {
   flex-wrap: wrap;
   width: 100%;
   padding: 0.5rem;
-  margin: 77px 0 65px 0;
+  margin: 77px auto 65px auto;
 }
 
 .row {
@@ -327,26 +338,11 @@ h4 {
 @media screen and (min-width: 576px) {
   .container {
       width: 80%;
-      margin: 77px auto 65px auto;
-  }
-  #page-landing {
-    margin: 1rem auto;
-  }
-  .landing.container {
-    margin: 0 auto;
   }
 }
 
 @media screen and (min-width: 768px) {
   .container {
     width: 50%;
-    margin: 77px auto 65px auto;
-  }
-  #page-landing {
-    margin: 65px auto;
-    min-height: 72vh;
-  }
-  .landing.container {
-    margin: 0 auto;
   }
 }

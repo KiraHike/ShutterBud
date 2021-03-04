@@ -58,7 +58,7 @@ var noteIDNum;
 
 function viewPlan(event) {
   $pagePlan.className = 'container view';
-  $pageLanding.className = 'container view hidden';
+  $pageLanding.className = 'view hidden';
   $pageRecord.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
@@ -72,7 +72,7 @@ function viewPlan(event) {
 
 function viewRecord(event) {
   $pageRecord.className = 'container view';
-  $pageLanding.className = 'container view hidden';
+  $pageLanding.className = 'view hidden';
   $pagePlan.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
   $pageGear.className = 'container view hidden';
@@ -86,7 +86,7 @@ function viewRecord(event) {
 
 function viewReview(event) {
   $pageReview.className = 'container view';
-  $pageLanding.className = 'container view hidden';
+  $pageLanding.className = 'view hidden';
   $pagePlan.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
   $pagePlan.className = 'container view hidden';
@@ -101,7 +101,7 @@ function viewReview(event) {
 
 function viewGear(event) {
   $pageGear.className = 'container view';
-  $pageLanding.className = 'container view hidden';
+  $pageLanding.className = 'view hidden';
   $pagePlan.className = 'container view hidden';
   $pageRecord.className = 'container view hidden';
   $pageReview.className = 'container view hidden';
