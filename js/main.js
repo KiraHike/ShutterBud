@@ -418,7 +418,7 @@ function deleteNoteGear(event) {
       for (i = 0; i < $gearCamerasChildren.length; i++) {
         if ($gearCamerasChildren[i] === closestElement) {
           $gearCamerasChildren[i].remove();
-          $selectCameraChildren[i].remove();
+          $selectCameraChildren[i + 3].remove();
         }
       }
     } else if (closestElement.getAttribute('data-gear') === 'lens') {
@@ -432,7 +432,7 @@ function deleteNoteGear(event) {
       for (i = 0; i < $gearLensesChildren.length; i++) {
         if ($gearLensesChildren[i] === closestElement) {
           $gearLensesChildren[i].remove();
-          $selectLensChildren[i].remove();
+          $selectLensChildren[i + 3].remove();
         }
       }
     } else {
@@ -446,7 +446,7 @@ function deleteNoteGear(event) {
       for (i = 0; i < $gearFiltersChildren.length; i++) {
         if ($gearFiltersChildren[i] === closestElement) {
           $gearFiltersChildren[i].remove();
-          $selectFilterChildren[i].remove();
+          $selectFilterChildren[i + 3].remove();
         }
       }
     }
