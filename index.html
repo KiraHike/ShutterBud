@@ -72,7 +72,9 @@
               <input required type="text" id="photo" name="photo" placeholder="Photo/File Name">
             </label>
             <label for="lens">
-              <select required id="lens" name="lens"></select>
+              <select required id="lens" name="lens">
+                <option data-gear="lens">Lens</option>
+              </select>
             </label>
             <label for="shutter">
               <input required type="text" id="shutter" name="shutter" placeholder="Shutter Speed">
@@ -83,10 +85,14 @@
           </div>
           <div class="column-half">
             <label for="camera">
-              <select required id="camera" name="camera"></select>
+              <select required id="camera" name="camera">
+                <option data-gear="camera">Camera</option>
+              </select>
             </label>
             <label for="filter">
-              <select required id="filter" name="filter"></select>
+              <select required id="filter" name="filter">
+                <option data-gear="filter">Filter</option>
+              </select>
             </label>
             <label for="aperture">
               <input required type="text" id="aperture" name="aperture" placeholder="Aperture">
@@ -109,6 +115,7 @@
       </form>
     </div>
     <div id="page-review" class="container view hidden">
+      <div id="no-notes-msg" class="view hidden"><em>No entries</em></div>
       <ul class="field-notes"></ul>
     </div>
     <div id="page-gear" class="container view hidden">

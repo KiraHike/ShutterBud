@@ -43,6 +43,7 @@ var $newFilter = document.querySelector('#filters');
 var $addFilter = document.querySelector('#addFilter');
 
 var $fieldNotes = document.querySelector('.field-notes');
+var $noNotesMsg = document.querySelector('#no-notes-msg');
 
 var $modal = document.querySelector('.modal');
 var $modalYes = document.querySelector('.icon-modal-yes');
@@ -221,6 +222,7 @@ function newEditNote(event) {
     var renderedFieldNote = renderNote(fieldNote);
     $fieldNotes.prepend(renderedFieldNote);
     fieldNotes.nextNum++;
+    $noNotesMsg.className = 'view hidden';
     var $optionsArray = document.querySelectorAll('option');
     for (var i = 0; i < $optionsArray.length; i++) {
       if ($optionsArray[i].textContent === $camera.value ||
@@ -406,6 +408,9 @@ function deleteNoteGear(event) {
         $fieldNotesChildren[i].remove();
       }
     }
+    if (fieldNotes.notes.length === 0) {
+      $noNotesMsg.className = 'view';
+    }
   } else {
     if (closestElement.getAttribute('data-gear') === 'camera') {
       for (i = 0; i < gearData.cameras.length; i++) {
@@ -418,7 +423,7 @@ function deleteNoteGear(event) {
       for (i = 0; i < $gearCamerasChildren.length; i++) {
         if ($gearCamerasChildren[i] === closestElement) {
           $gearCamerasChildren[i].remove();
-          $selectCameraChildren[i].remove();
+          $selectCameraChildren[i + 3].remove();
         }
       }
     } else if (closestElement.getAttribute('data-gear') === 'lens') {
@@ -432,7 +437,7 @@ function deleteNoteGear(event) {
       for (i = 0; i < $gearLensesChildren.length; i++) {
         if ($gearLensesChildren[i] === closestElement) {
           $gearLensesChildren[i].remove();
-          $selectLensChildren[i].remove();
+          $selectLensChildren[i + 3].remove();
         }
       }
     } else {
@@ -446,7 +451,7 @@ function deleteNoteGear(event) {
       for (i = 0; i < $gearFiltersChildren.length; i++) {
         if ($gearFiltersChildren[i] === closestElement) {
           $gearFiltersChildren[i].remove();
-          $selectFilterChildren[i].remove();
+          $selectFilterChildren[i + 3].remove();
         }
       }
     }
@@ -455,9 +460,13 @@ function deleteNoteGear(event) {
 }
 
 function renderFieldNotes(array) {
-  for (var i = 0; i < array.length; i++) {
-    fieldNote = renderNote(array[i]);
-    $fieldNotes.append(fieldNote);
+  if (array.length === 0) {
+    $noNotesMsg.className = 'view';
+  } else {
+    for (var i = 0; i < array.length; i++) {
+      fieldNote = renderNote(array[i]);
+      $fieldNotes.append(fieldNote);
+    }
   }
 }
 
