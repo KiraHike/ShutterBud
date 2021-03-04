@@ -129,7 +129,6 @@ function getAstroData(event) {
     astroData.dayLength = xhr.response.day_length;
     astroData.date = xhr.response.date;
     getWeatherData();
-    $spinner.className = 'spinner hidden';
   });
   xhr.send();
 }
@@ -145,6 +144,7 @@ function getWeatherData(event) {
     weatherData.feelsLike = Math.round(xhr.response.main.feels_like);
     weatherData.cloudCover = Math.round(xhr.response.clouds.all);
     renderData();
+    $spinner.className = 'spinner hidden';
   });
   xhr.send();
 }
