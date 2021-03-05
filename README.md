@@ -1,4 +1,4 @@
-# ShutterBud
+# :camera: ShutterBud
 ShutterBud is a dynamic application for outdoor photographers.
 
 ## Technologies Used
