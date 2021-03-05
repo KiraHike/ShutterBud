@@ -1,8 +1,21 @@
 # ShutterBud
+ShutterBud is a dynamic application for outdoor photographers.
 
-## ShutterBud is a dynamic application for outdoor photographers.
+## Technologies Used
+* HTML
+* CSS
+* JavaScript
+* AJAX
 
-The user can request weather and astronomical data from APIs to plan their outdoor shoot and use the field journal to track conditions and camera settings. In addition, the user can add their favorite cameras, lenses, and filters to streamline taking field notes. 
+## Features
+* Photographers can get weather and astronomical data from APIs to plan their outdoor shoot
+* Photographers can add a field note to track conditions and camera settings
+* Photographers can edit their field notes
+* Photographers can delete their field notes
+* Photographers can add their own gear as favorites to streamline taking field notes
+* Photographers can delete their favorite gear
 
-![image](https://user-images.githubusercontent.com/73143959/110043873-0822ca80-7cfd-11eb-885a-c821dd0541f3.png)
+## Preview
+![ShutterBud](https://user-images.githubusercontent.com/73143959/110050991-e67c1000-7d09-11eb-83b1-c37695d83811.gif)
+
 
