@@ -16,6 +16,6 @@ ShutterBud is a dynamic application for outdoor photographers.
 * Photographers can delete their favorite gear
 
 ## Preview
-![ShutterBud](https://user-images.githubusercontent.com/73143959/110050991-e67c1000-7d09-11eb-83b1-c37695d83811.gif)
+<img src="https://user-images.githubusercontent.com/73143959/110050991-e67c1000-7d09-11eb-83b1-c37695d83811.gif" width="475" height="700">
 
 
