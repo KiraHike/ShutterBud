@@ -13,6 +13,7 @@ var $header = document.querySelector('header');
 var $headerTitle = document.querySelector('h2');
 
 var $zipInput = document.querySelector('#zip');
+var $zipData = document.querySelector('.data-zip');
 var $spinner = document.querySelector('.spinner');
 var $errorMsg = document.querySelector('.error');
 
@@ -194,6 +195,7 @@ function requestData(event) {
   }
   astroData.zip = event.target.value;
   weatherData.zip = event.target.value;
+  $zipData.textContent = event.target.value;
   getAstroData(event);
   event.target.value = null;
 }

@@ -77,18 +77,6 @@ li.nav:hover {
   justify-content: center;
 }
 
-.data-label {
-  font-weight: 500;
-}
-
-.row.plan {
-  justify-content: space-evenly;
-}
-
-.row.plan.bottom-border {
-  border-bottom: 1px solid #efefef;
-}
-
 .column-full {
   width: 100%;
   display: flex;
@@ -97,11 +85,6 @@ li.nav:hover {
 
 .column-half {
   width: 50%;
-}
-
-.column-half.plan {
-  width: fit-content;
-  padding: 1rem;
 }
 
 .column-third {
@@ -126,6 +109,25 @@ li.nav:hover {
   display: flex;
   width: 25%;
   justify-content: space-evenly;
+}
+
+.data-list {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  border: solid 1px #d3d3d3;
+  border-radius: 6px;
+  padding: 0.25rem;
+  margin: 0.5rem;
+}
+
+.data-list.zip {
+  border: none;
+  background-color: black;
+  color: white;
+}
+
+.data-label {
+  font-weight: 500;
 }
 
 i {
@@ -351,15 +353,27 @@ h4 {
   padding: 0.5rem;
 }
 
+@media screen and (max-width: 350px) {
+  .column-half {
+    width: 80%;
+  }
+}
+
 @media screen and (min-width: 576px) {
   .container {
       width: 80%;
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 765px) {
   .container {
-    width: 50%;
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 1020px) {
+  .container {
+    width: 40%;
   }
 }
 
