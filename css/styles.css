@@ -8,8 +8,8 @@ header {
   left: 0;
   right: 0;
   top: 0;
-  border-bottom: 2px solid black;
-  background-color: white;
+  background-color: black;
+  color: white;
 }
 
 footer {
@@ -18,8 +18,8 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  border-top: 2px solid black;
-  background-color: white;
+  background-color: black;
+  color: white;
 }
 
 ul.nav-bar {
