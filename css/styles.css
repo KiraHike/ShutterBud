@@ -77,6 +77,10 @@ li.nav:hover {
   justify-content: center;
 }
 
+.data-label {
+  font-weight: 500;
+}
+
 .row.plan {
   justify-content: space-evenly;
 }
