@@ -130,12 +130,24 @@ li.nav:hover {
   font-weight: 500;
 }
 
-i {
+.zip {
+  display: flex;
+  align-content: center;
+}
+
+.fas {
   font-size: 1.5rem;
   cursor: pointer;
 }
 
+.fa-search {
+  border: none;
+  outline: none;
+  background-color: white;
+}
+
 .icon-green,
+.fa-search:hover,
 .edit-n:hover,
 label:focus-within + i {
   color: green;

@@ -14,6 +14,7 @@ var $headerTitle = document.querySelector('h2');
 
 var $zipInput = document.querySelector('#zip');
 var $zipData = document.querySelector('.data-zip');
+var $buttonSubmitZip = document.querySelector('.fa-search');
 var $spinner = document.querySelector('.spinner');
 var $errorMsg = document.querySelector('.error');
 
@@ -190,14 +191,11 @@ function renderData() {
 }
 
 function requestData(event) {
-  if (event.target.value.length < 5) {
-    return;
-  }
-  astroData.zip = event.target.value;
-  weatherData.zip = event.target.value;
-  $zipData.textContent = event.target.value;
+  astroData.zip = $zipInput.value;
+  weatherData.zip = $zipInput.value;
+  $zipData.textContent = $zipInput.value;
   getAstroData(event);
-  event.target.value = null;
+  $zipInput.value = null;
 }
 
 function ready(event) {
@@ -555,7 +553,7 @@ function renderGear(object) {
   }
 }
 
-$zipInput.addEventListener('input', requestData);
+$buttonSubmitZip.addEventListener('click', requestData);
 
 $form.addEventListener('keypress', ready);
 $buttonSave.addEventListener('click', newEditNote);
