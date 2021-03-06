@@ -248,6 +248,11 @@ select {
 
 }
 
+.record-paragraph,
+.author {
+  text-align: center;
+}
+
 ul.field-notes,
 ul.gear {
   margin: 0;
