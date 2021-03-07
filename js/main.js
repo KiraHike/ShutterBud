@@ -253,7 +253,7 @@ function renderNote(object) {
   $editIcon.setAttribute('id', 'button-edit');
   $colIcons.append($editIcon);
   var $deleteIcon = document.createElement('i');
-  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white del-n');
+  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white icon-delete-note');
   $colIcons.append($deleteIcon);
   $liRow1.append($colIcons);
 
@@ -320,7 +320,7 @@ function renderNote(object) {
   return $li;
 }
 
-function editDelNote(event) {
+function editDeleteNote(event) {
   closestElement = event.target.closest('li');
   noteIDNum = Number(closestElement.getAttribute('id'));
   for (var i = 0; i < fieldNotes.notes.length; i++) {
@@ -339,9 +339,9 @@ function editDelNote(event) {
         $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
         $form.elements.notes.value = fieldNotes.edit.notes;
         // $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
-      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white del-n') {
+      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white icon-delete-note') {
         $modal.className = 'modal view';
-        event.target.className = 'fas fa-minus-square icon-red del-n';
+        event.target.className = 'fas fa-minus-square icon-red icon-delete-note';
       }
     }
   }
@@ -351,12 +351,12 @@ function closeModal(event) {
   var $redIcon;
   if ($pageReview.className = 'view') {
   $modal.className = 'modal view hidden';
-  $redIcon = document.querySelector('.icon-red.del-n');
-  $redIcon.className = 'fas fa-minus-square icon-white del-n';
+  $redIcon = document.querySelector('.icon-red.icon-delete-note');
+  $redIcon.className = 'fas fa-minus-square icon-white icon-delete-note';
 } else {
   $modal.className = 'modal view hidden';
-  $redIcon = document.querySelector('.icon-red.del-g');
-  $redIcon.className = 'fas fa-minus-square del-g';
+  $redIcon = document.querySelector('.icon-red.icon-delete-gear');
+  $redIcon.className = 'fas fa-minus-square icon-delete-gear';
 }
 }
 
@@ -466,7 +466,7 @@ function newGear(event) {
 function deleteGearItem(event) {
   if (event.target.matches('i')) {
     $modal.className = 'modal view';
-    event.target.className = 'fas fa-minus-square icon-red del-g';
+    event.target.className = 'fas fa-minus-square icon-red icon-delete-gear';
     closestElement = event.target.closest('li');
   }
 }
@@ -477,7 +477,7 @@ function renderGearItem(item, gearType) {
   $gearItem.setAttribute('data-gear', gearType);
   $gearItem.textContent = item;
   var $deleteGearIcon = document.createElement('i');
-  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square del-g');
+  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square icon-delete-gear');
   $gearItem.prepend($deleteGearIcon);
   return $gearItem;
 }
@@ -516,7 +516,7 @@ $buttonSubmitZip.addEventListener('click', requestData);
 
 // $form.addEventListener('keypress', ready);
 
-$fieldNotes.addEventListener('click', editDelNote);
+$fieldNotes.addEventListener('click', editDeleteNote);
 $modalNo.addEventListener('click', closeModal);
 $modalYes.addEventListener('click', deleteNoteGear);
 

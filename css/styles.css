@@ -170,16 +170,16 @@ label:focus-within + i {
 }
 
 .icon-red,
-.del-g:hover,
-.del-n:hover {
+.icon-delete-gear:hover,
+.icon-delete-note:hover {
   color: red;
 }
 
-.del-n {
+.icon-delete-note {
   margin-left: 0.75rem;
 }
 
-.del-g {
+.icon-delete-gear {
   margin-right: 0.5rem;
 }
 
