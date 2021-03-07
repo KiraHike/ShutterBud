@@ -74,7 +74,7 @@ function pageViewSwap(event) {
   }
 }
 
-function getAstroData(event) {
+function getAstronomyData(event) {
   $errorMsg.className = 'error view hidden';
   $spinner.className = 'spinner';
   var xhr = new XMLHttpRequest();
@@ -150,7 +150,7 @@ function requestData(event) {
   astroData.zip = $zipInput.value;
   weatherData.zip = $zipInput.value;
   $zipData.textContent = $zipInput.value;
-  getAstroData(event);
+  getAstronomyData(event);
   $zipInput.value = null;
 }
 
@@ -166,7 +166,7 @@ function requestData(event) {
 function newEditNote(event) {
   event.preventDefault();
   if ($headerSubRecord.textContent === 'New') {
-    getAstroData(event);
+    getAstronomyData(event);
     fieldNote = {
       noteNum: fieldNotes.nextNum,
       date: astroData.date,
