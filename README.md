@@ -1,5 +1,5 @@
 # :camera: ShutterBud
-ShutterBud is a dynamic application for outdoor photographers.
+ShutterBud is a dynamic application for outdoor photographers to log photographic settings, details, and experiences. 
 
 ## Technologies Used
 * HTML
