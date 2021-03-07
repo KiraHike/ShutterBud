@@ -54,9 +54,8 @@ h4 {
 
 ul.nav-bar {
   margin: 0;
-  padding: 1rem;
+  padding: 0;
   display: flex;
-  justify-content: space-between;
 }
 
 ul.field-notes,
@@ -71,9 +70,23 @@ li {
 }
 
 li.nav {
-  display: inline;
+  padding: 1rem;
   font-size: 1.5rem;
+  flex-basis: 25%;
   cursor: pointer;
+}
+
+li[data-view='plan'] {
+  text-align: left;
+}
+
+li[data-view='gear'] {
+  text-align: right;
+}
+
+li[data-view='record'],
+li[data-view='review'] {
+  text-align: center;
 }
 
 li.nav.bold,
