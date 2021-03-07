@@ -350,18 +350,20 @@ function editDeleteNote(event) {
 function closeModal(event) {
   var $redIcon;
   if ($pageReview.className = 'view') {
-  $modal.className = 'modal view hidden';
-  $redIcon = document.querySelector('.icon-red.icon-delete-note');
-  $redIcon.className = 'fas fa-minus-square icon-white icon-delete-note';
-} else {
-  $modal.className = 'modal view hidden';
-  $redIcon = document.querySelector('.icon-red.icon-delete-gear');
-  $redIcon.className = 'fas fa-minus-square icon-delete-gear';
-}
+    $modal.className = 'modal view hidden';
+    $redIcon = document.querySelector('.icon-red.icon-delete-note');
+    $redIcon.className = 'fas fa-minus-square icon-white icon-delete-note';
+  } else {
+    $modal.className = 'modal view hidden';
+    $redIcon = document.querySelector('.icon-red.icon-delete-gear');
+    $redIcon.className = 'fas fa-minus-square icon-delete-gear';
+  }
 }
 
-function deleteNoteGear(event) {
-  if ($pageReview.className = 'view') {
+function deleteNote(event) {
+  if ($pageReview.className !== 'view') {
+    return;
+  }
   for (var i = 0; i < fieldNotes.notes.length; i++) {
     if (fieldNotes.notes[i].noteNum === noteIDNum) {
       fieldNotes.notes.splice(i, 1);
@@ -376,7 +378,13 @@ function deleteNoteGear(event) {
   if (fieldNotes.notes.length === 0) {
     $noNotesMsg.className = 'no-notes';
   }
-} else {
+  $modal.className = 'modal view hidden';
+}
+
+function deleteGear(event) {
+  if ($pageReview.className === 'view') {
+    return;
+  }
   if (closestElement.getAttribute('data-gear') === 'camera') {
     for (i = 0; i < gearData.cameras.length; i++) {
       if (gearData.cameras[i] === closestElement.textContent) {
@@ -420,8 +428,8 @@ function deleteNoteGear(event) {
       }
     }
   }
-}
-$modal.className = 'modal view hidden';
+
+  $modal.className = 'modal view hidden';
 }
 
 function renderFieldNotes(array) {
@@ -518,7 +526,10 @@ $buttonSubmitZip.addEventListener('click', requestData);
 
 $fieldNotes.addEventListener('click', editDeleteNote);
 $modalNo.addEventListener('click', closeModal);
-$modalYes.addEventListener('click', deleteNoteGear);
+$modalYes.addEventListener('click', function() {
+  deleteNote();
+  deleteGear();
+});
 
 $gearCameras.addEventListener('click', deleteGearItem);
 $gearLenses.addEventListener('click', deleteGearItem);
