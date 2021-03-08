@@ -28,10 +28,6 @@ var $iso = document.querySelector('#iso');
 var $whiteBalance = document.querySelector('#whitebal');
 var $notes = document.querySelector('#notes');
 
-var $selectCamera = document.querySelector('#camera');
-var $selectLens = document.querySelector('#lens');
-var $selectFilter = document.querySelector('#filter');
-
 var $gearCameras = document.querySelector('.gear.cameras');
 var $gearLenses = document.querySelector('.gear.lenses');
 var $gearFilters = document.querySelector('.gear.filters');
@@ -349,7 +345,7 @@ function editDeleteNote(event) {
 
 function closeModal(event) {
   var $redIcon;
-  if ($pageReview.className = 'view') {
+  if ($pageReview.className === 'view') {
     $modal.className = 'modal view hidden';
     $redIcon = document.querySelector('.icon-red.icon-delete-note');
     $redIcon.className = 'fas fa-minus-square icon-white icon-delete-note';
@@ -360,7 +356,7 @@ function closeModal(event) {
   }
 }
 
-function deleteNote(event) {
+function deleteNote() {
   if ($pageReview.className !== 'view') {
     return;
   }
@@ -381,54 +377,29 @@ function deleteNote(event) {
   $modal.className = 'modal view hidden';
 }
 
-function deleteGear(event) {
+function deleteGear() {
   if ($pageReview.className === 'view') {
     return;
   }
-  if (closestElement.getAttribute('data-gear') === 'camera') {
-    for (i = 0; i < gearData.cameras.length; i++) {
-      if (gearData.cameras[i] === closestElement.textContent) {
-        gearData.cameras.splice(i, 1);
-      }
-    }
-    var $gearCamerasChildren = $gearCameras.childNodes;
-    var $selectCameraChildren = $selectCamera.childNodes;
-    for (i = 0; i < $gearCamerasChildren.length; i++) {
-      if ($gearCamerasChildren[i] === closestElement) {
-        $gearCamerasChildren[i].remove();
-        $selectCameraChildren[i + 3].remove();
-      }
-    }
-  } else if (closestElement.getAttribute('data-gear') === 'lens') {
-    for (i = 0; i < gearData.lenses.length; i++) {
-      if (gearData.lenses[i] === closestElement.textContent) {
-        gearData.lenses.splice(i, 1);
-      }
-    }
-    var $gearLensesChildren = $gearLenses.childNodes;
-    var $selectLensChildren = $selectLens.childNodes;
-    for (i = 0; i < $gearLensesChildren.length; i++) {
-      if ($gearLensesChildren[i] === closestElement) {
-        $gearLensesChildren[i].remove();
-        $selectLensChildren[i + 3].remove();
-      }
-    }
-  } else {
-    for (i = 0; i < gearData.filters.length; i++) {
-      if (gearData.filters[i] === closestElement.textContent) {
-        gearData.filters.splice(i, 1);
-      }
-    }
-    var $gearFiltersChildren = $gearFilters.childNodes;
-    var $selectFilterChildren = $selectFilter.childNodes;
-    for (i = 0; i < $gearFiltersChildren.length; i++) {
-      if ($gearFiltersChildren[i] === closestElement) {
-        $gearFiltersChildren[i].remove();
-        $selectFilterChildren[i + 3].remove();
+  var deleteGearType = closestElement.getAttribute('data-gear');
+  var $gearChildren = document.querySelector('.gear.' + deleteGearType).childNodes;
+  var $selectChildren = document.querySelector('select[data-gear=' + deleteGearType + ']').childNodes;
+  for (key in gearData) {
+    if (key === deleteGearType) {
+      console.log('key2', key);
+      for (var i = 0; i < key.length; i++) {
+        if (key[i] === closestElement.textContent) {
+          key.splice(i, 1);
+        }
       }
     }
   }
-
+  for (i = 0; i < $gearChildren.length; i++) {
+    if ($gearChildren[i] === closestElement) {
+      $gearChildren[i].remove();
+      $selectChildren[i + 3].remove();
+    }
+  }
   $modal.className = 'modal view hidden';
 }
 
@@ -449,24 +420,24 @@ function newGear(event) {
   var renderedOption;
   if (event.target === $addCamera) {
     gearData.cameras.push($newCamera.value);
-    renderedGear = renderGearItem($newCamera.value, 'camera');
+    renderedGear = renderGearItem($newCamera.value, 'cameras');
     $gearCameras.append(renderedGear);
-    renderedOption = renderGearOption($newCamera.value, 'camera');
-    $selectCamera.append(renderedOption);
+    renderedOption = renderGearOption($newCamera.value, 'cameras');
+    $camera.append(renderedOption);
     $newCamera.value = null;
   } else if (event.target === $addLens) {
     gearData.lenses.push($newLens.value);
-    renderedGear = renderGearItem($newLens.value, 'lens');
+    renderedGear = renderGearItem($newLens.value, 'lenses');
     $gearLenses.append(renderedGear);
-    renderedOption = renderGearOption($newLens.value, 'lens');
-    $selectLens.append(renderedOption);
+    renderedOption = renderGearOption($newLens.value, 'lenses');
+    $lens.append(renderedOption);
     $newLens.value = null;
   } else if (event.target === $addFilter) {
     gearData.filters.push($newFilter.value);
-    renderedGear = renderGearItem($newFilter.value, 'filter');
+    renderedGear = renderGearItem($newFilter.value, 'filters');
     $gearFilters.append(renderedGear);
-    renderedOption = renderGearOption($newFilter.value, 'filter');
-    $selectFilter.append(renderedOption);
+    renderedOption = renderGearOption($newFilter.value, 'filters');
+    $filter.append(renderedOption);
     $newFilter.value = null;
   }
 }
@@ -501,22 +472,22 @@ function renderGear(object) {
   var gear;
   var option;
   for (var i = 0; i < object.cameras.length; i++) {
-    gear = renderGearItem(object.cameras[i], 'camera');
+    gear = renderGearItem(object.cameras[i], 'cameras');
     $gearCameras.append(gear);
-    option = renderGearOption(object.cameras[i], 'camera');
-    $selectCamera.append(option);
+    option = renderGearOption(object.cameras[i], 'cameras');
+    $camera.append(option);
   }
   for (i = 0; i < object.lenses.length; i++) {
-    gear = renderGearItem(object.lenses[i], 'lens');
+    gear = renderGearItem(object.lenses[i], 'lenses');
     $gearLenses.append(gear);
-    option = renderGearOption(object.lenses[i], 'lens');
-    $selectLens.append(option);
+    option = renderGearOption(object.lenses[i], 'lenses');
+    $lens.append(option);
   }
   for (i = 0; i < object.filters.length; i++) {
-    gear = renderGearItem(object.filters[i], 'filter');
+    gear = renderGearItem(object.filters[i], 'filters');
     $gearFilters.append(gear);
-    option = renderGearOption(object.filters[i], 'filter');
-    $selectFilter.append(option);
+    option = renderGearOption(object.filters[i], 'filters');
+    $filter.append(option);
   }
 }
 
