@@ -386,10 +386,9 @@ function deleteGear() {
   var $selectChildren = document.querySelector('select[data-gear=' + deleteGearType + ']').childNodes;
   for (key in gearData) {
     if (key === deleteGearType) {
-      console.log('key2', key);
-      for (var i = 0; i < key.length; i++) {
-        if (key[i] === closestElement.textContent) {
-          key.splice(i, 1);
+      for (var i = 0; i < gearData[key].length; i++) {
+        if (gearData[key][i] === closestElement.textContent) {
+          gearData[key].splice(i, 1);
         }
       }
     }
