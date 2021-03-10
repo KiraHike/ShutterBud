@@ -16,7 +16,6 @@ var $spinner = document.querySelector('.spinner');
 var $errorMsg = document.querySelector('.error');
 
 var $form = document.querySelector('#field-notes-form');
-var $buttonSave = document.querySelector('#button-save');
 
 var $photoName = document.querySelector('#photo');
 var $camera = document.querySelector('#camera');
@@ -147,15 +146,6 @@ function requestData(event) {
   $zipInput.value = null;
 }
 
-// function ready(event) {
-//   for (var i = 0; i < $form.elements.length; i++) {
-//     if ($form.elements[i].value.length < 1) {
-//       return;
-//     }
-//   }
-//   $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
-// }
-
 function newEditNote(event) {
   event.preventDefault();
   if ($headerSubRecord.textContent === 'New') {
@@ -209,7 +199,6 @@ function newEditNote(event) {
   }
   fieldNotes.edit = null;
   $form.reset();
-  // $buttonSave.className = 'fas fa-plus-square fa-2x';
   $headerSubRecord.textContent = 'New';
   pageViewSwap(event);
 }
@@ -331,7 +320,6 @@ function editDeleteNote(event) {
         $form.elements.iso.value = fieldNotes.edit.iso;
         $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
         $form.elements.notes.value = fieldNotes.edit.notes;
-        // $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
       } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white icon-delete-note') {
         $modal.className = 'modal view';
         event.target.className = 'fas fa-minus-square icon-red icon-delete-note';
@@ -474,8 +462,6 @@ function renderGear(object) {
 }
 
 $zipForm.addEventListener('submit', requestData);
-
-// $form.addEventListener('keypress', ready);
 
 $fieldNotes.addEventListener('click', editDeleteNote);
 $modalNo.addEventListener('click', closeModal);

@@ -157,14 +157,17 @@ button:hover {
   color:#c9c9c9;
 }
 
+form:valid button{
+  color: green;
+}
+
 .fas {
   font-size: 1.5rem;
   cursor: pointer;
 }
 
 .icon-green,
-.icon-edit-note:hover,
-label:focus-within + i {
+.icon-edit-note:hover {
   color: green;
 }
 
