@@ -147,20 +147,23 @@ li.nav:hover {
   text-align: center;
 }
 
-.fas {
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.fa-search {
+button {
   border: none;
   outline: none;
   background-color: white;
 }
 
+button:hover {
+  color:#c9c9c9;
+}
+
+.fas {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 .icon-green,
-.fa-search:hover,
-.edit-n:hover,
+.icon-edit-note:hover,
 label:focus-within + i {
   color: green;
 }

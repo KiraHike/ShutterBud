@@ -55,10 +55,12 @@
         </div>
         <div class="row">
           <div class="column-full plan">
-            <label for="zip" class="zip">
-              <input type="text" id="zip" name="zip" minlength="5" maxlength="5" placeholder="Zip code">
-              <button type="submit" class="fas fa-search"></button>
-            </label>
+            <form id="zip-form">
+              <label for="zip" class="zip">
+                <input required type="text" id="zip" name="zip" minlength="5" maxlength="5" placeholder="Zip code">
+                <button type="submit" class="fas fa-search" id="button-submit-zip"></button>
+              </label>
+            </form>
           </div>
         </div>
         <div class="spinner hidden"></div>
@@ -68,7 +70,7 @@
     <div data-view="record" class="view hidden">
       <h3 class="headerSub record">New</h3>
       <div class="container">
-        <form id="field-notes-form">
+        <form id="field-notes-form" data-view="review">
           <div class="row">
             <div class="column-half">
               <label for="photo">
@@ -107,12 +109,12 @@
           </div>
           <div class="row">
             <div class="column-full">
-              <textarea type="text" id="notes" name="notes" placeholder="Notes" rows="9"></textarea>
+              <textarea required type="text" id="notes" name="notes" placeholder="Notes" rows="9"></textarea>
             </div>
           </div>
           <div class="row">
             <div class="column-full">
-              <i id="button-save" data-view="review" class="fas fa-plus-square fa-2x"></i>
+              <button type="submit" class="fas fa-plus-square fa-2x" id="button-save"></button>
             </div>
           </div>
         </form>
@@ -143,10 +145,12 @@
             <ul class="gear cameras"></ul>
           </div>
           <div class="column-half new-gear">
-            <label for="cameras">
-              <input required type="text" id="cameras" name="cameras" placeholder="New Camera">
-            </label>
-            <i id="addCamera" class="fas fa-plus-square icon-gear-add"></i>
+            <form id="new-camera-form">
+              <label for="cameras">
+                <input required type="text" id="cameras" name="cameras" placeholder="New Camera">
+              </label>
+              <button type="submit" class="fas fa-plus-square icon-gear-add"></button>
+            </form>
           </div>
         </div>
         <div class="row gear">
@@ -155,10 +159,12 @@
             <ul class="gear lenses"></ul>
           </div>
           <div class="column-half new-gear">
-            <label for="lenses">
-              <input required type="text" id="lenses" name="lenses" placeholder="New Lens">
-            </label>
-            <i id="addLens" class="fas fa-plus-square icon-gear-add"></i>
+            <form id="new-lens-form">
+              <label for="lenses">
+                <input required type="text" id="lenses" name="lenses" placeholder="New Lens">
+              </label>
+              <button type="submit" class="fas fa-plus-square icon-gear-add"></button>
+            </form>
           </div>
         </div>
         <div class="row gear">
@@ -167,10 +173,12 @@
             <ul class="gear filters"></ul>
           </div>
           <div class="column-half new-gear">
-            <label for="filters">
-              <input required type="text" id="filters" name="filters" placeholder="New Filter">
-            </label>
-            <i id="addFilter" class="fas fa-plus-square icon-gear-add"></i>
+            <form id="new-filter-form">
+              <label for="filters">
+                <input required type="text" id="filters" name="filters" placeholder="New Filter">
+              </label>
+              <button type="submit" class="fas fa-plus-square icon-gear-add"></button>
+            </form>
           </div>
         </div>
       </div>

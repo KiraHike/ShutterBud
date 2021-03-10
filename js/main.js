@@ -11,7 +11,7 @@ var $headerSubRecord = document.querySelector('.headerSub.record');
 
 var $zipInput = document.querySelector('#zip');
 var $zipData = document.querySelector('.data-zip');
-var $buttonSubmitZip = document.querySelector('.fa-search');
+var $zipForm = document.querySelector('#zip-form');
 var $spinner = document.querySelector('.spinner');
 var $errorMsg = document.querySelector('.error');
 
@@ -32,11 +32,11 @@ var $gearCameras = document.querySelector('.gear.cameras');
 var $gearLenses = document.querySelector('.gear.lenses');
 var $gearFilters = document.querySelector('.gear.filters');
 var $newCamera = document.querySelector('#cameras');
-var $addCamera = document.querySelector('#addCamera');
+var $newCameraForm = document.querySelector('#new-camera-form');
 var $newLens = document.querySelector('#lenses');
-var $addLens = document.querySelector('#addLens');
+var $newLensForm = document.querySelector('#new-lens-form');
 var $newFilter = document.querySelector('#filters');
-var $addFilter = document.querySelector('#addFilter');
+var $newFilterForm = document.querySelector('#new-filter-form');
 
 var $fieldNotes = document.querySelector('.field-notes');
 var $noNotesMsg = document.querySelector('#no-notes-msg');
@@ -69,7 +69,7 @@ function pageViewSwap(event) {
   }
 }
 
-function getAstronomyData(event) {
+function getAstronomyData() {
   $errorMsg.className = 'error view hidden';
   $spinner.className = 'spinner';
   var xhr = new XMLHttpRequest();
@@ -93,7 +93,7 @@ function getAstronomyData(event) {
   xhr.send();
 }
 
-function getWeatherData(event) {
+function getWeatherData() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?zip='
     + weatherData.zip + '&appid=15a78bd9a1947e135af141f028f19302&units=imperial');
@@ -142,10 +142,11 @@ function renderData() {
 }
 
 function requestData(event) {
+  event.preventDefault();
   astroData.zip = $zipInput.value;
   weatherData.zip = $zipInput.value;
   $zipData.textContent = $zipInput.value;
-  getAstronomyData(event);
+  getAstronomyData();
   $zipInput.value = null;
 }
 
@@ -161,7 +162,7 @@ function requestData(event) {
 function newEditNote(event) {
   event.preventDefault();
   if ($headerSubRecord.textContent === 'New') {
-    getAstronomyData(event);
+    getAstronomyData();
     var fieldNote = {
       noteNum: fieldNotes.nextNum,
       date: astroData.date,
@@ -243,7 +244,7 @@ function renderNote(object) {
   var $colIcons = document.createElement('div');
   $colIcons.setAttribute('class', 'column-third right');
   var $editIcon = document.createElement('i');
-  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white edit-n');
+  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white icon-edit-note');
   $editIcon.setAttribute('data-view', 'record');
   $editIcon.setAttribute('id', 'button-edit');
   $colIcons.append($editIcon);
@@ -320,7 +321,7 @@ function editDeleteNote(event) {
   noteIDNum = Number(closestElement.getAttribute('id'));
   for (var i = 0; i < fieldNotes.notes.length; i++) {
     if (fieldNotes.notes[i].noteNum === noteIDNum) {
-      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white edit-n') {
+      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white icon-edit-note') {
         fieldNotes.edit = fieldNotes.notes[i];
         pageViewSwap(event);
         $headerSubRecord.textContent = 'Edit';
@@ -489,7 +490,7 @@ function renderGear(object) {
   }
 }
 
-$buttonSubmitZip.addEventListener('click', requestData);
+$zipForm.addEventListener('submit', requestData);
 
 // $form.addEventListener('keypress', ready);
 
@@ -503,12 +504,13 @@ $modalYes.addEventListener('click', function() {
 $gearCameras.addEventListener('click', deleteGearItem);
 $gearLenses.addEventListener('click', deleteGearItem);
 $gearFilters.addEventListener('click', deleteGearItem);
-$addCamera.addEventListener('click', newGear);
-$addLens.addEventListener('click', newGear);
-$addFilter.addEventListener('click', newGear);
+
+$newCameraForm.addEventListener('submit', newGear);
+$newLensForm.addEventListener('submit', newGear);
+$newFilterForm.addEventListener('submit', newGear);
 
 $navBar.addEventListener('click', pageViewSwap);
-$buttonSave.addEventListener('click', newEditNote);
+$form.addEventListener('submit', newEditNote);
 
 window.addEventListener('DOMContentLoaded', function () {
   renderData();

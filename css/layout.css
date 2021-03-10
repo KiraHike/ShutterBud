@@ -79,6 +79,13 @@
   justify-content: space-evenly;
 }
 
+#new-camera-form,
+#new-lens-form,
+#new-filter-form {
+  display: flex;
+  align-content: center;
+}
+
 @media screen and (max-width: 350px) {
   .column-half {
     width: 80%;
