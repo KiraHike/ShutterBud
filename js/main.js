@@ -31,11 +31,8 @@ var $notes = document.querySelector('#notes');
 var $gearCameras = document.querySelector('.gear.cameras');
 var $gearLenses = document.querySelector('.gear.lenses');
 var $gearFilters = document.querySelector('.gear.filters');
-var $newCamera = document.querySelector('#cameras');
 var $newCameraForm = document.querySelector('#new-camera-form');
-var $newLens = document.querySelector('#lenses');
 var $newLensForm = document.querySelector('#new-lens-form');
-var $newFilter = document.querySelector('#filters');
 var $newFilterForm = document.querySelector('#new-filter-form');
 
 var $fieldNotes = document.querySelector('.field-notes');
@@ -415,30 +412,16 @@ function renderFieldNotes(array) {
 
 function newGear(event) {
   event.preventDefault();
-  var renderedGear;
-  var renderedOption;
-  if (event.target === $addCamera) {
-    gearData.cameras.push($newCamera.value);
-    renderedGear = renderGearItem($newCamera.value, 'cameras');
-    $gearCameras.append(renderedGear);
-    renderedOption = renderGearOption($newCamera.value, 'cameras');
-    $camera.append(renderedOption);
-    $newCamera.value = null;
-  } else if (event.target === $addLens) {
-    gearData.lenses.push($newLens.value);
-    renderedGear = renderGearItem($newLens.value, 'lenses');
-    $gearLenses.append(renderedGear);
-    renderedOption = renderGearOption($newLens.value, 'lenses');
-    $lens.append(renderedOption);
-    $newLens.value = null;
-  } else if (event.target === $addFilter) {
-    gearData.filters.push($newFilter.value);
-    renderedGear = renderGearItem($newFilter.value, 'filters');
-    $gearFilters.append(renderedGear);
-    renderedOption = renderGearOption($newFilter.value, 'filters');
-    $filter.append(renderedOption);
-    $newFilter.value = null;
-  }
+  var addGearType = event.target.className;
+  var $newGearItem = document.querySelector('#' + addGearType);
+  var renderedGear = renderGearItem($newGearItem.value, addGearType);
+  var $gearList = document.querySelector('.gear.' + addGearType);
+  var renderedOption = renderGearOption($newGearItem.value, addGearType);
+  var $selectList = document.querySelector('.select.' + addGearType);
+  gearData[addGearType].push($newGearItem.value);
+  $gearList.append(renderedGear);
+  $selectList.append(renderedOption);
+  $newGearItem.value = null;
 }
 
 function deleteGearItem(event) {
