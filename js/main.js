@@ -45,7 +45,6 @@ var $modal = document.querySelector('.modal');
 var $modalYes = document.querySelector('.icon-modal-yes');
 var $modalNo = document.querySelector('.icon-modal-no');
 
-var fieldNote;
 var closestElement;
 var noteIDNum;
 
@@ -163,7 +162,7 @@ function newEditNote(event) {
   event.preventDefault();
   if ($headerSubRecord.textContent === 'New') {
     getAstronomyData(event);
-    fieldNote = {
+    var fieldNote = {
       noteNum: fieldNotes.nextNum,
       date: astroData.date,
       photoName: $photoName.value,
@@ -407,7 +406,7 @@ function renderFieldNotes(array) {
     $noNotesMsg.className = 'no-notes';
   } else {
     for (var i = 0; i < array.length; i++) {
-      fieldNote = renderNote(array[i]);
+      var fieldNote = renderNote(array[i]);
       $fieldNotes.append(fieldNote);
     }
   }
