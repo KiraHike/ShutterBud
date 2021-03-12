@@ -382,6 +382,10 @@ function deleteGear() {
     if ($gearChildren[i] === closestElement) {
       $gearChildren[i].remove();
       $selectChildren[i + 3].remove();
+      if ($selectChildren.length <= 3) {
+        var $disableOption = document.querySelector('#disabled-' + deleteGearType);
+        $disableOption.className = 'view';
+      }
     }
   }
   $modal.className = 'modal view hidden';
@@ -406,9 +410,11 @@ function newGear(event) {
   var $gearList = document.querySelector('.gear.' + addGearType);
   var renderedOption = renderGearOption($newGearItem.value, addGearType);
   var $selectList = document.querySelector('.select.' + addGearType);
+  var $disabledOption = document.querySelector('#disabled-' + addGearType);
   gearData[addGearType].push($newGearItem.value);
   $gearList.append(renderedGear);
   $selectList.append(renderedOption);
+  $disabledOption.className = 'view hidden';
   $newGearItem.value = null;
 }
 
