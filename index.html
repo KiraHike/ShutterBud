@@ -57,10 +57,10 @@
         <div class="row">
           <div class="column-full plan">
             <form id="zip-form">
-              <label for="zip" class="zip">
+              <div class="zip">
                 <input required type="text" id="zip" name="zip" minlength="5" maxlength="5" placeholder="Zip code">
                 <button type="submit" class="fas fa-search" id="button-submit-zip"></button>
-              </label>
+              </div>
             </form>
           </div>
         </div>
@@ -74,38 +74,38 @@
         <form id="field-notes-form" data-view="review">
           <div class="row">
             <div class="column-half">
-              <label for="photo">
+              <div>
                 <input required type="text" id="photo" name="photo" placeholder="Photo/File Name">
-              </label>
-              <label for="lens">
+              </div>
+              <div>
                 <select id="lens" data-gear="lenses" name="lens" class="select lenses">
                   <option disabled data-gear="lenses" id="disabled-lenses" class="view">Add lens to gear</option>
                 </select>
-              </label>
-              <label for="shutter">
+              </div>
+              <div>
                 <input required type="text" id="shutter" name="shutter" placeholder="Shutter Speed">
-              </label>
-              <label for="iso">
+              </div>
+              <div>
                 <input required type="text" id="iso" name="iso" placeholder="ISO">
-              </label>
+              </div>
             </div>
             <div class="column-half">
-              <label for="camera">
+              <div>
                 <select id="camera" data-gear="cameras" name="camera" class="select cameras">
                   <option disabled data-gear="cameras" id="disabled-cameras" class="view">Add camera to gear</option>
                 </select>
-              </label>
-              <label for="filter">
+              </div>
+              <div>
                 <select id="filter" data-gear="filters" name="filter" class="select filters">
                   <option disabled data-gear="filters" id="disabled-filters" class="view">Add filter to gear</option>
                 </select>
-              </label>
-              <label for="aperture">
+              </div>
+              <div>
                 <input required type="text" id="aperture" name="aperture" placeholder="Aperture">
-              </label>
-              <label for="whitebal">
+              </div>
+              <div>
                 <input required type="text" id="whitebal" name="whitebal" placeholder="White Balance">
-              </label>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -149,9 +149,9 @@
           </div>
           <div class="column-half new-gear">
             <form id="new-camera-form" class="cameras">
-              <label for="cameras">
+              <div>
                 <input required type="text" id="cameras" name="cameras" placeholder="New Camera">
-              </label>
+              </div>
               <button type="submit" class="fas fa-plus-square icon-gear-add"></button>
             </form>
           </div>
@@ -163,9 +163,9 @@
           </div>
           <div class="column-half new-gear">
             <form id="new-lens-form" class="lenses">
-              <label for="lenses">
+              <div>
                 <input required type="text" id="lenses" name="lenses" placeholder="New Lens">
-              </label>
+              </div>
               <button type="submit" class="fas fa-plus-square icon-gear-add"></button>
             </form>
           </div>
@@ -177,9 +177,9 @@
           </div>
           <div class="column-half new-gear">
             <form id="new-filter-form" class="filters">
-              <label for="filters">
+              <div>
                 <input required type="text" id="filters" name="filters" placeholder="New Filter">
-              </label>
+              </div>
               <button type="submit" class="fas fa-plus-square icon-gear-add"></button>
             </form>
           </div>
