@@ -27,6 +27,16 @@
   margin: 0 auto 65px auto;
 }
 
+.headerSub-container {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+}
+
+#field-notes-form {
+  width: 100%;
+}
+
 .row {
   width: 100%;
   padding: 0.75rem 0;
@@ -38,6 +48,7 @@
 .row.gear {
   min-height: 120px;
   padding-bottom: 0;
+  margin: 0.5rem;
 }
 
 .column-full {
