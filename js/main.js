@@ -38,8 +38,8 @@ var $fieldNotes = document.querySelector('.field-notes');
 var $noNotesMsg = document.querySelector('#no-notes-msg');
 
 var $modal = document.querySelector('.modal');
-var $modalYes = document.querySelector('.icon-modal-yes');
-var $modalNo = document.querySelector('.icon-modal-no');
+var $modalYes = document.querySelector('.icon.modal-yes');
+var $modalNo = document.querySelector('.icon.modal-no');
 
 var closestElement;
 var noteIDNum;
@@ -230,12 +230,12 @@ function renderNote(object) {
   var $colIcons = document.createElement('div');
   $colIcons.setAttribute('class', 'column-third right');
   var $editIcon = document.createElement('i');
-  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white icon-edit-note');
+  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white icon edit-note');
   $editIcon.setAttribute('data-view', 'record');
   $editIcon.setAttribute('id', 'button-edit');
   $colIcons.append($editIcon);
   var $deleteIcon = document.createElement('i');
-  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white icon-delete-note');
+  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white icon delete-note');
   $colIcons.append($deleteIcon);
   $liRow1.append($colIcons);
 
@@ -307,7 +307,7 @@ function editDeleteNote(event) {
   noteIDNum = Number(closestElement.getAttribute('id'));
   for (var i = 0; i < fieldNotes.notes.length; i++) {
     if (fieldNotes.notes[i].noteNum === noteIDNum) {
-      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white icon-edit-note') {
+      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white icon edit-note') {
         fieldNotes.edit = fieldNotes.notes[i];
         pageViewSwap(event);
         $headerSubRecord.textContent = 'Edit';
@@ -320,9 +320,9 @@ function editDeleteNote(event) {
         $form.elements.iso.value = fieldNotes.edit.iso;
         $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
         $form.elements.notes.value = fieldNotes.edit.notes;
-      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white icon-delete-note') {
+      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white icon delete-note') {
         $modal.className = 'modal view';
-        event.target.className = 'fas fa-minus-square icon-red icon-delete-note';
+        event.target.className = 'fas fa-minus-square icon-red icon delete-note';
       }
     }
   }
@@ -332,12 +332,12 @@ function closeModal(event) {
   var $redIcon;
   if ($pageReview.className === 'view') {
     $modal.className = 'modal view hidden';
-    $redIcon = document.querySelector('.icon-red.icon-delete-note');
-    $redIcon.className = 'fas fa-minus-square icon-white icon-delete-note';
+    $redIcon = document.querySelector('.icon-red.icon.delete-note');
+    $redIcon.className = 'fas fa-minus-square icon-white icon delete-note';
   } else {
     $modal.className = 'modal view hidden';
-    $redIcon = document.querySelector('.icon-red.icon-delete-gear');
-    $redIcon.className = 'fas fa-minus-square icon-delete-gear';
+    $redIcon = document.querySelector('.icon-red.icon.delete-gear');
+    $redIcon.className = 'fas fa-minus-square icon delete-gear';
   }
 }
 
@@ -421,7 +421,7 @@ function newGear(event) {
 function deleteGearItem(event) {
   if (event.target.matches('i')) {
     $modal.className = 'modal view';
-    event.target.className = 'fas fa-minus-square icon-red icon-delete-gear';
+    event.target.className = 'fas fa-minus-square icon-red icon delete-gear';
     closestElement = event.target.closest('li');
   }
 }
@@ -432,7 +432,7 @@ function renderGearItem(item, gearType) {
   $gearItem.setAttribute('data-gear', gearType);
   $gearItem.textContent = item;
   var $deleteGearIcon = document.createElement('i');
-  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square icon-delete-gear');
+  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square icon delete-gear');
   $gearItem.prepend($deleteGearIcon);
   return $gearItem;
 }

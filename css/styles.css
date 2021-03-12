@@ -138,6 +138,7 @@ button {
   border: none;
   outline: none;
   background-color: white;
+  cursor: pointer;
 }
 
 button:hover {
@@ -148,13 +149,14 @@ form:valid button{
   color: green;
 }
 
-.fas {
+.icon,
+#button-submit-zip {
   font-size: 1.5rem;
   cursor: pointer;
 }
 
 .icon-green,
-.icon-edit-note:hover {
+.icon.edit-note:hover {
   color: green;
 }
 
@@ -163,20 +165,20 @@ form:valid button{
 }
 
 .icon-red,
-.icon-delete-gear:hover,
-.icon-delete-note:hover {
+.icon.delete-gear:hover,
+.icon.delete-note:hover {
   color: red;
 }
 
-.icon-delete-note {
+.icon.delete-note {
   margin-left: 0.75rem;
 }
 
-.icon-delete-gear {
+.icon.delete-gear {
   margin-right: 0.5rem;
 }
 
-.icon-gear-add {
+.icon.add-gear {
   font-size: 1.8rem;
 }
 
@@ -289,12 +291,12 @@ p.del {
   margin: 0;
 }
 
-.icon-modal-yes {
+.icon.modal-yes {
   color: green;
   margin-top: 1rem;
 }
 
-.icon-modal-no {
+.icon.modal-no {
   color: red;
   margin-top: 1rem;
 }
