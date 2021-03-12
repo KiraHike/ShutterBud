@@ -3,16 +3,15 @@
 /* global fieldNotes */
 /* global gearData */
 
-var $pageLanding = document.querySelector('#page-landing');
-var $pagePlan = document.querySelector('#page-plan');
-var $pageRecord = document.querySelector('#page-record');
-var $pageReview = document.querySelector('#page-review');
-var $pageGear = document.querySelector('#page-gear');
-
-var $header = document.querySelector('header');
-var $headerTitle = document.querySelector('h2');
+var $navBar = document.querySelector('.nav-bar');
+var $dataViewList = document.querySelectorAll('[data-view]');
+var $pageReview = document.querySelector('#review');
+var $headerMain = document.querySelector('header');
+var $headerSubRecord = document.querySelector('.headerSub.record');
 
 var $zipInput = document.querySelector('#zip');
+var $zipData = document.querySelector('.data-zip');
+var $zipForm = document.querySelector('#zip-form');
 var $spinner = document.querySelector('.spinner');
 var $errorMsg = document.querySelector('.error');
 
@@ -28,95 +27,45 @@ var $iso = document.querySelector('#iso');
 var $whiteBalance = document.querySelector('#whitebal');
 var $notes = document.querySelector('#notes');
 
-var $selectCamera = document.querySelector('#camera');
-var $selectLens = document.querySelector('#lens');
-var $selectFilter = document.querySelector('#filter');
-var $buttonSave = document.querySelector('#button-save');
-
 var $gearCameras = document.querySelector('.gear.cameras');
 var $gearLenses = document.querySelector('.gear.lenses');
 var $gearFilters = document.querySelector('.gear.filters');
-var $newCamera = document.querySelector('#cameras');
-var $addCamera = document.querySelector('#addCamera');
-var $newLens = document.querySelector('#lenses');
-var $addLens = document.querySelector('#addLens');
-var $newFilter = document.querySelector('#filters');
-var $addFilter = document.querySelector('#addFilter');
+var $newCameraForm = document.querySelector('#new-camera-form');
+var $newLensForm = document.querySelector('#new-lens-form');
+var $newFilterForm = document.querySelector('#new-filter-form');
 
 var $fieldNotes = document.querySelector('.field-notes');
 var $noNotesMsg = document.querySelector('#no-notes-msg');
 
 var $modal = document.querySelector('.modal');
-var $modalYes = document.querySelector('.icon-modal-yes');
-var $modalNo = document.querySelector('.icon-modal-no');
+var $modalYes = document.querySelector('.icon.modal-yes');
+var $modalNo = document.querySelector('.icon.modal-no');
 
-var $navPlan = document.querySelector('.nav.plan');
-var $navRecord = document.querySelector('.nav.record');
-var $navReview = document.querySelector('.nav.review');
-var $navGear = document.querySelector('.nav.gear');
-
-var fieldNote;
 var closestElement;
 var noteIDNum;
 
-function viewPlan(event) {
-  $pagePlan.className = 'container view';
-  $pageLanding.className = 'view hidden';
-  $pageRecord.className = 'container view hidden';
-  $pageReview.className = 'container view hidden';
-  $pageGear.className = 'container view hidden';
-  $header.className = 'header view';
-  $headerTitle.textContent = 'Location';
-  $navPlan.className = 'nav plan bold';
-  $navRecord.className = 'nav record';
-  $navReview.className = 'nav review';
-  $navGear.className = 'nav gear';
+
+function pageViewSwap(event) {
+  $headerMain.className = 'view';
+  var page = event.target.getAttribute('data-view');
+  for (var i = 0; i < $dataViewList.length; i++) {
+    if ($dataViewList[i].getAttribute('data-view') === page) {
+      if ($dataViewList[i].className === 'nav') {
+        $dataViewList[i].className = 'nav bold';
+      } else if ($dataViewList[i].className === 'view hidden') {
+        $dataViewList[i].className = 'view';
+      }
+    } else {
+      if ($dataViewList[i].className === 'nav bold') {
+        $dataViewList[i].className = 'nav';
+      } else if ($dataViewList[i].className === 'view') {
+        $dataViewList[i].className = 'view hidden';
+      }
+    }
+  }
 }
 
-function viewRecord(event) {
-  $pageRecord.className = 'container view';
-  $pageLanding.className = 'view hidden';
-  $pagePlan.className = 'container view hidden';
-  $pageReview.className = 'container view hidden';
-  $pageGear.className = 'container view hidden';
-  $header.className = 'header view';
-  $headerTitle.textContent = 'New';
-  $navRecord.className = 'nav record bold';
-  $navPlan.className = 'nav plan';
-  $navReview.className = 'nav review';
-  $navGear.className = 'nav gear';
-}
-
-function viewReview(event) {
-  $pageReview.className = 'container view';
-  $pageLanding.className = 'view hidden';
-  $pagePlan.className = 'container view hidden';
-  $pageRecord.className = 'container view hidden';
-  $pagePlan.className = 'container view hidden';
-  $pageGear.className = 'container view hidden';
-  $header.className = 'header view';
-  $headerTitle.textContent = 'Field Notes';
-  $navReview.className = 'nav review bold';
-  $navPlan.className = 'nav plan';
-  $navRecord.className = 'nav record';
-  $navGear.className = 'nav gear';
-}
-
-function viewGear(event) {
-  $pageGear.className = 'container view';
-  $pageLanding.className = 'view hidden';
-  $pagePlan.className = 'container view hidden';
-  $pageRecord.className = 'container view hidden';
-  $pageReview.className = 'container view hidden';
-  $header.className = 'header view';
-  $headerTitle.textContent = 'My Gear';
-  $navGear.className = 'nav gear bold';
-  $navPlan.className = 'nav plan';
-  $navRecord.className = 'nav record';
-  $navReview.className = 'nav review';
-}
-
-function getAstroData(event) {
+function getAstronomyData() {
   $errorMsg.className = 'error view hidden';
   $spinner.className = 'spinner';
   var xhr = new XMLHttpRequest();
@@ -140,10 +89,10 @@ function getAstroData(event) {
   xhr.send();
 }
 
-function getWeatherData(event) {
+function getWeatherData() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.openweathermap.org/data/2.5/weather?zip='
-          + weatherData.zip + '&appid=15a78bd9a1947e135af141f028f19302&units=imperial');
+    + weatherData.zip + '&appid=15a78bd9a1947e135af141f028f19302&units=imperial');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     weatherData.temperature = Math.round(xhr.response.main.temp);
@@ -189,29 +138,19 @@ function renderData() {
 }
 
 function requestData(event) {
-  if (event.target.value.length < 5) {
-    return;
-  }
-  astroData.zip = event.target.value;
-  weatherData.zip = event.target.value;
-  getAstroData(event);
-  event.target.value = null;
-}
-
-function ready(event) {
-  for (var i = 0; i < $form.elements.length; i++) {
-    if ($form.elements[i].value.length < 1) {
-      return;
-    }
-  }
-  $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
+  event.preventDefault();
+  astroData.zip = $zipInput.value;
+  weatherData.zip = $zipInput.value;
+  $zipData.textContent = $zipInput.value;
+  getAstronomyData();
+  $zipInput.value = null;
 }
 
 function newEditNote(event) {
   event.preventDefault();
-  if ($headerTitle.textContent === 'New') {
-    getAstroData(event);
-    fieldNote = {
+  if ($headerSubRecord.textContent === 'New') {
+    getAstronomyData();
+    var fieldNote = {
       noteNum: fieldNotes.nextNum,
       date: astroData.date,
       photoName: $photoName.value,
@@ -228,7 +167,7 @@ function newEditNote(event) {
     var renderedFieldNote = renderNote(fieldNote);
     $fieldNotes.prepend(renderedFieldNote);
     fieldNotes.nextNum++;
-    $noNotesMsg.className = 'view hidden';
+    $noNotesMsg.className = 'no-notes hidden';
     var $optionsArray = document.querySelectorAll('option');
     for (var i = 0; i < $optionsArray.length; i++) {
       if ($optionsArray[i].textContent === $camera.value ||
@@ -260,8 +199,8 @@ function newEditNote(event) {
   }
   fieldNotes.edit = null;
   $form.reset();
-  $buttonSave.className = 'fas fa-plus-square fa-2x';
-  viewReview(event);
+  $headerSubRecord.textContent = 'New';
+  pageViewSwap(event);
 }
 
 function renderNote(object) {
@@ -291,10 +230,12 @@ function renderNote(object) {
   var $colIcons = document.createElement('div');
   $colIcons.setAttribute('class', 'column-third right');
   var $editIcon = document.createElement('i');
-  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white edit-n');
+  $editIcon.setAttribute('class', 'fas fa-pen-square icon-white icon edit-note');
+  $editIcon.setAttribute('data-view', 'record');
+  $editIcon.setAttribute('id', 'button-edit');
   $colIcons.append($editIcon);
   var $deleteIcon = document.createElement('i');
-  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white del-n');
+  $deleteIcon.setAttribute('class', 'fas fa-minus-square icon-white icon delete-note');
   $colIcons.append($deleteIcon);
   $liRow1.append($colIcons);
 
@@ -361,15 +302,15 @@ function renderNote(object) {
   return $li;
 }
 
-function editDelNote(event) {
+function editDeleteNote(event) {
   closestElement = event.target.closest('li');
   noteIDNum = Number(closestElement.getAttribute('id'));
   for (var i = 0; i < fieldNotes.notes.length; i++) {
     if (fieldNotes.notes[i].noteNum === noteIDNum) {
-      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white edit-n') {
+      if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white icon edit-note') {
         fieldNotes.edit = fieldNotes.notes[i];
-        viewRecord(event);
-        $headerTitle.textContent = 'Edit';
+        pageViewSwap(event);
+        $headerSubRecord.textContent = 'Edit';
         $form.elements.photo.value = fieldNotes.edit.photoName;
         $form.elements.camera.value = fieldNotes.edit.camera;
         $form.elements.lens.value = fieldNotes.edit.lens;
@@ -379,10 +320,9 @@ function editDelNote(event) {
         $form.elements.iso.value = fieldNotes.edit.iso;
         $form.elements.whitebal.value = fieldNotes.edit.whiteBalance;
         $form.elements.notes.value = fieldNotes.edit.notes;
-        $buttonSave.className = 'fas fa-plus-square fa-2x icon-green';
-      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white del-n') {
+      } else if (event.target.getAttribute('class') === 'fas fa-minus-square icon-white icon delete-note') {
         $modal.className = 'modal view';
-        event.target.className = 'fas fa-minus-square icon-red del-n';
+        event.target.className = 'fas fa-minus-square icon-red icon delete-note';
       }
     }
   }
@@ -390,75 +330,61 @@ function editDelNote(event) {
 
 function closeModal(event) {
   var $redIcon;
-  if ($pageReview.getAttribute('class') === 'container view') {
+  if ($pageReview.className === 'view') {
     $modal.className = 'modal view hidden';
-    $redIcon = document.querySelector('.icon-red.del-n');
-    $redIcon.className = 'fas fa-minus-square icon-white del-n';
+    $redIcon = document.querySelector('.icon-red.icon.delete-note');
+    $redIcon.className = 'fas fa-minus-square icon-white icon delete-note';
   } else {
     $modal.className = 'modal view hidden';
-    $redIcon = document.querySelector('.icon-red.del-g');
-    $redIcon.className = 'fas fa-minus-square del-g';
+    $redIcon = document.querySelector('.icon-red.icon.delete-gear');
+    $redIcon.className = 'fas fa-minus-square icon delete-gear';
   }
 }
 
-function deleteNoteGear(event) {
-  if ($pageReview.getAttribute('class') === 'container view') {
-    for (var i = 0; i < fieldNotes.notes.length; i++) {
-      if (fieldNotes.notes[i].noteNum === noteIDNum) {
-        fieldNotes.notes.splice(i, 1);
+function deleteNote() {
+  if ($pageReview.className !== 'view') {
+    return;
+  }
+  for (var i = 0; i < fieldNotes.notes.length; i++) {
+    if (fieldNotes.notes[i].noteNum === noteIDNum) {
+      fieldNotes.notes.splice(i, 1);
+    }
+  }
+  var $fieldNotesChildren = $fieldNotes.childNodes;
+  for (i = 0; i < $fieldNotesChildren.length; i++) {
+    if ($fieldNotesChildren[i] === closestElement) {
+      $fieldNotesChildren[i].remove();
+    }
+  }
+  if (fieldNotes.notes.length === 0) {
+    $noNotesMsg.className = 'no-notes';
+  }
+  $modal.className = 'modal view hidden';
+}
+
+function deleteGear() {
+  if ($pageReview.className === 'view') {
+    return;
+  }
+  var deleteGearType = closestElement.getAttribute('data-gear');
+  var $gearChildren = document.querySelector('.gear.' + deleteGearType).childNodes;
+  var $selectChildren = document.querySelector('select[data-gear=' + deleteGearType + ']').childNodes;
+  for (key in gearData) {
+    if (key === deleteGearType) {
+      for (var i = 0; i < gearData[key].length; i++) {
+        if (gearData[key][i] === closestElement.textContent) {
+          gearData[key].splice(i, 1);
+        }
       }
     }
-    var $fieldNotesChildren = $fieldNotes.childNodes;
-    for (i = 0; i < $fieldNotesChildren.length; i++) {
-      if ($fieldNotesChildren[i] === closestElement) {
-        $fieldNotesChildren[i].remove();
-      }
-    }
-    if (fieldNotes.notes.length === 0) {
-      $noNotesMsg.className = 'view';
-    }
-  } else {
-    if (closestElement.getAttribute('data-gear') === 'camera') {
-      for (i = 0; i < gearData.cameras.length; i++) {
-        if (gearData.cameras[i] === closestElement.textContent) {
-          gearData.cameras.splice(i, 1);
-        }
-      }
-      var $gearCamerasChildren = $gearCameras.childNodes;
-      var $selectCameraChildren = $selectCamera.childNodes;
-      for (i = 0; i < $gearCamerasChildren.length; i++) {
-        if ($gearCamerasChildren[i] === closestElement) {
-          $gearCamerasChildren[i].remove();
-          $selectCameraChildren[i + 3].remove();
-        }
-      }
-    } else if (closestElement.getAttribute('data-gear') === 'lens') {
-      for (i = 0; i < gearData.lenses.length; i++) {
-        if (gearData.lenses[i] === closestElement.textContent) {
-          gearData.lenses.splice(i, 1);
-        }
-      }
-      var $gearLensesChildren = $gearLenses.childNodes;
-      var $selectLensChildren = $selectLens.childNodes;
-      for (i = 0; i < $gearLensesChildren.length; i++) {
-        if ($gearLensesChildren[i] === closestElement) {
-          $gearLensesChildren[i].remove();
-          $selectLensChildren[i + 3].remove();
-        }
-      }
-    } else {
-      for (i = 0; i < gearData.filters.length; i++) {
-        if (gearData.filters[i] === closestElement.textContent) {
-          gearData.filters.splice(i, 1);
-        }
-      }
-      var $gearFiltersChildren = $gearFilters.childNodes;
-      var $selectFilterChildren = $selectFilter.childNodes;
-      for (i = 0; i < $gearFiltersChildren.length; i++) {
-        if ($gearFiltersChildren[i] === closestElement) {
-          $gearFiltersChildren[i].remove();
-          $selectFilterChildren[i + 3].remove();
-        }
+  }
+  for (i = 0; i < $gearChildren.length; i++) {
+    if ($gearChildren[i] === closestElement) {
+      $gearChildren[i].remove();
+      $selectChildren[i + 3].remove();
+      if ($selectChildren.length <= 3) {
+        var $disableOption = document.querySelector('#disabled-' + deleteGearType);
+        $disableOption.className = 'view';
       }
     }
   }
@@ -467,10 +393,10 @@ function deleteNoteGear(event) {
 
 function renderFieldNotes(array) {
   if (array.length === 0) {
-    $noNotesMsg.className = 'view';
+    $noNotesMsg.className = 'no-notes';
   } else {
     for (var i = 0; i < array.length; i++) {
-      fieldNote = renderNote(array[i]);
+      var fieldNote = renderNote(array[i]);
       $fieldNotes.append(fieldNote);
     }
   }
@@ -478,36 +404,24 @@ function renderFieldNotes(array) {
 
 function newGear(event) {
   event.preventDefault();
-  var renderedGear;
-  var renderedOption;
-    if (event.target === $addCamera) {
-      gearData.cameras.push($newCamera.value);
-      renderedGear = renderGearItem($newCamera.value, 'camera');
-      $gearCameras.append(renderedGear);
-      renderedOption = renderGearOption($newCamera.value, 'camera');
-      $selectCamera.append(renderedOption);
-      $newCamera.value = null;
-  } else if (event.target === $addLens) {
-      gearData.lenses.push($newLens.value);
-      renderedGear = renderGearItem($newLens.value, 'lens');
-      $gearLenses.append(renderedGear);
-      renderedOption = renderGearOption($newLens.value, 'lens');
-      $selectLens.append(renderedOption);
-      $newLens.value = null;
-  } else if (event.target === $addFilter) {
-      gearData.filters.push($newFilter.value);
-      renderedGear = renderGearItem($newFilter.value, 'filter');
-      $gearFilters.append(renderedGear);
-      renderedOption = renderGearOption($newFilter.value, 'filter');
-      $selectFilter.append(renderedOption);
-      $newFilter.value = null;
-  }
+  var addGearType = event.target.className;
+  var $newGearItem = document.querySelector('#' + addGearType);
+  var renderedGear = renderGearItem($newGearItem.value, addGearType);
+  var $gearList = document.querySelector('.gear.' + addGearType);
+  var renderedOption = renderGearOption($newGearItem.value, addGearType);
+  var $selectList = document.querySelector('.select.' + addGearType);
+  var $disabledOption = document.querySelector('#disabled-' + addGearType);
+  gearData[addGearType].push($newGearItem.value);
+  $gearList.append(renderedGear);
+  $selectList.append(renderedOption);
+  $disabledOption.className = 'view hidden';
+  $newGearItem.value = null;
 }
 
 function deleteGearItem(event) {
   if (event.target.matches('i')) {
     $modal.className = 'modal view';
-    event.target.className = 'fas fa-minus-square icon-red del-g';
+    event.target.className = 'fas fa-minus-square icon-red icon delete-gear';
     closestElement = event.target.closest('li');
   }
 }
@@ -518,7 +432,7 @@ function renderGearItem(item, gearType) {
   $gearItem.setAttribute('data-gear', gearType);
   $gearItem.textContent = item;
   var $deleteGearIcon = document.createElement('i');
-  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square del-g');
+  $deleteGearIcon.setAttribute('class', 'fas fa-minus-square icon delete-gear');
   $gearItem.prepend($deleteGearIcon);
   return $gearItem;
 }
@@ -534,45 +448,44 @@ function renderGear(object) {
   var gear;
   var option;
   for (var i = 0; i < object.cameras.length; i++) {
-    gear = renderGearItem(object.cameras[i], 'camera');
+    gear = renderGearItem(object.cameras[i], 'cameras');
     $gearCameras.append(gear);
-    option = renderGearOption(object.cameras[i], 'camera');
-    $selectCamera.append(option);
+    option = renderGearOption(object.cameras[i], 'cameras');
+    $camera.append(option);
   }
   for (i = 0; i < object.lenses.length; i++) {
-    gear = renderGearItem(object.lenses[i], 'lens');
+    gear = renderGearItem(object.lenses[i], 'lenses');
     $gearLenses.append(gear);
-    option = renderGearOption(object.lenses[i], 'lens');
-    $selectLens.append(option);
+    option = renderGearOption(object.lenses[i], 'lenses');
+    $lens.append(option);
   }
   for (i = 0; i < object.filters.length; i++) {
-    gear = renderGearItem(object.filters[i], 'filter');
+    gear = renderGearItem(object.filters[i], 'filters');
     $gearFilters.append(gear);
-    option = renderGearOption(object.filters[i], 'filter');
-    $selectFilter.append(option);
+    option = renderGearOption(object.filters[i], 'filters');
+    $filter.append(option);
   }
 }
 
-$zipInput.addEventListener('input', requestData);
+$zipForm.addEventListener('submit', requestData);
 
-$form.addEventListener('keypress', ready);
-$buttonSave.addEventListener('click', newEditNote);
-
-$fieldNotes.addEventListener('click', editDelNote);
+$fieldNotes.addEventListener('click', editDeleteNote);
 $modalNo.addEventListener('click', closeModal);
-$modalYes.addEventListener('click', deleteNoteGear);
+$modalYes.addEventListener('click', function() {
+  deleteNote();
+  deleteGear();
+});
 
 $gearCameras.addEventListener('click', deleteGearItem);
 $gearLenses.addEventListener('click', deleteGearItem);
 $gearFilters.addEventListener('click', deleteGearItem);
-$addCamera.addEventListener('click', newGear);
-$addLens.addEventListener('click', newGear);
-$addFilter.addEventListener('click', newGear);
 
-$navPlan.addEventListener('click', viewPlan);
-$navRecord.addEventListener('click', viewRecord);
-$navReview.addEventListener('click', viewReview);
-$navGear.addEventListener('click', viewGear);
+$newCameraForm.addEventListener('submit', newGear);
+$newLensForm.addEventListener('submit', newGear);
+$newFilterForm.addEventListener('submit', newGear);
+
+$navBar.addEventListener('click', pageViewSwap);
+$form.addEventListener('submit', newEditNote);
 
 window.addEventListener('DOMContentLoaded', function () {
   renderData();

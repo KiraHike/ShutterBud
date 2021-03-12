@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShutterBud</title>
+  <link rel="icon" href="images/camera-retro-solid.svg">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -13,147 +15,174 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap">
 </head>
+
 <body>
-  <header class="header view hidden">
-    <h2></h2>
+  <header class="header hidden">
+    <h2>ShutterBud</h2>
   </header>
   <main>
-    <div id="page-landing" class="view">
+    <div id="page-landing" data-view="landing" class="view">
       <div id="page-landing-container">
         <h1 class="header-landing">ShutterBud</h1>
         <img class="img-logo" src="images/poloroid.png" alt="Logo">
       </div>
     </div>
-    <div id="page-plan" class="container view hidden">
-      <div class="row plan bottom-border">
-        <div class="column-half plan">
-          <ul class="list astro left">
-            <li>Sunrise: <span class="sunrise"></span></li>
-            <li>Solar Noon: <span class="solar-noon"></span></li>
-            <li>Sunset: <span class="sunset"></span></li>
-          </ul>
-        </div>
-        <div class="column-half plan">
-          <ul class="list astro right">
-            <li>Moonrise: <span class="moonrise"></span></li>
-            <li>Moonset: <span class="moonset"></span></li>
-            <li>Day Length: <span class="day-length"></span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="row plan">
-        <div class="column-half plan">
-          <ul class="list weather left">
-            <li>Temperature: <span class="temperature"></span></li>
-            <li>Humidity: <span class="humidity"></span></li>
-          </ul>
-        </div>
-        <div class="column-half plan">
-          <ul class="list weather right">
-            <li>Feels Like: <span class="feels-like"></span></li>
-            <li>Cloud Cover: <span class="cloud-cover"></span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="row">
-        <div class="column-full plan">
-          <label for="zip" class="zip">
-            <input type="text" id="zip" name="zip" minlength="5" maxlength="5" placeholder="Zip code">
-          </label>
-        </div>
-      </div>
-      <div class="spinner hidden"></div>
-      <div class="error hidden">Unable to reach server<br>Please try again later</div>
-    </div>
-    <div id="page-record" class="container view hidden">
-      <form id="field-notes-form">
+    <div data-view="plan" class="view hidden">
+      <h3 class="headerSub plan">Location</h3>
+      <div class="container">
         <div class="row">
           <div class="column-half">
-            <label for="photo">
-              <input required type="text" id="photo" name="photo" placeholder="Photo/File Name">
-            </label>
-            <label for="lens">
-              <select required id="lens" name="lens">
-                <option data-gear="lens">Lens</option>
-              </select>
-            </label>
-            <label for="shutter">
-              <input required type="text" id="shutter" name="shutter" placeholder="Shutter Speed">
-            </label>
-            <label for="iso">
-              <input required type="text" id="iso" name="iso" placeholder="ISO">
-            </label>
+            <div class="data-list zip"><span class="data-label">Zip Code:&nbsp;</span><span class="data-zip"></span>
+            </div>
+            <ul class="data-list">
+              <li><span class="data-label">Temperature: </span><span class="temperature"></span>&deg; F</li>
+              <li><span class="data-label">Feels Like: </span><span class="feels-like"></span>&deg; F</li>
+            </ul>
+            <ul class="data-list">
+              <li><span class="data-label">Humidity: </span><span class="humidity"></span>&percnt;</li>
+              <li><span class="data-label">Cloud Cover: </span><span class="cloud-cover"></span>&percnt;</li>
+            </ul>
           </div>
           <div class="column-half">
-            <label for="camera">
-              <select required id="camera" name="camera">
-                <option data-gear="camera">Camera</option>
-              </select>
-            </label>
-            <label for="filter">
-              <select required id="filter" name="filter">
-                <option data-gear="filter">Filter</option>
-              </select>
-            </label>
-            <label for="aperture">
-              <input required type="text" id="aperture" name="aperture" placeholder="Aperture">
-            </label>
-            <label for="whitebal">
-              <input required type="text" id="whitebal" name="whitebal" placeholder="White Balance">
-            </label>
+            <ul class="data-list">
+              <li><span class="data-label">Sunrise: </span><span class="sunrise"></span></li>
+              <li><span class="data-label">Solar Noon: </span><span class="solar-noon"></span></li>
+              <li><span class="data-label">Sunset: </span><span class="sunset"></span></li>
+              <li><span class="data-label">Moonrise: </span><span class="moonrise"></span></li>
+              <li><span class="data-label">Moonset: </span><span class="moonset"></span></li>
+              <li><span class="data-label">Day Length: </span><span class="day-length"></span></li>
+            </ul>
           </div>
         </div>
         <div class="row">
-          <div class="column-full">
-            <textarea type="text" id="notes" name="notes" placeholder="Notes" rows="9"></textarea>
+          <div class="column-full plan">
+            <form id="zip-form">
+              <div class="zip">
+                <input required type="text" id="zip" name="zip" minlength="5" maxlength="5" placeholder="Zip code">
+                <button type="submit" class="fas fa-search" id="button-submit-zip"></button>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="row">
-          <div class="column-full">
-            <i id="button-save" class="fas fa-plus-square fa-2x"></i>
+        <div class="spinner hidden"></div>
+        <div class="error hidden">Unable to reach server<br>Please try again later</div>
+      </div>
+    </div>
+    <div data-view="record" class="view hidden">
+      <h3 class="headerSub record">New</h3>
+      <div class="container">
+        <form id="field-notes-form" data-view="review">
+          <div class="row">
+            <div class="column-half">
+              <div>
+                <input required type="text" id="photo" name="photo" placeholder="Photo/File Name">
+              </div>
+              <div>
+                <select id="lens" data-gear="lenses" name="lens" class="select lenses">
+                  <option disabled data-gear="lenses" id="disabled-lenses" class="view">Add lens to gear</option>
+                </select>
+              </div>
+              <div>
+                <input required type="text" id="shutter" name="shutter" placeholder="Shutter Speed">
+              </div>
+              <div>
+                <input required type="text" id="iso" name="iso" placeholder="ISO">
+              </div>
+            </div>
+            <div class="column-half">
+              <div>
+                <select id="camera" data-gear="cameras" name="camera" class="select cameras">
+                  <option disabled data-gear="cameras" id="disabled-cameras" class="view">Add camera to gear</option>
+                </select>
+              </div>
+              <div>
+                <select id="filter" data-gear="filters" name="filter" class="select filters">
+                  <option disabled data-gear="filters" id="disabled-filters" class="view">Add filter to gear</option>
+                </select>
+              </div>
+              <div>
+                <input required type="text" id="aperture" name="aperture" placeholder="Aperture">
+              </div>
+              <div>
+                <input required type="text" id="whitebal" name="whitebal" placeholder="White Balance">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full">
+              <textarea required type="text" id="notes" name="notes" placeholder="Notes" rows="9"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-full">
+              <button type="submit" class="fas fa-plus-square fa-2x" id="button-save"></button>
+            </div>
+          </div>
+        </form>
+        <div>
+          <p class="record-paragraph">
+            Record details and insights to repeat or learn from each photograph you make.
+          </p>
+          <blockquote>“We do not learn from experience...we learn from reflecting on experience.”</blockquote>
+          <p class="author">
+            <em>― John Dewey</em>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div data-view="review" class="view hidden" id="review">
+      <h3 class="headerSub review">Field Notes</h3>
+      <div class="container">
+        <div id="no-notes-msg" class="no-notes hidden">
+          <p>No entries</p>
+        </div>
+        <ul class="field-notes"></ul>
+      </div>
+    </div>
+    <div data-view="gear" class="view hidden">
+      <h3 class="headerSub gear">My Gear</h3>
+      <div class="container">
+        <div class="row gear">
+          <h4>My Cameras</h4>
+          <div class="column-half gear">
+            <ul class="gear cameras"></ul>
+          </div>
+          <div class="column-half new-gear">
+            <form id="new-camera-form" class="cameras">
+              <div>
+                <input required type="text" id="cameras" name="cameras" placeholder="New Camera">
+              </div>
+              <button type="submit" class="fas fa-plus-square icon add-gear"></button>
+            </form>
           </div>
         </div>
-      </form>
-    </div>
-    <div id="page-review" class="container view hidden">
-      <div id="no-notes-msg" class="view hidden"><em>No entries</em></div>
-      <ul class="field-notes"></ul>
-    </div>
-    <div id="page-gear" class="container view hidden">
-      <div class="row gear">
-        <h4>My Cameras</h4>
-        <div class="column-half-gear">
-          <ul class="gear cameras"></ul>
+        <div class="row gear">
+          <h4>My Lenses</h4>
+          <div class="column-half gear">
+            <ul class="gear lenses"></ul>
+          </div>
+          <div class="column-half new-gear">
+            <form id="new-lens-form" class="lenses">
+              <div>
+                <input required type="text" id="lenses" name="lenses" placeholder="New Lens">
+              </div>
+              <button type="submit" class="fas fa-plus-square icon add-gear"></button>
+            </form>
+          </div>
         </div>
-        <div class="column-half-new-gear">
-          <label for="cameras">
-            <input required type="text" id="cameras" name="cameras" placeholder="New Camera">
-          </label>
-          <i id="addCamera" class="fas fa-plus-square icon-gear-add"></i>
-        </div>
-      </div>
-      <div class="row gear">
-        <h4>My Lenses</h4>
-        <div class="column-half-gear">
-          <ul class="gear lenses"></ul>
-        </div>
-        <div class="column-half-new-gear">
-          <label for="lenses">
-            <input required type="text" id="lenses" name="lenses" placeholder="New Lens">
-          </label>
-          <i id="addLens" class="fas fa-plus-square icon-gear-add"></i>
-        </div>
-      </div>
-      <div class="row gear">
-        <h4>My Filters</h4>
-        <div class="column-half-gear">
-          <ul class="gear filters"></ul>
-        </div>
-        <div class="column-half-new-gear">
-          <label for="filters">
-            <input required type="text" id="filters" name="filters" placeholder="New Filter">
-          </label>
-          <i id="addFilter" class="fas fa-plus-square icon-gear-add"></i>
+        <div class="row gear">
+          <h4>My Filters</h4>
+          <div class="column-half gear">
+            <ul class="gear filters"></ul>
+          </div>
+          <div class="column-half new-gear">
+            <form id="new-filter-form" class="filters">
+              <div>
+                <input required type="text" id="filters" name="filters" placeholder="New Filter">
+              </div>
+              <button type="submit" class="fas fa-plus-square icon add-gear"></button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -161,8 +190,8 @@
       <div class="modal-container">
         <div class="modal-box">
           <p class="del">Delete?</p>
-          <i class="fas fa-check-circle fa-2x icon-modal-yes"></i>
-          <i class="fas fa-times-circle fa-2x icon-modal-no"></i>
+          <i class="fas fa-check-circle fa-2x icon modal-yes"></i>
+          <i class="fas fa-times-circle fa-2x icon modal-no"></i>
         </div>
       </div>
     </div>
@@ -170,14 +199,15 @@
   <footer>
     <nav>
       <ul class="nav-bar">
-        <li class="nav plan">Plan</li>
-        <li class="nav record">Record</li>
-        <li class="nav review">Review</li>
-        <li class="nav gear">Gear</li>
+        <li data-view="plan" class="nav">Plan</li>
+        <li data-view="record" class="nav">Record</li>
+        <li data-view="review" class="nav">Review</li>
+        <li data-view="gear" class="nav">Gear</li>
       </ul>
     </nav>
   </footer>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
