@@ -148,7 +148,7 @@ function requestData(event) {
 
 function newEditNote(event) {
   event.preventDefault();
-  if ($headerSubRecord.textContent === 'New') {
+  if ($headerSubRecord.textContent === 'New Field Note') {
     getAstronomyData();
     var fieldNote = {
       noteNum: fieldNotes.nextNum,
@@ -199,7 +199,7 @@ function newEditNote(event) {
   }
   fieldNotes.edit = null;
   $form.reset();
-  $headerSubRecord.textContent = 'New';
+  $headerSubRecord.textContent = 'New Field Note';
   pageViewSwap(event);
 }
 
@@ -310,7 +310,7 @@ function editDeleteNote(event) {
       if (event.target.getAttribute('class') === 'fas fa-pen-square icon-white icon edit-note') {
         fieldNotes.edit = fieldNotes.notes[i];
         pageViewSwap(event);
-        $headerSubRecord.textContent = 'Edit';
+        $headerSubRecord.textContent = 'Edit Field Note';
         $form.elements.photo.value = fieldNotes.edit.photoName;
         $form.elements.camera.value = fieldNotes.edit.camera;
         $form.elements.lens.value = fieldNotes.edit.lens;
