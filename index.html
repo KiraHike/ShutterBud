@@ -21,7 +21,7 @@
     <h2>ShutterBud</h2>
   </header>
   <main>
-    <div data-view="landing" class="view">
+    <div id="page-landing" data-view="landing" class="view">
       <div id="page-landing-container">
         <h1 class="header-landing">ShutterBud</h1>
         <img class="img-logo" src="images/poloroid.png" alt="Logo">
@@ -133,7 +133,9 @@
     <div data-view="review" class="view hidden" id="review">
       <h3 class="headerSub review">Field Notes</h3>
       <div class="container">
-        <div id="no-notes-msg" class="no-notes hidden"><em>No entries</em></div>
+        <div id="no-notes-msg" class="no-notes hidden">
+          <p>No entries</p>
+        </div>
         <ul class="field-notes"></ul>
       </div>
     </div>
